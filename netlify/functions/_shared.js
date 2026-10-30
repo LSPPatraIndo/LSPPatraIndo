@@ -17,11 +17,11 @@ function env(name, fallback) {
   return process.env[name] || fallback || "";
 }
 
-function adminUser() { return env("ADMIN_USER", "lsppatraindo"); }
-function adminPass() { return env("ADMIN_PASS", "adminlsppatraindo"); }
+function adminUser() { return env("ADMIN_USER"); }
+function adminPass() { return env("ADMIN_PASS"); }
 
 function configured() {
-  return Boolean(process.env.GITHUB_TOKEN && process.env.GITHUB_REPO && process.env.SESSION_SECRET);
+  return Boolean(process.env.ADMIN_USER && process.env.ADMIN_PASS && process.env.GITHUB_TOKEN && process.env.GITHUB_REPO && process.env.SESSION_SECRET);
 }
 
 function sha256(text) {

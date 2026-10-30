@@ -229,11 +229,11 @@ dan struktur organisasi.
 
 ### Login
 
-Username panel: `lsppatraindo` — kata sandi: `adminlsppatraindo`.
+Username panel: `lsppatraindo`. Kata sandi hanya disimpan sebagai secret
+`ADMIN_PASS` di backend (tidak ditulis di HTML maupun repositori).
 
-> **Penting:** kredensial ini tertulis di repositori publik. Backend Netlify
-> sudah aktif dan dapat menerbitkan perubahan. Segera ganti `ADMIN_PASS` di
-> environment Netlify dengan kata sandi yang kuat bila situs dipakai produksi.
+> **Penting:** backend Netlify sudah aktif dan dapat menerbitkan perubahan.
+> Gunakan kata sandi yang kuat dan jaga kerahasiaan tautan `/admin/`.
 
 1. **Login lokal (langsung aktif)** — username + kata sandi diverifikasi di
    peramban memakai hash SHA-256. Perubahan disimpan di `localStorage`
@@ -283,7 +283,7 @@ Environment variables di Netlify (Site configuration → Environment variables):
 | Nama | Nilai |
 | --- | --- |
 | `ADMIN_USER` | `lsppatraindo` |
-| `ADMIN_PASS` | `adminlsppatraindo` (ganti bila perlu) |
+| `ADMIN_PASS` | kata sandi panel (secret) |
 | `SESSION_SECRET` | teks acak panjang |
 | `GITHUB_TOKEN` | fine-grained token (Contents: RW, Actions: Read) |
 | `GITHUB_REPO` | `LSPPatraIndo/LSPPatraIndo` |
@@ -305,7 +305,7 @@ Kode `tools/admin-worker.js` tetap disediakan bila ingin pindah ke Cloudflare.
    | Nama | Jenis | Nilai |
    | --- | --- | --- |
    | `ADMIN_USER` | Text | `lsppatraindo` (default bila kosong) |
-   | `ADMIN_PASS` | **Secret** | `adminlsppatraindo` (default bila kosong) |
+   | `ADMIN_PASS` | **Secret** | kata sandi panel (wajib) |
    | `SESSION_SECRET` | **Secret** | teks acak panjang, mis. hasil `openssl rand -hex 32` |
    | `GITHUB_TOKEN` | **Secret** | token langkah 1 |
    | `GITHUB_REPO` | Text | `LSPPatraIndo/LSPPatraIndo` |

@@ -70,7 +70,7 @@ LSPPATRA/
 
 **Cara termudah — panel admin:** buka `https://lsppatraindo.id/admin/`
 (tautan kecil **Login admin** di footer, atau `Ctrl`/`Cmd` + `Shift` + `A`).
-Masuk dengan username `lsppatraindo` dan kata sandi `adminlsppatraindo`.
+Masuk dengan username `lsppatraindo` dan kata sandi panel yang diberikan pengelola.
 Panel bisa mengubah identitas, kontak, SEO, skema, jadwal, FAQ, berita
 (termasuk **pilih gambar dari perangkat**), teks/HTML halaman, dan data lain.
 

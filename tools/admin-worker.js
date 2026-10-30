@@ -7,8 +7,8 @@
  * memicu GitHub Actions yang membangun ulang situs dalam ±1 menit.
  *
  * Environment variables (Settings → Variables and Secrets):
- *   ADMIN_USER      lsppatraindo              (boleh Text; default lsppatraindo)
- *   ADMIN_PASS      adminlsppatraindo         (boleh Secret; default adminlsppatraindo)
+ *   ADMIN_USER      lsppatraindo              (WAJIB Text)
+ *   ADMIN_PASS      kata sandi panel          (WAJIB Secret)
  *   SESSION_SECRET  kalimat acak panjang      (WAJIB Secret)
  *   GITHUB_TOKEN    fine-grained PAT          (WAJIB Secret)
  *                   → Contents: Read and write, Actions: Read-only
@@ -65,7 +65,7 @@ async function sha256(text) {
 async function signToken(env) {
   const hours = Number(env.SESSION_HOURS || 12);
   const exp = Date.now() + hours * 3600_000;
-  const payload = b64urlFromBytes(enc.encode(JSON.stringify({ u: env.ADMIN_USER || "lsppatraindo", exp })));
+  const payload = b64urlFromBytes(enc.encode(JSON.stringify({ u: env.ADMIN_USER, exp })));
   const sig = await crypto.subtle.sign("HMAC", await key(env.SESSION_SECRET), enc.encode(payload));
   return { token: `${payload}.${b64urlFromBytes(new Uint8Array(sig))}`, exp };
 }
@@ -194,9 +194,9 @@ export default {
 
     const url = new URL(request.url);
     const path = url.pathname.replace(/\/+$/, "").replace(/^\/api/, "") || "/";
-    const adminUser = env.ADMIN_USER || "lsppatraindo";
-    const adminPass = env.ADMIN_PASS || "adminlsppatraindo";
-    const configured = Boolean(env.GITHUB_TOKEN && env.GITHUB_REPO && env.SESSION_SECRET);
+    const adminUser = env.ADMIN_USER;
+    const adminPass = env.ADMIN_PASS;
+    const configured = Boolean(env.ADMIN_USER && env.ADMIN_PASS && env.GITHUB_TOKEN && env.GITHUB_REPO && env.SESSION_SECRET);
 
     if (path === "/health") return send(request, env, { ok: true, configured });
 
