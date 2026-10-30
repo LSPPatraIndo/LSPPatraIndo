@@ -31,6 +31,10 @@ YEAR = date.today().year
 PRIORITY = {"": "1.0", "skema-sertifikasi": "0.9", "jadwal": "0.9", "kontak": "0.8",
             "alur-sertifikasi": "0.8", "persyaratan": "0.8"}
 
+# Naikkan nilai ini saat admin.css/admin.js berubah agar peramban tidak
+# memakai berkas lama dari cache.
+ADMIN_ASSET_VERSION = "20261030"
+
 
 # ---------------------------------------------------------------------------
 # Data turunan untuk template
@@ -553,11 +557,11 @@ def write_admin() -> None:
 <meta name="lsp-gh-repo" content="{esc(SITE.get('github_repo', 'LSPPatraIndo/LSPPatraIndo'))}">
 <meta name="lsp-gh-branch" content="{esc(SITE.get('github_branch', 'main'))}">
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../assets/css/admin.css">
+<link rel="stylesheet" href="../assets/css/admin.css?v={ADMIN_ASSET_VERSION}">
 </head>
 <body class="adm-body">
 {body}
-<script src="../assets/js/admin.js" defer></script>
+<script src="../assets/js/admin.js?v={ADMIN_ASSET_VERSION}" defer></script>
 </body>
 </html>
 """
