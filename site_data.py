@@ -38,8 +38,9 @@ SITE = {
     # Biarkan kosong bila formulir cukup dikirim ke WhatsApp.
     "form_endpoint": "",
     # URL Cloudflare Worker panel admin (lihat DEPLOY.md bagian 7).
-    # Selama kosong, panel admin /admin/ hanya bisa dipakai dengan mode token GitHub.
-    "admin_api": "",
+    # Selama kosong, panel admin /admin/ memakai login lokal + penyimpanan peramban,
+    # lalu bisa diterbitkan dengan menghubungkan token GitHub.
+    "admin_api": "https://lsp-patra-indo-admin.netlify.app/.netlify/functions",
     "github_repo": "LSPPatraIndo/LSPPatraIndo",
     "github_branch": "main",
     "founded": 2016,
@@ -112,6 +113,11 @@ PAGES = [
      "Hubungi LSP Patra Indo untuk konsultasi skema, jadwal uji kompetensi, kerja sama korporat, dan pendaftaran peserta.",
      "Kontak"),
 ]
+
+# Override markup halaman dari panel admin (opsional).
+# Format: {"slug-halaman": "<section>…</section>"} — bila kosong, build
+# memakai berkas sumber di src/pages/*.html seperti biasa.
+PAGE_HTML = {}
 
 # ---------------------------------------------------------------------------
 # Statistik
@@ -465,6 +471,12 @@ def _apply_content_overrides() -> None:
                 (patch.get("crumb") or crumb).strip(),
             ))
         PAGES[:] = updated
+
+    page_html = data.get("page_html")
+    if isinstance(page_html, dict):
+        for slug, body in page_html.items():
+            if isinstance(slug, str) and isinstance(body, str) and body.strip():
+                PAGE_HTML[slug] = body
 
 
 _apply_content_overrides()

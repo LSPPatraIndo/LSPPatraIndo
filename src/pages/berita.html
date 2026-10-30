@@ -11,14 +11,9 @@
 <section class="section">
   <div class="container">
     <div class="scheme-toolbar" style="margin-top:0">
-      <div class="filter-bar" aria-label="Kategori artikel">
-        <span class="chip is-active" aria-current="true">Semua</span>
-        <span class="chip">Pengumuman</span>
-        <span class="chip">Kegiatan</span>
-        <span class="chip">Panduan</span>
-        <span class="chip">Artikel</span>
+      <div class="filter-bar" data-post-filter-bar aria-label="Kategori artikel">{{POST_CATS}}
       </div>
-      <p class="filter-count">6 artikel</p>
+      <p class="filter-count" data-post-count>{{POST_COUNT}} artikel</p>
     </div>
 
     <h2 class="sr-only">Daftar artikel</h2>

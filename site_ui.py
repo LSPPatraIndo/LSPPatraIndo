@@ -225,7 +225,7 @@ def footer_html(base: str) -> str:
         <li><a href="{base}faq/">Bantuan</a></li>
         <li><a href="{base}kontak/">Kontak</a></li>
         <li><a href="{base}sitemap.xml">Sitemap</a></li>
-        <li><a class="footer__admin" href="{base}admin/" title="Panel admin" aria-label="Panel admin">{icon("lock", "ico ico--xs")}</a></li>
+        <li><a class="footer__admin" href="{base}admin/" title="Login admin" aria-label="Login admin">{icon("lock", "ico ico--xs")}<span>Login admin</span></a></li>
       </ul>
       <p class="footer__badge">{icon("shield", "ico ico--xs")} Terlisensi BNSP</p>
     </div>
@@ -294,15 +294,27 @@ def faq_item(item: dict, i: int, open_first: bool = False) -> str:
 """
 
 
+def post_image_src(p: dict, base: str) -> str:
+    """Lokasi gambar berita: nama lama, path unggahan, URL, atau data URL."""
+    image = str(p.get("image", "")).strip()
+    if not image:
+        return f"{base}assets/img/photos/hero.jpg"
+    if image.startswith(("data:", "http://", "https://", "//")):
+        return image
+    if image.startswith("assets/"):
+        return base + image
+    return f"{base}assets/img/photos/{image}.jpg"
+
+
 def post_card(p: dict, base: str) -> str:
     from datetime import date
     d = date.fromisoformat(p["date"])
     bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
              "Agustus", "September", "Oktober", "November", "Desember"][d.month - 1]
     return f"""
-<article class="post-card">
+<article class="post-card" data-post-cat="{esc(p.get('cat', ''))}">
   <a class="post-card__media" href="{base}berita/" aria-label="{esc(p['title'])}">
-    <img src="{base}assets/img/photos/{p['image']}.jpg" alt="" loading="lazy" width="720" height="480">
+    <img src="{esc(post_image_src(p, base))}" alt="" loading="lazy" width="720" height="480">
     <span class="tag tag--dark">{p['cat']}</span>
   </a>
   <div class="post-card__body">

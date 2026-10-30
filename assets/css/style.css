@@ -614,10 +614,14 @@ body.nav-open { overflow: hidden; }
 .footer__legal .footer__admin {
   display: inline-flex;
   align-items: center;
+  gap: 6px;
   color: inherit;
   opacity: .28;
-  transition: opacity var(--dur) var(--ease);
+  font-size: .78rem;
+  text-decoration: none;
+  transition: opacity var(--dur) var(--ease), color var(--dur) var(--ease);
 }
+.footer__legal .footer__admin span { letter-spacing: .01em; }
 .footer__legal .footer__admin:hover,
 .footer__legal .footer__admin:focus-visible { opacity: 1; color: var(--gold-300); }
 .footer__badge { display: inline-flex; align-items: center; gap: 7px; color: var(--gold-300); font-weight: 600; }

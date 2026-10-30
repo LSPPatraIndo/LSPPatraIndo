@@ -11,3 +11,8 @@ bagian 6).
 
 Tanpa Worker, formulir tetap berfungsi tetapi data hanya dikirim ke WhatsApp
 admin dan tidak tersimpan di repositori.
+
+## Gambar berita
+
+Panel admin menyimpan gambar hasil unggahan ke `assets/img/uploads/` (dibuat
+otomatis oleh Worker/token GitHub). Jangan hapus folder tersebut.

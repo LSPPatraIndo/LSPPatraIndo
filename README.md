@@ -40,6 +40,8 @@ LSPPATRA/
 ├── DEPLOY.md                  ← panduan GitHub + DNS Hostinger
 │
 ├── .github/workflows/deploy.yml  ← build otomatis + deploy GitHub Pages
+├── netlify.toml               ← konfigurasi backend panel admin
+├── netlify/functions/         ← API panel admin (login, simpan, unggah gambar)
 ├── admin/index.html           ← panel admin (noindex, tidak di sitemap)
 ├── data/
 │   ├── content.json           ← data yang diedit panel admin (override site_data.py)
@@ -67,9 +69,15 @@ LSPPATRA/
 ### Alur kerja mengubah konten
 
 **Cara termudah — panel admin:** buka `https://lsppatraindo.id/admin/`
-(ikon kunci di footer, atau `Ctrl`/`Cmd` + `Shift` + `A`), ubah data, klik
-**Simpan & terbitkan**. Data masuk ke `data/content.json` lalu situs dibangun
-ulang otomatis. Lihat `DEPLOY.md` bagian 7.
+(tautan kecil **Login admin** di footer, atau `Ctrl`/`Cmd` + `Shift` + `A`).
+Masuk dengan username `lsppatraindo` dan kata sandi `adminlsppatraindo`.
+Panel bisa mengubah identitas, kontak, SEO, skema, jadwal, FAQ, berita
+(termasuk **pilih gambar dari perangkat**), teks/HTML halaman, dan data lain.
+
+Login memakai backend **Netlify Functions** yang sudah aktif, sehingga
+perubahan langsung diterbitkan ke `data/content.json` dan situs dibangun ulang
+otomatis. Bila backend tidak dapat dihubungi, panel memakai mode lokal dan
+perubahan bisa diterbitkan dengan **token GitHub**. Lihat `DEPLOY.md` bagian 7.
 
 **Cara manual:**
 

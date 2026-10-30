@@ -271,6 +271,39 @@
   }
 
   /* ---------------------------------------------------------------------
+     5b. Filter berita berdasarkan kategori
+     --------------------------------------------------------------------- */
+  var postBar = doc.querySelector('[data-post-filter-bar]');
+  if (postBar) {
+    var postChips = Array.prototype.slice.call(postBar.querySelectorAll('[data-post-filter]'));
+    var postCards = Array.prototype.slice.call(doc.querySelectorAll('[data-post-cat]'));
+    var postCount = doc.querySelector('[data-post-count]');
+
+    function applyPostFilter(cat) {
+      var shown = 0;
+      postCards.forEach(function (card) {
+        var match = cat === 'all' || card.getAttribute('data-post-cat') === cat;
+        card.hidden = !match;
+        if (match) shown += 1;
+      });
+      postChips.forEach(function (chip) {
+        var active = chip.getAttribute('data-post-filter') === cat;
+        chip.classList.toggle('is-active', active);
+        chip.setAttribute('aria-pressed', String(active));
+      });
+      if (postCount) postCount.textContent = shown + ' artikel';
+    }
+
+    postChips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        applyPostFilter(chip.getAttribute('data-post-filter'));
+      });
+    });
+
+    applyPostFilter('all');
+  }
+
+  /* ---------------------------------------------------------------------
      6. Formulir pendaftaran -> WhatsApp
      --------------------------------------------------------------------- */
   var form = doc.querySelector('[data-wa-form]');

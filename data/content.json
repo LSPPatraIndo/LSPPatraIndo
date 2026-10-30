@@ -24,7 +24,7 @@
     },
     "login_url": "https://siapkerja.kemnaker.go.id/",
     "form_endpoint": "",
-    "admin_api": "",
+    "admin_api": "https://lsp-patra-indo-admin.netlify.app/.netlify/functions",
     "github_repo": "LSPPatraIndo/LSPPatraIndo",
     "github_branch": "main",
     "founded": 2016

@@ -224,18 +224,75 @@ statistik, keunggulan, teks berputar hero, ticker, skema + kategori bidang,
 alur sertifikasi, jadwal, asesor, TUK, FAQ, berita, testimoni, nilai lembaga,
 dan struktur organisasi.
 
-> Teks naratif yang ditulis langsung di `src/pages/*.html` (misalnya paragraf
-> sambutan) belum masuk panel — ubah lewat repo seperti biasa.
+> Teks naratif juga bisa diubah dari menu **Teks Halaman (HTML)**, atau lewat
+> `src/pages/*.html` seperti biasa.
 
-### Dua mode masuk
+### Login
 
-1. **SSO (disarankan)** — username + kata sandi diperiksa oleh Cloudflare
-   Worker; kata sandi tidak pernah dikirim ke peramban pengunjung.
-2. **Token GitHub (darurat)** — tempel fine-grained token (Contents: RW).
-   Token hanya disimpan di `sessionStorage` tab tersebut dan hilang saat tab
-   ditutup. Berguna bila Worker belum siap.
+Username panel: `lsppatraindo` — kata sandi: `adminlsppatraindo`.
 
-### 7a. Deploy Worker backend (sekali saja, ±5 menit, gratis)
+> **Penting:** kredensial ini tertulis di repositori publik. Backend Netlify
+> sudah aktif dan dapat menerbitkan perubahan. Segera ganti `ADMIN_PASS` di
+> environment Netlify dengan kata sandi yang kuat bila situs dipakai produksi.
+
+1. **Login lokal (langsung aktif)** — username + kata sandi diverifikasi di
+   peramban memakai hash SHA-256. Perubahan disimpan di `localStorage`
+   peramban tersebut. Cocok untuk menyiapkan konten sebelum terbit.
+2. **SSO backend (aktif)** — username + kata sandi diperiksa server Netlify
+   Functions; kata sandi tidak pernah dikirim ke pengunjung. Backend memakai
+   kredensial yang sama dan menerbitkan perubahan ke GitHub.
+3. **Token GitHub** — fine-grained token (Contents: RW) untuk menerbitkan
+   perubahan dari mode lokal. Token hanya ada di `sessionStorage` tab dan
+   hilang saat tab ditutup.
+
+### Berita + gambar
+
+Menu **Berita** punya tombol **Tambah berita**. Setiap berita dapat memakai
+gambar bawaan (ketik nama seperti `train`) atau **pilih file dari perangkat**
+(JPG/PNG/WebP/GIF). Gambar otomatis diperkecil, lalu diunggah ke
+`assets/img/uploads/` saat disimpan/diterbitkan. Di mode lokal gambar disimpan
+sebagai data URL di peramban; saat GitHub dihubungkan, gambar ikut diunggah.
+
+### Teks halaman
+
+Menu **Teks Halaman (HTML)** memuat markup tiap halaman. Kosongkan kotak lalu
+simpan untuk kembali ke sumber `src/pages/*.html`. Pertahankan placeholder
+seperti `{{BASE}}` dan `{{POSTS_ALL}}` agar komponen dinamis tetap bekerja.
+
+### 7a. Backend panel admin (Netlify Functions — sudah aktif)
+
+Backend yang dipakai situs saat ini:
+
+- Situs Netlify: <https://lsp-patra-indo-admin.netlify.app>
+- Basis API: `https://lsp-patra-indo-admin.netlify.app/.netlify/functions`
+- Kode: `netlify/functions/*.js` (login, content, upload, status, health)
+- `SITE["admin_api"]` di `site_data.py` sudah diarahkan ke basis API tersebut.
+
+Endpoint: `POST /login`, `GET/PUT /content`, `POST /upload`, `GET /status`,
+`GET /health`. Token GitHub hanya disimpan sebagai **secret Netlify**, tidak
+pernah dikirim ke peramban.
+
+Untuk mengubah/menyegarkan backend:
+
+```bash
+netlify deploy --prod --dir netlify/public --functions netlify/functions
+```
+
+Environment variables di Netlify (Site configuration → Environment variables):
+
+| Nama | Nilai |
+| --- | --- |
+| `ADMIN_USER` | `lsppatraindo` |
+| `ADMIN_PASS` | `adminlsppatraindo` (ganti bila perlu) |
+| `SESSION_SECRET` | teks acak panjang |
+| `GITHUB_TOKEN` | fine-grained token (Contents: RW, Actions: Read) |
+| `GITHUB_REPO` | `LSPPatraIndo/LSPPatraIndo` |
+| `GITHUB_BRANCH` | `main` |
+| `ALLOWED_ORIGINS` | `https://lsppatraindo.id,https://www.lsppatraindo.id` |
+
+### 7b. Alternatif: Cloudflare Worker
+
+Kode `tools/admin-worker.js` tetap disediakan bila ingin pindah ke Cloudflare.
 
 1. Buat **fine-grained token** GitHub untuk repo ini:
    - *Contents*: **Read and write**
@@ -247,8 +304,8 @@ dan struktur organisasi.
 
    | Nama | Jenis | Nilai |
    | --- | --- | --- |
-   | `ADMIN_USER` | Text | `lsppatraindo` |
-   | `ADMIN_PASS` | **Secret** | kata sandi panel (jangan pernah di-commit) |
+   | `ADMIN_USER` | Text | `lsppatraindo` (default bila kosong) |
+   | `ADMIN_PASS` | **Secret** | `adminlsppatraindo` (default bila kosong) |
    | `SESSION_SECRET` | **Secret** | teks acak panjang, mis. hasil `openssl rand -hex 32` |
    | `GITHUB_TOKEN` | **Secret** | token langkah 1 |
    | `GITHUB_REPO` | Text | `LSPPatraIndo/LSPPatraIndo` |
@@ -265,19 +322,21 @@ dan struktur organisasi.
 
 7. `python3 build.py` → commit → push. Buka `/admin/` dan masuk.
 
-### 7b. Keamanan yang sudah diterapkan
+### 7c. Keamanan yang sudah diterapkan
 
-- Kata sandi hanya ada di **secret Worker**, tidak di repo maupun di HTML.
+- Kata sandi hanya ada di **secret backend**, tidak di HTML.
 - Perbandingan kata sandi memakai hash SHA-256 + waktu respons disamakan.
 - Token sesi ditandatangani **HMAC-SHA256**, berlaku 12 jam, disimpan di
   `sessionStorage` (hilang saat tab ditutup).
 - Pembatasan 8 percobaan login per 10 menit per IP.
 - `PUT /content` memvalidasi struktur data, ukuran maksimum 600 KB, dan hanya
   menerima kunci yang dikenal.
+- `POST /upload` membatasi gambar maksimum 8 MB dan hanya menerima tipe gambar
+  yang diizinkan; nama berkas dibersihkan sebelum disimpan.
 - CORS dibatasi ke domain resmi.
 
 Tetap disarankan: ganti kata sandi panel secara berkala, aktifkan 2FA pada akun
-GitHub/Cloudflare, dan jangan bagikan tautan `/admin/`.
+GitHub/Netlify, dan jangan bagikan tautan `/admin/`.
 
 ---
 
@@ -314,7 +373,7 @@ Repo tetap dipakai sebagai sumber data; hanya penerbitannya yang berbeda:
 | Situs tampil tanpa CSS | Build tidak jalan; pastikan folder `assets/` ikut ter-commit (`git status`). |
 | Halaman baru 404 | Pastikan `<slug>/index.html` ada atau jalankan `python3 build.py`. |
 | Formulir tidak tersimpan | `SITE["form_endpoint"]` kosong, Worker belum di-deploy, atau `ALLOWED_ORIGIN` tidak cocok dengan domain. |
-| Panel admin: “Backend admin belum diatur” | `SITE["admin_api"]` masih kosong. Deploy Worker (bagian 7a) atau pakai mode token. |
+| Panel admin: “Backend admin belum diatur” | Normal bila `SITE["admin_api"]` kosong — login lokal tetap bekerja; sambungkan token GitHub atau deploy Worker untuk terbit langsung. |
 | Panel admin: login selalu “username atau kata sandi salah” | Cek `ADMIN_USER`/`ADMIN_PASS` di Worker, atau terkena batas 8 percobaan/10 menit. |
 | Panel admin: “Sesi berakhir” | Token HMAC kedaluwarsa (12 jam) atau `SESSION_SECRET` berubah — masuk ulang. |
 | Panel admin: simpan gagal 422 | Struktur JSON tidak valid (mis. `pages` kosong). Muat ulang lalu ulangi perubahan. |

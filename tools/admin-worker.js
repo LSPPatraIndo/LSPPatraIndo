@@ -7,8 +7,8 @@
  * memicu GitHub Actions yang membangun ulang situs dalam ±1 menit.
  *
  * Environment variables (Settings → Variables and Secrets):
- *   ADMIN_USER      lsppatraindo              (boleh Text)
- *   ADMIN_PASS      b@tam2026                 (WAJIB Secret)
+ *   ADMIN_USER      lsppatraindo              (boleh Text; default lsppatraindo)
+ *   ADMIN_PASS      adminlsppatraindo         (boleh Secret; default adminlsppatraindo)
  *   SESSION_SECRET  kalimat acak panjang      (WAJIB Secret)
  *   GITHUB_TOKEN    fine-grained PAT          (WAJIB Secret)
  *                   → Contents: Read and write, Actions: Read-only
@@ -21,6 +21,7 @@
  *   POST /login    {u, p}        → {ok, token, exp}
  *   GET  /content                → {ok, content, sha}
  *   PUT  /content  {content}     → {ok, commit:{sha, url}}
+ *   POST /upload   {name, data}   → {ok, path, commit:{sha, url}}
  *   GET  /status                 → {ok, run:{...}}
  *   GET  /health                 → {ok, configured}
  */
@@ -31,8 +32,9 @@ const LISTS = [
   "steps", "testimonials", "asesor", "tuk", "jadwal", "faq", "posts", "values",
   "struktur",
 ];
-const ALLOWED_KEYS = new Set(["site", "pages", ...LISTS]);
+const ALLOWED_KEYS = new Set(["site", "pages", "page_html", ...LISTS]);
 const MAX_BODY = 600_000;
+const MAX_UPLOAD = 8_000_000;
 
 const enc = new TextEncoder();
 const attempts = new Map(); // ip → { n, until }
@@ -63,7 +65,7 @@ async function sha256(text) {
 async function signToken(env) {
   const hours = Number(env.SESSION_HOURS || 12);
   const exp = Date.now() + hours * 3600_000;
-  const payload = b64urlFromBytes(enc.encode(JSON.stringify({ u: env.ADMIN_USER || "admin", exp })));
+  const payload = b64urlFromBytes(enc.encode(JSON.stringify({ u: env.ADMIN_USER || "lsppatraindo", exp })));
   const sig = await crypto.subtle.sign("HMAC", await key(env.SESSION_SECRET), enc.encode(payload));
   return { token: `${payload}.${b64urlFromBytes(new Uint8Array(sig))}`, exp };
 }
@@ -176,6 +178,9 @@ function validate(content) {
   for (const listKey of LISTS) {
     if (content[listKey] !== undefined && !Array.isArray(content[listKey])) return `Bagian '${listKey}' harus berupa daftar.`;
   }
+  if (content.page_html !== undefined && (typeof content.page_html !== "object" || Array.isArray(content.page_html))) {
+    return "Bagian 'page_html' harus berupa objek.";
+  }
   return null;
 }
 
@@ -189,7 +194,9 @@ export default {
 
     const url = new URL(request.url);
     const path = url.pathname.replace(/\/+$/, "").replace(/^\/api/, "") || "/";
-    const configured = Boolean(env.ADMIN_USER && env.ADMIN_PASS && env.GITHUB_TOKEN && env.GITHUB_REPO && env.SESSION_SECRET);
+    const adminUser = env.ADMIN_USER || "lsppatraindo";
+    const adminPass = env.ADMIN_PASS || "adminlsppatraindo";
+    const configured = Boolean(env.GITHUB_TOKEN && env.GITHUB_REPO && env.SESSION_SECRET);
 
     if (path === "/health") return send(request, env, { ok: true, configured });
 
@@ -207,7 +214,7 @@ export default {
       const u = String(body.u || "").trim();
       const p = String(body.p || "");
       const [uOk, pOk] = await Promise.all([sha256(u), sha256(p)]);
-      const [euOk, epOk] = await Promise.all([sha256(env.ADMIN_USER), sha256(env.ADMIN_PASS)]);
+      const [euOk, epOk] = await Promise.all([sha256(adminUser), sha256(adminPass)]);
 
       let same = uOk.length === euOk.length;
       for (let i = 0; i < uOk.length; i += 1) if (uOk[i] !== euOk[i]) same = false;
@@ -263,6 +270,43 @@ export default {
           ok: true,
           commit: { sha: res.commit && res.commit.sha, url: res.commit && res.commit.html_url },
           deploy_url: `https://github.com/${env.GITHUB_REPO}/actions`,
+        });
+      }
+
+      if (path === "/upload" && request.method === "POST") {
+        const raw = await request.text();
+        if (raw.length > MAX_UPLOAD) return send(request, env, { ok: false, error: "Gambar terlalu besar (maks. 8 MB)." }, 413);
+        let body;
+        try {
+          body = JSON.parse(raw);
+        } catch {
+          return send(request, env, { ok: false, error: "Data gambar tidak valid." }, 400);
+        }
+        const match = /^data:image\/([a-zA-Z0-9.+-]+);base64,([\s\S]+)$/.exec(String(body.data || ""));
+        if (!match) return send(request, env, { ok: false, error: "Format gambar tidak didukung." }, 422);
+        const type = match[1].toLowerCase();
+        const ext = type === "jpeg" ? "jpg" : type === "svg+xml" ? "svg" : type.replace("+xml", "");
+        if (!["jpg", "png", "webp", "gif", "svg"].includes(ext)) {
+          return send(request, env, { ok: false, error: "Gunakan JPG, PNG, WebP, GIF, atau SVG." }, 422);
+        }
+        const base = String(body.name || `berita-${Date.now()}`)
+          .replace(/[^a-zA-Z0-9._-]/g, "-")
+          .replace(new RegExp(`\\.${ext}$`), "")
+          .slice(0, 80) || `berita-${Date.now()}`;
+        const filename = `${base}.${ext}`;
+        const imagePath = `assets/img/uploads/${filename}`;
+        const res = await gh(env, `/contents/${imagePath}`, {
+          method: "PUT",
+          body: JSON.stringify({
+            message: `admin: unggah gambar berita (${session.u})`,
+            content: match[2],
+            branch: env.GITHUB_BRANCH || "main",
+          }),
+        });
+        return send(request, env, {
+          ok: true,
+          path: imagePath,
+          commit: { sha: res.commit && res.commit.sha, url: res.commit && res.commit.html_url },
         });
       }
 

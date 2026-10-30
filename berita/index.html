@@ -169,19 +169,14 @@
 <section class="section">
   <div class="container">
     <div class="scheme-toolbar" style="margin-top:0">
-      <div class="filter-bar" aria-label="Kategori artikel">
-        <span class="chip is-active" aria-current="true">Semua</span>
-        <span class="chip">Pengumuman</span>
-        <span class="chip">Kegiatan</span>
-        <span class="chip">Panduan</span>
-        <span class="chip">Artikel</span>
+      <div class="filter-bar" data-post-filter-bar aria-label="Kategori artikel"><button class="chip is-active" type="button" data-post-filter="all" aria-pressed="true">Semua</button><button class="chip" type="button" data-post-filter="Pengumuman" aria-pressed="false">Pengumuman</button><button class="chip" type="button" data-post-filter="Artikel" aria-pressed="false">Artikel</button><button class="chip" type="button" data-post-filter="Kegiatan" aria-pressed="false">Kegiatan</button><button class="chip" type="button" data-post-filter="Panduan" aria-pressed="false">Panduan</button><button class="chip" type="button" data-post-filter="Tips" aria-pressed="false">Tips</button>
       </div>
-      <p class="filter-count">6 artikel</p>
+      <p class="filter-count" data-post-count>6 artikel</p>
     </div>
 
     <h2 class="sr-only">Daftar artikel</h2>
     <div class="post-grid mt-3" style="margin-top:28px" data-reveal-group>
-<article class="post-card">
+<article class="post-card" data-post-cat="Pengumuman">
   <a class="post-card__media" href="../berita/" aria-label="Pembukaan Kelas Sertifikasi Batch November 2026">
     <img src="../assets/img/photos/train.jpg" alt="" loading="lazy" width="720" height="480">
     <span class="tag tag--dark">Pengumuman</span>
@@ -194,7 +189,7 @@
   </div>
 </article>
 
-<article class="post-card">
+<article class="post-card" data-post-cat="Artikel">
   <a class="post-card__media" href="../berita/" aria-label="Mengapa Sertifikat Kompetensi Penting di Industri Perhotelan">
     <img src="../assets/img/photos/hotel.jpg" alt="" loading="lazy" width="720" height="480">
     <span class="tag tag--dark">Artikel</span>
@@ -207,7 +202,7 @@
   </div>
 </article>
 
-<article class="post-card">
+<article class="post-card" data-post-cat="Kegiatan">
   <a class="post-card__media" href="../berita/" aria-label="Uji Kompetensi Kepemanduan Wisata Digelar di TUK Bali">
     <img src="../assets/img/photos/guide.jpg" alt="" loading="lazy" width="720" height="480">
     <span class="tag tag--dark">Kegiatan</span>
@@ -220,7 +215,7 @@
   </div>
 </article>
 
-<article class="post-card">
+<article class="post-card" data-post-cat="Panduan">
   <a class="post-card__media" href="../berita/" aria-label="Panduan Lengkap Membuat Akun SIAPkerja untuk Peserta">
     <img src="../assets/img/photos/about.jpg" alt="" loading="lazy" width="720" height="480">
     <span class="tag tag--dark">Panduan</span>
@@ -233,7 +228,7 @@
   </div>
 </article>
 
-<article class="post-card">
+<article class="post-card" data-post-cat="Artikel">
   <a class="post-card__media" href="../berita/" aria-label="Standar Kompetensi Barista: Apa yang Diuji?">
     <img src="../assets/img/photos/fb.jpg" alt="" loading="lazy" width="720" height="480">
     <span class="tag tag--dark">Artikel</span>
@@ -246,7 +241,7 @@
   </div>
 </article>
 
-<article class="post-card">
+<article class="post-card" data-post-cat="Tips">
   <a class="post-card__media" href="../berita/" aria-label="Tips Lulus Uji Kompetensi Melalui Asesmen Mandiri">
     <img src="../assets/img/photos/culinary.jpg" alt="" loading="lazy" width="720" height="480">
     <span class="tag tag--dark">Tips</span>
@@ -335,7 +330,7 @@
         <li><a href="../faq/">Bantuan</a></li>
         <li><a href="../kontak/">Kontak</a></li>
         <li><a href="../sitemap.xml">Sitemap</a></li>
-        <li><a class="footer__admin" href="../admin/" title="Panel admin" aria-label="Panel admin"><svg class="ico ico--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4.5" y="10" width="15" height="11" rx="3"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/></svg></a></li>
+        <li><a class="footer__admin" href="../admin/" title="Login admin" aria-label="Login admin"><svg class="ico ico--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4.5" y="10" width="15" height="11" rx="3"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/></svg><span>Login admin</span></a></li>
       </ul>
       <p class="footer__badge"><svg class="ico ico--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2.8 20 6v5.7c0 4.6-3.3 8.1-8 9.5-4.7-1.4-8-4.9-8-9.5V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg> Terlisensi BNSP</p>
     </div>

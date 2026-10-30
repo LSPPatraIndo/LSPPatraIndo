@@ -7,7 +7,7 @@
 <meta name="referrer" content="same-origin">
 <title>Panel Admin — LSP Patra Indo</title>
 <meta name="theme-color" content="#0a1f35">
-<meta name="lsp-admin-api" content="">
+<meta name="lsp-admin-api" content="https://lsp-patra-indo-admin.netlify.app/.netlify/functions">
 <meta name="lsp-gh-repo" content="LSPPatraIndo/LSPPatraIndo">
 <meta name="lsp-gh-branch" content="main">
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
@@ -31,7 +31,7 @@
     <section class="adm-login" id="login-view">
       <div class="adm-login__card">
         <h1>Masuk panel admin</h1>
-        <p class="adm-login__sub">Halaman ini tidak terindeks mesin pencari dan tidak ditautkan dari menu situs.</p>
+        <p class="adm-login__sub">Masuk dengan akun admin LSP Patra Indo. Halaman ini tidak terindeks mesin pencari dan tidak ditautkan dari menu utama.</p>
 
         <form id="login-form" autocomplete="off" novalidate>
           <div class="adm-field">
@@ -47,14 +47,13 @@
         </form>
 
         <p class="adm-note" id="setup-notice" hidden>
-          <strong>Backend belum terhubung.</strong> Isi <code>SITE["admin_api"]</code> di
-          <code>site_data.py</code> dengan URL Cloudflare Worker (lihat <code>DEPLOY.md</code> bagian 7),
-          lalu jalankan <code>python3 build.py</code> dan push. Sementara itu Anda bisa memakai
-          <em>mode token</em> di bawah.
+          <strong>Mode lokal aktif.</strong> Login username &amp; kata sandi tetap bisa dipakai.
+          Perubahan tersimpan di peramban ini; untuk menerbitkan ke seluruh pengunjung,
+          sambungkan GitHub atau pasang backend Worker (lihat <code>DEPLOY.md</code> bagian 7).
         </p>
 
         <details class="adm-alt">
-          <summary>Mode darurat: masuk dengan token GitHub</summary>
+          <summary>Mode lanjutan: masuk dengan token GitHub</summary>
           <form id="token-form" autocomplete="off" style="margin-top:12px">
             <div class="adm-field">
               <label for="adm-token">Fine-grained token (Contents: Read and write)</label>
@@ -73,6 +72,33 @@
         <nav class="adm-nav" id="section-nav" aria-label="Bagian konten"></nav>
 
         <div class="adm-main">
+          <div class="adm-note adm-note--local" id="local-notice" hidden>
+            <strong>Mode lokal (pratinjau).</strong> Perubahan hanya tersimpan di peramban ini.
+            Untuk menerbitkan ke <code>lsppatraindo.id</code> bagi semua pengunjung,
+            hubungkan akun GitHub dengan token <em>Contents: Read and write</em>, atau pasang
+            backend Worker. Anda juga dapat mengunduh JSON lalu commit manual.
+            <div class="adm-note__actions">
+              <button class="adm-btn adm-btn--sm" type="button" id="connect-gh-btn">Hubungkan GitHub</button>
+              <button class="adm-btn adm-btn--ghost-dark adm-btn--sm" type="button" id="download-json-btn">Unduh JSON</button>
+            </div>
+          </div>
+
+          <div class="adm-card" id="connect-card" hidden>
+            <div class="adm-card__head"><h3>Hubungkan GitHub</h3></div>
+            <p class="adm-hint" style="margin-top:0">Token hanya disimpan di tab ini (sessionStorage) dan tidak ditulis ke situs. Gunakan fine-grained token dengan izin <strong>Contents: Read and write</strong> untuk repo <code>LSPPatraIndo/LSPPatraIndo</code>.</p>
+            <form id="connect-form" autocomplete="off">
+              <div class="adm-field">
+                <label for="connect-token">Fine-grained token GitHub</label>
+                <input id="connect-token" type="password" placeholder="github_pat_…" spellcheck="false">
+              </div>
+              <div class="adm-toolbar__actions">
+                <button class="adm-btn" type="submit" id="connect-submit">Sambungkan &amp; muat data</button>
+                <button class="adm-btn adm-btn--ghost-dark" type="button" id="connect-cancel">Batal</button>
+              </div>
+              <p class="adm-error" id="connect-error" hidden></p>
+            </form>
+          </div>
+
           <div class="adm-toolbar">
             <div>
               <h2 id="section-title">Identitas &amp; Kontak</h2>
@@ -82,6 +108,7 @@
               <button class="adm-btn adm-btn--ghost-dark adm-btn--sm" type="button" id="reload-btn">Muat ulang</button>
               <button class="adm-btn adm-btn--ghost-dark adm-btn--sm" type="button" id="download-btn">Unduh JSON</button>
               <button class="adm-btn adm-btn--ghost-dark adm-btn--sm" type="button" id="add-btn" hidden>Tambah entri</button>
+              <button class="adm-btn adm-btn--sm" type="button" id="add-post-btn" hidden>Tambah berita</button>
             </div>
           </div>
 

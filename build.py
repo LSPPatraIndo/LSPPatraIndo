@@ -16,6 +16,7 @@ from pathlib import Path
 from site_data import (
     SITE, PAGES, STATS, ADVANTAGES, SCHEMES, SCHEME_CATS, STEPS, TESTIMONIALS,
     ASESOR, TUK, JADWAL, FAQ, POSTS, VALUES, STRUKTUR, HERO_ROLES, TICKER_ITEMS,
+    PAGE_HTML,
 )
 from site_ui import (
     icon, esc, wa_link, header_html, footer_html, scheme_card, faq_item,
@@ -115,6 +116,21 @@ def faq_html(limit=None) -> str:
 def posts_html(limit=None) -> str:
     items = POSTS[:limit] if limit else POSTS
     return "".join(post_card(p, "{{BASE}}") for p in items)
+
+
+def post_categories_html() -> str:
+    """Chip filter berita, dibuat dari kategori yang benar-benar dipakai."""
+    cats = []
+    for post in POSTS:
+        cat = str(post.get("cat", "")).strip()
+        if cat and cat not in cats:
+            cats.append(cat)
+    chips = ['<button class="chip is-active" type="button" data-post-filter="all" aria-pressed="true">Semua</button>']
+    for cat in cats:
+        chips.append(
+            f'<button class="chip" type="button" data-post-filter="{esc(cat)}" aria-pressed="false">{esc(cat)}</button>'
+        )
+    return "".join(chips)
 
 
 def asesor_html() -> str:
@@ -239,6 +255,8 @@ def tokens(base: str) -> dict:
         "{{FAQ_HOME}}": faq_html(6),
         "{{POSTS_ALL}}": posts_html(),
         "{{POSTS_HOME}}": posts_html(3),
+        "{{POST_CATS}}": post_categories_html(),
+        "{{POST_COUNT}}": str(len(POSTS)),
         "{{ASESOR}}": asesor_html(),
         "{{TUK}}": tuk_html(),
         "{{JADWAL_ROWS}}": jadwal_rows(),
@@ -388,7 +406,7 @@ def render(page: tuple) -> Path:
     base = "" if slug == "" else "../"
     canonical = f"{SITE['url']}/{slug + '/' if slug else ''}"
 
-    body = (SRC / f"{body_file}.html").read_text(encoding="utf-8")
+    body = PAGE_HTML.get(slug) or (SRC / f"{body_file}.html").read_text(encoding="utf-8")
     meta = {"slug": slug, "title": title, "desc": desc, "crumb": crumb}
 
     for key, value in tokens(base).items():
@@ -481,6 +499,8 @@ ErrorDocument 404 /404.html
   ExpiresByType application/javascript "access plus 1 month"
   ExpiresByType image/jpeg "access plus 6 months"
   ExpiresByType image/png "access plus 6 months"
+  ExpiresByType image/webp "access plus 6 months"
+  ExpiresByType image/gif "access plus 6 months"
   ExpiresByType image/svg+xml "access plus 6 months"
   ExpiresByType text/html "access plus 0 seconds"
 </IfModule>
