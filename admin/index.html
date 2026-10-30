@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="same-origin">
+<title>Panel Admin — LSP Patra Indo</title>
+<meta name="theme-color" content="#0a1f35">
+<meta name="lsp-admin-api" content="">
+<meta name="lsp-gh-repo" content="LSPPatraIndo/LSPPatraIndo">
+<meta name="lsp-gh-branch" content="main">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="adm-body">
+<div class="adm">
+  <header class="adm__bar">
+    <div class="adm__brand">
+      <span class="adm__dot" aria-hidden="true"></span>
+      <span>LSP Patra Indo<small>Panel Admin</small></span>
+    </div>
+    <span class="adm__bar-spacer"></span>
+    <span class="adm__chip" id="conn-chip" hidden>Terhubung</span>
+    <a class="adm-btn adm-btn--ghost adm-btn--sm" id="view-site" href="../" target="_blank" rel="noopener">Lihat situs</a>
+    <button class="adm-btn adm-btn--ghost adm-btn--sm" id="logout-btn" type="button" hidden>Keluar</button>
+  </header>
+
+  <div class="adm-wrap">
+    <!-- ------------------------------------------------------------ login -->
+    <section class="adm-login" id="login-view">
+      <div class="adm-login__card">
+        <h1>Masuk panel admin</h1>
+        <p class="adm-login__sub">Halaman ini tidak terindeks mesin pencari dan tidak ditautkan dari menu situs.</p>
+
+        <form id="login-form" autocomplete="off" novalidate>
+          <div class="adm-field">
+            <label for="adm-user">Username</label>
+            <input id="adm-user" name="username" type="text" autocomplete="username" required spellcheck="false">
+          </div>
+          <div class="adm-field">
+            <label for="adm-pass">Kata sandi</label>
+            <input id="adm-pass" name="password" type="password" autocomplete="current-password" required>
+          </div>
+          <button class="adm-btn" type="submit" id="login-submit" style="width:100%">Masuk</button>
+          <p class="adm-error" id="login-error" hidden></p>
+        </form>
+
+        <p class="adm-note" id="setup-notice" hidden>
+          <strong>Backend belum terhubung.</strong> Isi <code>SITE["admin_api"]</code> di
+          <code>site_data.py</code> dengan URL Cloudflare Worker (lihat <code>DEPLOY.md</code> bagian 7),
+          lalu jalankan <code>python3 build.py</code> dan push. Sementara itu Anda bisa memakai
+          <em>mode token</em> di bawah.
+        </p>
+
+        <details class="adm-alt">
+          <summary>Mode darurat: masuk dengan token GitHub</summary>
+          <form id="token-form" autocomplete="off" style="margin-top:12px">
+            <div class="adm-field">
+              <label for="adm-token">Fine-grained token (Contents: Read and write)</label>
+              <input id="adm-token" name="token" type="password" placeholder="github_pat_…" spellcheck="false">
+              <span class="adm-hint">Token hanya disimpan di tab peramban ini dan terhapus saat tab ditutup.</span>
+            </div>
+            <button class="adm-btn adm-btn--ghost-dark" type="submit" style="width:100%">Masuk dengan token</button>
+          </form>
+        </details>
+      </div>
+    </section>
+
+    <!-- ------------------------------------------------------------ panel -->
+    <section id="panel-view" hidden>
+      <div class="adm-grid">
+        <nav class="adm-nav" id="section-nav" aria-label="Bagian konten"></nav>
+
+        <div class="adm-main">
+          <div class="adm-toolbar">
+            <div>
+              <h2 id="section-title">Identitas &amp; Kontak</h2>
+              <p id="section-help">Ubah data lembaga yang tampil di seluruh halaman.</p>
+            </div>
+            <div class="adm-toolbar__actions">
+              <button class="adm-btn adm-btn--ghost-dark adm-btn--sm" type="button" id="reload-btn">Muat ulang</button>
+              <button class="adm-btn adm-btn--ghost-dark adm-btn--sm" type="button" id="download-btn">Unduh JSON</button>
+              <button class="adm-btn adm-btn--ghost-dark adm-btn--sm" type="button" id="add-btn" hidden>Tambah entri</button>
+            </div>
+          </div>
+
+          <div id="editor"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="adm-savebar" id="savebar" hidden>
+    <span class="adm-savebar__state" id="save-state">Belum ada perubahan</span>
+    <div class="adm-toolbar__actions">
+      <a class="adm-btn adm-btn--ghost-dark adm-btn--sm" id="deploy-link" href="https://github.com/LSPPatraIndo/LSPPatraIndo/actions" target="_blank" rel="noopener" hidden>Lihat proses terbit</a>
+      <button class="adm-btn" type="button" id="save-btn">Simpan &amp; terbitkan</button>
+    </div>
+  </div>
+
+  <div class="adm-toast" id="toast" aria-live="polite" aria-atomic="true"></div>
+</div>
+
+<script src="../assets/js/admin.js" defer></script>
+</body>
+</html>

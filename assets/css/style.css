@@ -609,6 +609,17 @@ body.nav-open { overflow: hidden; }
   font-size: .8rem;
 }
 .footer__legal { display: flex; gap: 20px; }
+
+/* Tautan panel admin: sengaja dibuat samar (mode tersembunyi). */
+.footer__legal .footer__admin {
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+  opacity: .28;
+  transition: opacity var(--dur) var(--ease);
+}
+.footer__legal .footer__admin:hover,
+.footer__legal .footer__admin:focus-visible { opacity: 1; color: var(--gold-300); }
 .footer__badge { display: inline-flex; align-items: center; gap: 7px; color: var(--gold-300); font-weight: 600; }
 
 .fab {

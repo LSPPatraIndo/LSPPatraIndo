@@ -218,6 +218,9 @@ def tokens(base: str) -> dict:
         "{{HOURS}}": SITE["hours"],
         "{{WA}}": SITE["wa"],
         "{{FORM_ENDPOINT}}": SITE.get("form_endpoint", ""),
+        "{{ADMIN_API}}": SITE.get("admin_api", ""),
+        "{{GH_REPO}}": SITE.get("github_repo", "LSPPatraIndo/LSPPatraIndo"),
+        "{{GH_BRANCH}}": SITE.get("github_branch", "main"),
         "{{WA_LINK}}": wa_link("Halo LSP Patra Indo, saya ingin berkonsultasi mengenai sertifikasi kompetensi."),
         "{{WA_LINK_SKEMA}}": wa_link("Halo LSP Patra Indo, saya ingin menanyakan ketersediaan skema sertifikasi dan biayanya."),
         "{{WA_LINK_KORPORAT}}": wa_link("Halo LSP Patra Indo, saya ingin berdiskusi mengenai kerja sama sertifikasi korporat."),
@@ -510,13 +513,48 @@ def write_404() -> None:
     (ROOT / "404.html").write_text(html, encoding="utf-8")
 
 
+def write_admin() -> None:
+    """Bangun /admin/ — halaman panel, tidak masuk sitemap dan noindex."""
+    body = (SRC / "admin.html").read_text(encoding="utf-8")
+    for key, value in tokens("../").items():
+        body = body.replace(key, value)
+    body = body.replace("{{BASE}}", "../")
+
+    html = f"""<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="same-origin">
+<title>Panel Admin — LSP Patra Indo</title>
+<meta name="theme-color" content="#0a1f35">
+<meta name="lsp-admin-api" content="{esc(SITE.get('admin_api', ''))}">
+<meta name="lsp-gh-repo" content="{esc(SITE.get('github_repo', 'LSPPatraIndo/LSPPatraIndo'))}">
+<meta name="lsp-gh-branch" content="{esc(SITE.get('github_branch', 'main'))}">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="adm-body">
+{body}
+<script src="../assets/js/admin.js" defer></script>
+</body>
+</html>
+"""
+    out = ROOT / "admin" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(html, encoding="utf-8")
+
+
 def main() -> None:
     built = [render(p) for p in PAGES]
     write_404()
+    write_admin()
     write_sitemap()
     for path in built:
         print("  ✓", path.relative_to(ROOT))
-    print(f"\nSelesai: {len(built)} halaman + 404, sitemap, robots, manifest, htaccess.")
+    print("  ✓", (ROOT / "admin" / "index.html").relative_to(ROOT))
+    print(f"\nSelesai: {len(built)} halaman + 404 + panel admin, sitemap, robots, manifest, htaccess.")
 
 
 if __name__ == "__main__":

@@ -40,7 +40,11 @@ LSPPATRA/
 ├── DEPLOY.md                  ← panduan GitHub + DNS Hostinger
 │
 ├── .github/workflows/deploy.yml  ← build otomatis + deploy GitHub Pages
-├── data/pendaftar/            ← data formulir yang masuk ke GitHub (opsional)
+├── admin/index.html           ← panel admin (noindex, tidak di sitemap)
+├── data/
+│   ├── content.json           ← data yang diedit panel admin (override site_data.py)
+│   ├── pendaftar/             ← data formulir yang masuk ke GitHub (opsional)
+│   └── README.md
 │
 ├── assets/
 │   ├── css/style.css          ← token desain, dasar, header, footer
@@ -54,10 +58,20 @@ LSPPATRA/
 ├── site_ui.py                 ← komponen header/footer/kartu + ikon SVG
 ├── build.py                   ← generator halaman + sitemap
 ├── tools/make_assets.py       ← generator favicon, ikon, og-image
-└── tools/github-form-worker.js ← Worker penyimpan formulir ke GitHub (opsional)
+├── tools/admin-worker.js      ← backend panel admin (Cloudflare Worker)
+├── tools/export_content.py    ← ekspor data bawaan ke data/content.json
+├── tools/github-form-worker.js ← Worker penyimpan formulir ke GitHub (opsional)
+└── tools/push-github.sh       ← push aman (verifikasi izin token)
 ```
 
 ### Alur kerja mengubah konten
+
+**Cara termudah — panel admin:** buka `https://lsppatraindo.id/admin/`
+(ikon kunci di footer, atau `Ctrl`/`Cmd` + `Shift` + `A`), ubah data, klik
+**Simpan & terbitkan**. Data masuk ke `data/content.json` lalu situs dibangun
+ulang otomatis. Lihat `DEPLOY.md` bagian 7.
+
+**Cara manual:**
 
 1. Ubah data di `site_data.py` (kontak, skema, jadwal, asesor, FAQ, berita) atau
    markup di `src/pages/*.html`.
@@ -141,6 +155,9 @@ dan footer.
 ## 5. Fitur yang sudah tersedia
 
 - **11 halaman** + halaman 404 kustom.
+- **Panel admin** di `/admin/`: login SSO (diverifikasi Worker, bukan di browser),
+  editor seluruh data situs, simpan → commit ke `data/content.json` → build & deploy
+  otomatis. Tautan dibuat samar di footer dan halaman `noindex`.
 - **Desain responsif** (desktop, tablet, mobile) dengan menu drawer.
 - **Animasi teks & interaksi:**
   - *Ticker* teks berjalan (marquee) di beranda, berhenti saat kursor diarahkan.

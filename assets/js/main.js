@@ -547,4 +547,16 @@
       });
     });
   }
+
+  /* ---------------------------------------------------------------------
+     13. Pintasan tersembunyi ke panel admin
+     Ctrl/Cmd + Shift + A — tidak ada tautan/teks yang menonjol di halaman.
+     --------------------------------------------------------------------- */
+  doc.addEventListener('keydown', function (e) {
+    if (!(e.ctrlKey || e.metaKey) || !e.shiftKey || e.key.toLowerCase() !== 'a') return;
+    var trigger = doc.querySelector('.footer__admin');
+    if (!trigger) return;
+    e.preventDefault();
+    window.location.href = trigger.getAttribute('href');
+  });
 })();

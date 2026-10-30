@@ -199,7 +199,89 @@ Worker bila formulir mulai menerima spam.
 
 ---
 
-## 7. Jika memilih hosting Hostinger (cPanel), bukan GitHub Pages
+## 7. Panel admin (`/admin/`)
+
+Panel untuk mengubah **seluruh data situs** tanpa menyentuh kode. Setiap
+penyimpanan membuat commit ke `data/content.json`, lalu GitHub Actions
+membangun ulang halaman sehingga perubahan terbit di `lsppatraindo.id` dalam
+±1 menit.
+
+### Cara membuka
+
+| Cara | Keterangan |
+| --- | --- |
+| Ikon kunci kecil di footer | Tampil samar (opasitas 0,28), menguat saat kursor diarahkan |
+| Langsung | <https://lsppatraindo.id/admin/> |
+| Pintasan | `Ctrl`/`Cmd` + `Shift` + `A` di halaman mana pun |
+
+Halaman admin memakai `noindex, nofollow`, tidak ada di `sitemap.xml`, dan tidak
+ditautkan dari menu utama.
+
+### Apa yang bisa diedit
+
+Identitas & kontak, media sosial, judul + meta description tiap halaman,
+statistik, keunggulan, teks berputar hero, ticker, skema + kategori bidang,
+alur sertifikasi, jadwal, asesor, TUK, FAQ, berita, testimoni, nilai lembaga,
+dan struktur organisasi.
+
+> Teks naratif yang ditulis langsung di `src/pages/*.html` (misalnya paragraf
+> sambutan) belum masuk panel — ubah lewat repo seperti biasa.
+
+### Dua mode masuk
+
+1. **SSO (disarankan)** — username + kata sandi diperiksa oleh Cloudflare
+   Worker; kata sandi tidak pernah dikirim ke peramban pengunjung.
+2. **Token GitHub (darurat)** — tempel fine-grained token (Contents: RW).
+   Token hanya disimpan di `sessionStorage` tab tersebut dan hilang saat tab
+   ditutup. Berguna bila Worker belum siap.
+
+### 7a. Deploy Worker backend (sekali saja, ±5 menit, gratis)
+
+1. Buat **fine-grained token** GitHub untuk repo ini:
+   - *Contents*: **Read and write**
+   - *Actions*: **Read-only** (untuk menampilkan status build)
+2. Buka <https://dash.cloudflare.com> → **Workers & Pages** → **Create** →
+   **Worker** → nama `lsp-admin` → **Deploy**.
+3. **Edit code** → tempel seluruh isi `tools/admin-worker.js` → **Deploy**.
+4. **Settings → Variables and Secrets**:
+
+   | Nama | Jenis | Nilai |
+   | --- | --- | --- |
+   | `ADMIN_USER` | Text | `lsppatraindo` |
+   | `ADMIN_PASS` | **Secret** | kata sandi panel (jangan pernah di-commit) |
+   | `SESSION_SECRET` | **Secret** | teks acak panjang, mis. hasil `openssl rand -hex 32` |
+   | `GITHUB_TOKEN` | **Secret** | token langkah 1 |
+   | `GITHUB_REPO` | Text | `LSPPatraIndo/LSPPatraIndo` |
+   | `GITHUB_BRANCH` | Text | `main` |
+   | `ALLOWED_ORIGINS` | Text | `https://lsppatraindo.id,https://www.lsppatraindo.id` |
+   | `SESSION_HOURS` | Text | `12` |
+
+5. Salin URL Worker, mis. `https://lsp-admin.<akun>.workers.dev`.
+6. Isi di `site_data.py`:
+
+   ```python
+   "admin_api": "https://lsp-admin.<akun>.workers.dev",
+   ```
+
+7. `python3 build.py` → commit → push. Buka `/admin/` dan masuk.
+
+### 7b. Keamanan yang sudah diterapkan
+
+- Kata sandi hanya ada di **secret Worker**, tidak di repo maupun di HTML.
+- Perbandingan kata sandi memakai hash SHA-256 + waktu respons disamakan.
+- Token sesi ditandatangani **HMAC-SHA256**, berlaku 12 jam, disimpan di
+  `sessionStorage` (hilang saat tab ditutup).
+- Pembatasan 8 percobaan login per 10 menit per IP.
+- `PUT /content` memvalidasi struktur data, ukuran maksimum 600 KB, dan hanya
+  menerima kunci yang dikenal.
+- CORS dibatasi ke domain resmi.
+
+Tetap disarankan: ganti kata sandi panel secara berkala, aktifkan 2FA pada akun
+GitHub/Cloudflare, dan jangan bagikan tautan `/admin/`.
+
+---
+
+## 8. Jika memilih hosting Hostinger (cPanel), bukan GitHub Pages
 
 Repo tetap dipakai sebagai sumber data; hanya penerbitannya yang berbeda:
 
@@ -218,7 +300,7 @@ Repo tetap dipakai sebagai sumber data; hanya penerbitannya yang berbeda:
 
 ---
 
-## 8. Pemecahan masalah
+## 9. Pemecahan masalah
 
 | Gejala | Penyebab & solusi |
 | --- | --- |
@@ -232,3 +314,9 @@ Repo tetap dipakai sebagai sumber data; hanya penerbitannya yang berbeda:
 | Situs tampil tanpa CSS | Build tidak jalan; pastikan folder `assets/` ikut ter-commit (`git status`). |
 | Halaman baru 404 | Pastikan `<slug>/index.html` ada atau jalankan `python3 build.py`. |
 | Formulir tidak tersimpan | `SITE["form_endpoint"]` kosong, Worker belum di-deploy, atau `ALLOWED_ORIGIN` tidak cocok dengan domain. |
+| Panel admin: “Backend admin belum diatur” | `SITE["admin_api"]` masih kosong. Deploy Worker (bagian 7a) atau pakai mode token. |
+| Panel admin: login selalu “username atau kata sandi salah” | Cek `ADMIN_USER`/`ADMIN_PASS` di Worker, atau terkena batas 8 percobaan/10 menit. |
+| Panel admin: “Sesi berakhir” | Token HMAC kedaluwarsa (12 jam) atau `SESSION_SECRET` berubah — masuk ulang. |
+| Panel admin: simpan gagal 422 | Struktur JSON tidak valid (mis. `pages` kosong). Muat ulang lalu ulangi perubahan. |
+| Panel admin: simpan gagal 409 | `data/content.json` berubah di tempat lain; klik **Muat ulang** lalu simpan lagi. |
+| Perubahan tersimpan tapi situs belum berubah | Tunggu ±1 menit; cek tab **Actions** bila build gagal. |

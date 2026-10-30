@@ -225,6 +225,7 @@ def footer_html(base: str) -> str:
         <li><a href="{base}faq/">Bantuan</a></li>
         <li><a href="{base}kontak/">Kontak</a></li>
         <li><a href="{base}sitemap.xml">Sitemap</a></li>
+        <li><a class="footer__admin" href="{base}admin/" title="Panel admin" aria-label="Panel admin">{icon("lock", "ico ico--xs")}</a></li>
       </ul>
       <p class="footer__badge">{icon("shield", "ico ico--xs")} Terlisensi BNSP</p>
     </div>

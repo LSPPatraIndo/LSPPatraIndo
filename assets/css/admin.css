@@ -1,0 +1,181 @@
+/* Panel admin LSP Patra Indo — terpisah dari CSS situs publik. */
+
+:root {
+  --adm-navy: #0a1f35;
+  --adm-navy-2: #122c47;
+  --adm-teal: #0f8a7e;
+  --adm-teal-soft: #e6f4f2;
+  --adm-gold: #c9a24a;
+  --adm-bg: #f4f6f8;
+  --adm-card: #ffffff;
+  --adm-line: #dde3ea;
+  --adm-body: #2b3a49;
+  --adm-muted: #6b7c8c;
+  --adm-danger: #b3261e;
+  --adm-radius: 12px;
+  --adm-shadow: 0 10px 30px rgba(10, 31, 53, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+body.adm-body {
+  margin: 0;
+  background: var(--adm-bg);
+  color: var(--adm-body);
+  font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Plus Jakarta Sans", "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.adm a { color: var(--adm-teal); }
+
+.adm__bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 20px;
+  background: var(--adm-navy);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(10, 31, 53, 0.18);
+}
+
+.adm__brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .02em; }
+.adm__brand small { display: block; font-weight: 500; font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; opacity: .7; }
+.adm__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--adm-gold); box-shadow: 0 0 0 4px rgba(201, 162, 74, .18); }
+.adm__bar-spacer { flex: 1; }
+.adm__chip {
+  font-size: .74rem; padding: 5px 10px; border-radius: 999px;
+  background: rgba(255, 255, 255, .12); color: #dfe8f1; white-space: nowrap;
+}
+.adm__chip.is-live { background: rgba(15, 138, 126, .28); color: #b8f0e8; }
+.adm__chip.is-off { background: rgba(179, 38, 30, .25); color: #ffd8d5; }
+
+.adm-btn {
+  display: inline-flex; align-items: center; gap: 8px; justify-content: center;
+  border: 1px solid transparent; border-radius: 9px; padding: 9px 15px;
+  font: inherit; font-weight: 600; font-size: .88rem; cursor: pointer;
+  background: var(--adm-teal); color: #fff; transition: filter .15s, background .15s;
+}
+.adm-btn:hover { filter: brightness(1.07); }
+.adm-btn:disabled { opacity: .55; cursor: not-allowed; }
+.adm-btn--ghost { background: transparent; border-color: rgba(255, 255, 255, .28); color: #eaf1f7; }
+.adm-btn--ghost-dark { background: transparent; border-color: var(--adm-line); color: var(--adm-body); }
+.adm-btn--sm { padding: 6px 11px; font-size: .8rem; }
+.adm-btn--danger { background: transparent; border-color: #eccfcc; color: var(--adm-danger); }
+
+.adm-toggle { display: none; }
+
+.adm-wrap { max-width: 1180px; margin: 0 auto; padding: 26px 20px 90px; }
+
+/* ------------------------------------------------------------------ login */
+
+.adm-login { max-width: 420px; margin: 8vh auto 0; }
+.adm-login__card {
+  background: var(--adm-card); border: 1px solid var(--adm-line); border-radius: 16px;
+  padding: 28px; box-shadow: var(--adm-shadow);
+}
+.adm-login h1 { margin: 0 0 4px; font-size: 1.35rem; color: var(--adm-navy); }
+.adm-login p.adm-login__sub { margin: 0 0 22px; color: var(--adm-muted); font-size: .88rem; }
+
+.adm-field { margin-bottom: 15px; }
+.adm-field label { display: block; font-size: .78rem; font-weight: 600; letter-spacing: .02em; color: var(--adm-muted); margin-bottom: 6px; }
+.adm-field input[type="text"], .adm-field input[type="password"], .adm-field input[type="number"],
+.adm-field input[type="url"], .adm-field input[type="email"], .adm-field select, .adm-field textarea {
+  width: 100%; padding: 10px 12px; border: 1px solid var(--adm-line); border-radius: 9px;
+  font: inherit; font-size: .92rem; color: var(--adm-body); background: #fff;
+}
+.adm-field textarea { min-height: 76px; resize: vertical; }
+.adm-field input:focus, .adm-field select:focus, .adm-field textarea:focus {
+  outline: 2px solid rgba(15, 138, 126, .35); outline-offset: 1px; border-color: var(--adm-teal);
+}
+.adm-field .adm-hint { display: block; margin-top: 5px; font-size: .74rem; color: var(--adm-muted); }
+
+.adm-error {
+  margin: 14px 0 0; padding: 10px 12px; border-radius: 9px; background: #fdeceb;
+  color: var(--adm-danger); font-size: .85rem; border: 1px solid #f6d5d2;
+}
+.adm-note {
+  margin-top: 18px; padding: 12px 14px; border-radius: 10px; font-size: .82rem;
+  background: #fff8e8; border: 1px solid #f1e2bd; color: #7a5c14;
+}
+.adm-note code { background: #fff; padding: 1px 5px; border-radius: 4px; border: 1px solid #efe3c8; }
+.adm-alt { margin-top: 16px; font-size: .82rem; color: var(--adm-muted); }
+.adm-alt summary { cursor: pointer; }
+
+/* ------------------------------------------------------------------- panel */
+
+.adm-grid { display: grid; grid-template-columns: 232px minmax(0, 1fr); gap: 22px; align-items: start; }
+@media (max-width: 860px) { .adm-grid { grid-template-columns: 1fr; } }
+
+.adm-nav {
+  background: var(--adm-card); border: 1px solid var(--adm-line); border-radius: var(--adm-radius);
+  padding: 8px; position: sticky; top: 72px; max-height: calc(100vh - 100px); overflow: auto;
+}
+@media (max-width: 860px) { .adm-nav { position: static; max-height: none; } }
+.adm-nav__btn {
+  display: flex; width: 100%; align-items: center; gap: 8px; justify-content: space-between;
+  border: 0; background: none; font: inherit; font-size: .87rem; text-align: left;
+  padding: 9px 11px; border-radius: 8px; cursor: pointer; color: var(--adm-body);
+}
+.adm-nav__btn:hover { background: #f0f4f7; }
+.adm-nav__btn.is-active { background: var(--adm-teal-soft); color: #0a5f57; font-weight: 650; }
+.adm-nav__btn small { color: var(--adm-muted); font-size: .72rem; font-weight: 500; }
+
+.adm-main { min-width: 0; }
+.adm-toolbar {
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;
+  background: var(--adm-card); border: 1px solid var(--adm-line); border-radius: var(--adm-radius);
+  padding: 14px 16px; margin-bottom: 16px; box-shadow: var(--adm-shadow);
+}
+.adm-toolbar h2 { margin: 0; font-size: 1.05rem; color: var(--adm-navy); }
+.adm-toolbar p { margin: 2px 0 0; font-size: .8rem; color: var(--adm-muted); }
+.adm-toolbar__actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.adm-card {
+  background: var(--adm-card); border: 1px solid var(--adm-line); border-radius: var(--adm-radius);
+  padding: 16px; margin-bottom: 14px;
+}
+.adm-card__head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.adm-card__head h3 { margin: 0; font-size: .92rem; color: var(--adm-navy); }
+.adm-card__head .adm-card__handle { font-size: .75rem; color: var(--adm-muted); }
+.adm-card__head .adm-card__tools { margin-left: auto; display: flex; gap: 6px; }
+
+.adm-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.adm-row--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 640px) { .adm-row, .adm-row--3 { grid-template-columns: 1fr; } }
+.adm-col--full { grid-column: 1 / -1; }
+
+.adm-check { display: flex; align-items: center; gap: 9px; font-size: .88rem; padding-top: 24px; }
+.adm-check input { width: 17px; height: 17px; accent-color: var(--adm-teal); }
+
+.adm-empty { text-align: center; color: var(--adm-muted); font-size: .88rem; padding: 22px; }
+
+.adm-savebar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  display: flex; align-items: center; gap: 12px; justify-content: space-between;
+  padding: 12px 20px; background: #fff; border-top: 1px solid var(--adm-line);
+  box-shadow: 0 -6px 20px rgba(10, 31, 53, .07);
+}
+.adm-savebar__state { font-size: .84rem; color: var(--adm-muted); }
+.adm-savebar__state.is-dirty { color: #a56b00; font-weight: 600; }
+.adm-savebar__state.is-ok { color: var(--adm-teal); font-weight: 600; }
+.adm-savebar__state.is-err { color: var(--adm-danger); font-weight: 600; }
+
+.adm-toast {
+  position: fixed; top: 68px; right: 20px; z-index: 60; display: flex; flex-direction: column; gap: 8px;
+  max-width: min(360px, calc(100vw - 40px));
+}
+.adm-toast__item {
+  background: #10263c; color: #eef5fb; padding: 11px 14px; border-radius: 10px;
+  font-size: .85rem; box-shadow: var(--adm-shadow); border-left: 3px solid var(--adm-teal);
+}
+.adm-toast__item.is-err { border-left-color: #e2564f; }
+
+.adm-busy { opacity: .6; pointer-events: none; }
+
+.adm-badge {
+  display: inline-block; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 999px; background: #eef2f6; color: var(--adm-muted); font-weight: 700;
+}

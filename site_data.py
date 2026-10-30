@@ -37,6 +37,11 @@ SITE = {
     # URL Cloudflare Worker penyimpan formulir ke GitHub (lihat DEPLOY.md bagian 6).
     # Biarkan kosong bila formulir cukup dikirim ke WhatsApp.
     "form_endpoint": "",
+    # URL Cloudflare Worker panel admin (lihat DEPLOY.md bagian 7).
+    # Selama kosong, panel admin /admin/ hanya bisa dipakai dengan mode token GitHub.
+    "admin_api": "",
+    "github_repo": "LSPPatraIndo/LSPPatraIndo",
+    "github_branch": "main",
     "founded": 2016,
 }
 
@@ -381,3 +386,85 @@ STRUKTUR = [
     {"role": "Ketua Komite Imparsialitas", "name": "Prof. Dr. Hendro Wibowo", "initials": "HW", "note": "Pengawasan ketidakberpihakan"},
     {"role": "Koordinator TUK", "name": "Yoga Pratama, S.Tr.Par.", "initials": "YP", "note": "Kesiapan sarana & fasilitas uji"},
 ]
+
+
+# ---------------------------------------------------------------------------
+# Override dari panel admin (/admin/)
+# ---------------------------------------------------------------------------
+# Panel admin menulis data/content.json lewat Worker, lalu GitHub Actions
+# menjalankan build.py sehingga perubahan langsung terbit di situs.
+# Berkas ini tetap menjadi nilai awal (fallback) bila JSON belum ada/rusak.
+# Set LSP_NO_OVERRIDE=1 untuk mengabaikan override (dipakai tools/export_content.py).
+_LIST_OVERRIDES = {
+    "stats": "STATS",
+    "advantages": "ADVANTAGES",
+    "scheme_cats": "SCHEME_CATS",
+    "schemes": "SCHEMES",
+    "hero_roles": "HERO_ROLES",
+    "ticker_items": "TICKER_ITEMS",
+    "steps": "STEPS",
+    "testimonials": "TESTIMONIALS",
+    "asesor": "ASESOR",
+    "tuk": "TUK",
+    "jadwal": "JADWAL",
+    "faq": "FAQ",
+    "posts": "POSTS",
+    "values": "VALUES",
+    "struktur": "STRUKTUR",
+}
+
+
+def _apply_content_overrides() -> None:
+    """Terapkan data/content.json (bila ada) di atas nilai bawaan modul."""
+    import json
+    import os
+    from pathlib import Path
+
+    if os.environ.get("LSP_NO_OVERRIDE"):
+        return
+
+    path = Path(__file__).resolve().parent / "data" / "content.json"
+    if not path.is_file():
+        return
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (ValueError, OSError):
+        return
+    if not isinstance(data, dict):
+        return
+
+    site = data.get("site")
+    if isinstance(site, dict):
+        for key, value in site.items():
+            if key == "social" and isinstance(value, dict):
+                for skey, svalue in value.items():
+                    if skey in SITE["social"] and isinstance(svalue, str) and svalue.strip():
+                        SITE["social"][skey] = svalue.strip()
+                continue
+            if key not in SITE or key == "social":
+                continue
+            if isinstance(value, (str, int, float)) and str(value).strip():
+                SITE[key] = value.strip() if isinstance(value, str) else value
+
+    for json_key, module_name in _LIST_OVERRIDES.items():
+        value = data.get(json_key)
+        if isinstance(value, list) and value:
+            globals()[module_name][:] = value
+
+    pages = data.get("pages")
+    if isinstance(pages, list) and pages:
+        by_slug = {p.get("slug", ""): p for p in pages if isinstance(p, dict)}
+        updated = []
+        for body_file, slug, title, desc, crumb in PAGES:
+            patch = by_slug.get(slug) or {}
+            updated.append((
+                body_file,
+                slug,
+                (patch.get("title") or title).strip(),
+                (patch.get("description") or desc).strip(),
+                (patch.get("crumb") or crumb).strip(),
+            ))
+        PAGES[:] = updated
+
+
+_apply_content_overrides()
