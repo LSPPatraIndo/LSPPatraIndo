@@ -33,7 +33,7 @@ PRIORITY = {"": "1.0", "skema-sertifikasi": "0.9", "jadwal": "0.9", "kontak": "0
 
 # Naikkan nilai ini saat admin.css/admin.js berubah agar peramban tidak
 # memakai berkas lama dari cache.
-ADMIN_ASSET_VERSION = "20261030"
+ADMIN_ASSET_VERSION = "20261030b"
 
 
 # ---------------------------------------------------------------------------

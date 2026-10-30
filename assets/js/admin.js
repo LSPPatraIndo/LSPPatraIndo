@@ -15,7 +15,7 @@
   var LOCAL_CONTENT_KEY = 'lsp_admin_local_content_v1';
   var SOURCE_BASE = '../src/pages/';
 
-  /* SHA-256 dari username "lsppatraindo" dan kata sandi "adminlsppatraindo". */
+  /* SHA-256 kredensial panel (username dan kata sandi). */
   var ADMIN_USER_HASH = '7512be04af304d77e53ced4b28de5c0e686ae347db30aa13a364d241b4a8f55f';
   var ADMIN_PASS_HASH = '58275838125cdb81a4b2632bca36e258c1e287a9901e228456637abfb94610af';
 
