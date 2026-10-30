@@ -216,6 +216,7 @@ Repo tetap dipakai sebagai sumber data; hanya penerbitannya yang berbeda:
 
 | Gejala | Penyebab & solusi |
 | --- | --- |
+| `remote: Permission to ... denied to <user>` | Akun yang tersimpan di Keychain tidak punya akses tulis. Tambahkan akun itu sebagai member/collaborator **Write**, atau hapus kredensial lama: `printf "protocol=https\nhost=github.com\n\n" \| git credential-osxkeychain erase` lalu push ulang dengan token akun yang berhak. |
 | `git push` → `Authentication failed` | Gunakan PAT sebagai *password*, bukan kata sandi akun. |
 | `remote: Permission denied` | Token tidak punya akses ke repo; buat ulang dengan scope `repo` / Contents RW. |
 | Actions gagal di langkah build | Cek tab **Actions** → log; biasanya ada salah sintaks di `site_data.py`. Uji lokal: `python3 build.py`. |
