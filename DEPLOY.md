@@ -1,8 +1,14 @@
 # Panduan Deploy — GitHub + Hostinger (`lsppatraindo.id`)
 
-Panduan ini menghubungkan folder proyek ini ke repositori
-**https://github.com/LSPPatraIndo/LSPPatraIndo** dan menerbitkan situs ke
-**https://lsppatraindo.id** memakai **GitHub Pages** (gratis, HTTPS otomatis).
+> **Status: sudah aktif.**
+> - Repo: <https://github.com/LSPPatraIndo/LSPPatraIndo> (branch `main`)
+> - Situs: <https://lsppatraindo.id> — GitHub Pages, Source **GitHub Actions**
+> - Custom domain + **Enforce HTTPS** aktif (sertifikat Let's Encrypt untuk
+>   `lsppatraindo.id` dan `www.lsppatraindo.id`)
+> - DNS Hostinger: `A @` → 4 IP GitHub Pages, `CNAME www` → `lsppatindo.github.io`
+>
+> Bagian 1–4 di bawah adalah catatan prosesnya (sudah dijalankan). Untuk
+> kegiatan sehari-hari cukup lihat **bagian 5** (mengubah data).
 
 Alur akhirnya:
 
