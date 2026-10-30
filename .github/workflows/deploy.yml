@@ -1,0 +1,62 @@
+name: Build & Deploy ke GitHub Pages
+
+# Setiap push ke main:
+#   1. situs dibangun ulang dari site_data.py + src/pages/
+#   2. hasil build diterbitkan ke GitHub Pages (lsppatraindo.id)
+# Jadi cukup ubah data di GitHub, situs ikut terbarui otomatis.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build situs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ambil kode
+        uses: actions/checkout@v4
+
+      - name: Siapkan Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Bangun halaman dari site_data.py
+        run: python3 build.py
+
+      - name: Cek keluaran build
+        run: |
+          test -f index.html
+          test -f 404.html
+          test -f sitemap.xml
+
+      - name: Siapkan Pages
+        uses: actions/configure-pages@v5
+
+      - name: Unggah artefak situs
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    name: Terbitkan
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy ke GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

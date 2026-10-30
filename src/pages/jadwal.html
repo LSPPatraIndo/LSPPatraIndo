@@ -1,0 +1,104 @@
+<section class="page-hero">
+  <div class="page-hero__bg" aria-hidden="true"></div>
+  <div class="container page-hero__inner">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="{{BASE}}">Beranda</a></li><li><span aria-current="page">Jadwal &amp; Biaya</span></li></ol></nav>
+    <p class="eyebrow eyebrow--light">Jadwal Uji</p>
+    <h1 class="page-hero__title" data-split>Jadwal sertifikasi &amp; informasi biaya</h1>
+    <p class="page-hero__lead">Jadwal diperbarui secara berkala. Kuota setiap batch terbatas dan ditutup otomatis ketika terpenuhi.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head section-head__row" data-reveal>
+      <div>
+        <p class="eyebrow">Batch Terdekat</p>
+        <h2>Jadwal uji kompetensi</h2>
+      </div>
+      <p class="lead" style="max-width:32ch">Klik “Daftar” untuk mengajukan skema pada jadwal tersebut, lalu konfirmasi dengan admin.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="data-table">
+        <caption class="sr-only">Jadwal uji kompetensi LSP Patra Indo</caption>
+        <thead>
+          <tr>
+            <th scope="col">Tanggal</th>
+            <th scope="col">Skema</th>
+            <th scope="col">TUK</th>
+            <th scope="col">Metode</th>
+            <th scope="col">Kuota</th>
+            <th scope="col">Status</th>
+            <th scope="col"><span class="sr-only">Aksi</span></th>
+          </tr>
+        </thead>
+        <tbody>{{JADWAL_ROWS}}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="jcards">{{JADWAL_CARDS}}
+    </div>
+
+    <div class="notice mt-4">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="7.8" r="1" fill="currentColor" stroke="none"/></svg>
+      <p>Jadwal dapat berubah karena ketersediaan asesor atau TUK. Perubahan akan diinformasikan kepada peserta yang telah melakukan pembayaran.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--sand" aria-labelledby="biaya-title">
+  <div class="container">
+    <div class="section-head section-head--center" data-reveal>
+      <p class="eyebrow">Biaya Sertifikasi</p>
+      <h2 id="biaya-title">Biaya menyesuaikan skema dan lokasi</h2>
+      <p class="lead">Besaran biaya ditentukan oleh kompleksitas skema, kebutuhan peralatan, jumlah unit kompetensi, dan lokasi TUK. Minta rincian resmi sebelum melakukan pembayaran.</p>
+    </div>
+
+    <div class="grid grid--3" data-reveal-group>
+      <article class="feature-card">
+        <span class="feature-card__icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4.2"/><path d="M4.5 20.5c.6-3.6 3.6-5.7 7.5-5.7s6.9 2.1 7.5 5.7"/></svg></span>
+        <h3>Peserta individu</h3>
+        <p>Pendaftaran perorangan dengan jadwal reguler. Biaya mencakup administrasi, asesmen, dan pengajuan sertifikat.</p>
+        <a class="scheme-card__cta" href="{{BASE}}kontak/#daftar">Minta rincian biaya <svg class="ico ico--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </article>
+      <article class="feature-card">
+        <span class="feature-card__icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3.3"/><path d="M2.8 20c.5-3.3 3-5.2 6.2-5.2s5.7 1.9 6.2 5.2"/><path d="M16.2 5.6a3.2 3.2 0 0 1 0 6.2"/><path d="M18 14.9c2.1.5 3.4 2.1 3.7 4.4"/></svg></span>
+        <h3>Korporat &amp; grup</h3>
+        <p>Sertifikasi in-house untuk tim dengan jadwal, lokasi, dan skema yang disesuaikan kebutuhan organisasi.</p>
+        <a class="scheme-card__cta" href="{{WA_LINK_KORPORAT}}" target="_blank" rel="noopener">Ajukan penawaran <svg class="ico ico--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </article>
+      <article class="feature-card">
+        <span class="feature-card__icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2.8 8.5 9.2-4 9.2 4-9.2 4z"/><path d="M6.5 10.4V16c0 1.4 2.5 2.6 5.5 2.6s5.5-1.2 5.5-2.6v-5.6"/><path d="M21.2 8.5v5"/></svg></span>
+        <h3>Institusi pendidikan</h3>
+        <p>Program sertifikasi bagi mahasiswa dan lulusan vokasi, dapat dilaksanakan di kampus atau TUK mitra.</p>
+        <a class="scheme-card__cta" href="{{BASE}}kontak/">Diskusi program <svg class="ico ico--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg></a>
+      </article>
+    </div>
+
+    <div class="grid grid--2 mt-4" style="gap:16px">
+      <div class="notice notice--teal">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8 20 6v5.7c0 4.6-3.3 8.1-8 9.5-4.7-1.4-8-4.9-8-9.5V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg>
+        <p><strong>Pembayaran resmi</strong> hanya melalui rekening lembaga yang tercantum pada invoice. Kami tidak pernah meminta pembayaran ke rekening pribadi.</p>
+      </div>
+      <div class="notice">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="7.8" r="1" fill="currentColor" stroke="none"/></svg>
+        <p><strong>Biaya dapat berubah</strong> sesuai ketentuan BNSP. Rincian yang mengikat tercantum pada invoice resmi yang diterbitkan lembaga.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container cta-band__inner">
+    <div>
+      <p class="eyebrow eyebrow--light">Kuota terbatas</p>
+      <h2>Amankan jadwal uji Anda</h2>
+      <p>Hubungi admin untuk memastikan ketersediaan kuota pada batch yang Anda pilih.</p>
+    </div>
+    <div class="cta-band__actions">
+      <a class="btn btn--gold btn--lg" href="{{BASE}}kontak/#daftar">Daftar sekarang</a>
+      <a class="btn btn--ghost-light btn--lg" href="{{WA_LINK_SKEMA}}" target="_blank" rel="noopener">Tanya admin</a>
+    </div>
+  </div>
+</section>

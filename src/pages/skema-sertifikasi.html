@@ -1,0 +1,107 @@
+<section class="page-hero">
+  <div class="page-hero__bg" aria-hidden="true"></div>
+  <div class="container page-hero__inner">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="{{BASE}}">Beranda</a></li><li><span aria-current="page">Skema Sertifikasi</span></li></ol></nav>
+    <p class="eyebrow eyebrow--light">Sertifikasi Kompetensi</p>
+    <h1 class="page-hero__title" data-split>Skema sertifikasi di tujuh bidang industri</h1>
+    <p class="page-hero__lead">{{SCHEME_COUNT}} skema kompetensi untuk perhotelan, food &amp; beverage, kuliner, SPA, MICE, travel, dan ekonomi kreatif. Pilih yang paling sesuai dengan pengalaman kerja Anda.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="notice">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5"/><circle cx="12" cy="7.8" r="1" fill="currentColor" stroke="none"/></svg>
+      <p>Ketersediaan, kode skema, dan biaya dapat berubah sesuai ketentuan BNSP. Pastikan Anda meminta <strong>dokumen skema resmi</strong> kepada admin sebelum mendaftar.</p>
+    </div>
+
+    <h2 class="sr-only">Daftar skema sertifikasi</h2>
+    <div class="scheme-toolbar">
+      <div class="filter-bar" role="group" aria-label="Filter skema berdasarkan bidang">{{CAT_TABS}}</div>
+      <div class="scheme-toolbar__end">
+        <label class="search-field">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+          <span class="sr-only">Cari skema sertifikasi</span>
+          <input type="search" placeholder="Cari skema atau kata kunci…" autocomplete="off" data-scheme-search>
+        </label>
+        <p class="filter-count" data-scheme-count>{{SCHEME_COUNT}} skema ditampilkan</p>
+      </div>
+    </div>
+
+    <div class="scheme-grid" data-reveal-group>{{SCHEMES_ALL}}
+    </div>
+
+    <p class="empty-state" data-scheme-empty hidden><strong>Tidak ada skema yang cocok</strong>Coba kata kunci lain atau pilih bidang “Semua skema”.</p>
+
+    <div class="btn-row mt-4">
+      <a class="btn btn--primary" href="{{BASE}}kontak/#daftar">Ajukan skema pilihan</a>
+      <a class="btn btn--ghost" href="{{WA_LINK_SKEMA}}" target="_blank" rel="noopener">Tanya ketersediaan</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--sand" aria-labelledby="pilih-title">
+  <div class="container">
+    <div class="section-head section-head--center" data-reveal>
+      <p class="eyebrow">Panduan Singkat</p>
+      <h2 id="pilih-title">Bagaimana memilih skema yang tepat?</h2>
+      <p class="lead">Sertifikasi menilai kompetensi yang sudah Anda miliki — bukan menguji materi pelatihan. Mulailah dari pengalaman kerja nyata.</p>
+    </div>
+    <div class="grid grid--3" data-reveal-group>
+      <article class="feature-card">
+        <span class="feature-card__icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3.2 2"/></svg></span>
+        <h3>1. Petakan pengalaman</h3>
+        <p>Catat tugas utama yang Anda kerjakan sehari-hari, lalu cocokkan dengan deskripsi skema dan unit kompetensinya.</p>
+      </article>
+      <article class="feature-card">
+        <span class="feature-card__icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3.5H7.5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V8z"/><path d="M14 3.5V8h4.5"/><path d="M8.5 12.5h7M8.5 16h5"/></svg></span>
+        <h3>2. Siapkan bukti</h3>
+        <p>Kumpulkan dokumen pendukung: surat keterangan kerja, sertifikat pelatihan, foto hasil kerja, atau laporan proyek.</p>
+      </article>
+      <article class="feature-card">
+        <span class="feature-card__icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.5 9.5 0 0 1-3.5-.7L3 21l1.8-4.6A8.4 8.4 0 1 1 21 11.5Z"/></svg></span>
+        <h3>3. Konsultasikan</h3>
+        <p>Admin akan membantu memvalidasi kesesuaian skema, jenjang, dan jalur asesmen yang paling efisien bagi Anda.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="terima-title">
+  <div class="container split">
+    <div class="split__body" data-reveal>
+      <p class="eyebrow">Hasil Sertifikasi</p>
+      <h2 id="terima-title">Apa yang Anda terima setelah dinyatakan kompeten?</h2>
+      <p class="lead">Sertifikat kompetensi diterbitkan oleh BNSP dalam bentuk elektronik dan tercatat pada akun SIAPkerja Anda. Dokumen ini menjadi bukti formal yang dapat diverifikasi pemberi kerja.</p>
+      <ul class="check-list">
+        <li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg><span><strong>E-sertifikat kompetensi BNSP</strong> dengan nomor registrasi unik.</span></li>
+        <li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg><span><strong>Catatan unit kompetensi</strong> yang dinyatakan kompeten.</span></li>
+        <li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg><span><strong>Riwayat asesmen</strong> yang tersimpan pada sistem lembaga.</span></li>
+        <li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg><span><strong>Pendampingan perpanjangan</strong> sebelum masa berlaku berakhir.</span></li>
+      </ul>
+    </div>
+    <div data-reveal>
+      <div class="media-frame">
+        <img src="{{BASE}}assets/img/photos/culinary.jpg" alt="Peserta mempraktikkan keterampilan kuliner pada sesi asesmen" width="900" height="700" loading="lazy">
+        <div class="media-frame__card">
+          <strong>3 tahun</strong>
+          <span>Masa berlaku sertifikat</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container cta-band__inner">
+    <div>
+      <p class="eyebrow eyebrow--light">Belum yakin?</p>
+      <h2>Ceritakan pengalaman kerja Anda</h2>
+      <p>Tim kami akan membantu memetakan skema yang paling sesuai, termasuk jalur asesmen dan dokumen yang perlu disiapkan.</p>
+    </div>
+    <div class="cta-band__actions">
+      <a class="btn btn--gold btn--lg" href="{{WA_LINK_SKEMA}}" target="_blank" rel="noopener">Konsultasi gratis</a>
+      <a class="btn btn--ghost-light btn--lg" href="{{BASE}}jadwal/">Lihat jadwal</a>
+    </div>
+  </div>
+</section>

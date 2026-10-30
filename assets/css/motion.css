@@ -1,0 +1,221 @@
+/* ==========================================================================
+   LSP PATRA INDO — Motion & interaksi teks
+   Progress gulir, rotator judul, ticker berjalan, reveal per kata,
+   sorotan kartu, dan pencarian skema.
+   ========================================================================== */
+
+/* Progress gulir ----------------------------------------------------------- */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  z-index: 120;
+  background: rgba(10, 33, 56, .06);
+  pointer-events: none;
+}
+.scroll-progress i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--gold-500), var(--gold-300) 45%, var(--teal-500));
+  box-shadow: 0 0 12px rgba(19, 162, 150, .55);
+  transition: width .12s linear;
+}
+
+/* Rotator kata pada hero --------------------------------------------------- */
+.hero__rotator {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 16px;
+  padding: 8px 16px 8px 13px;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(255, 255, 255, .16);
+  background: rgba(255, 255, 255, .055);
+  font-size: .84rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, .68);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.hero__rotator-label { font-weight: 600; letter-spacing: .01em; }
+.rotator {
+  display: inline-flex;
+  align-items: baseline;
+  min-width: 14ch;
+  font-weight: 700;
+  color: var(--gold-300);
+}
+.rotator__text { white-space: nowrap; }
+.rotator__caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.02em;
+  margin-left: 2px;
+  border-radius: 1px;
+  background: var(--gold-300);
+  animation: caret-blink 1.05s steps(2, start) infinite;
+}
+@keyframes caret-blink { 50% { opacity: 0; } }
+
+/* Ticker teks berjalan ----------------------------------------------------- */
+.ticker {
+  --ticker-speed: 46s;
+  position: relative;
+  overflow: hidden;
+  padding: 20px 0;
+  background: var(--navy-950);
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+.ticker::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(520px 200px at 50% 50%, rgba(19, 162, 150, .16), transparent 70%);
+  pointer-events: none;
+}
+.ticker__track {
+  position: relative;
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll var(--ticker-speed, 46s) linear infinite;
+}
+.ticker:hover .ticker__track,
+.ticker:focus-within .ticker__track { animation-play-state: paused; }
+.ticker__group { display: flex; align-items: center; }
+.ticker__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 26px;
+  padding-right: 26px;
+  font-size: clamp(.95rem, 1.55vw, 1.3rem);
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #fff;
+}
+.ticker__item--outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(228, 206, 147, .8);
+}
+.ticker__star {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  color: var(--gold-500);
+  animation: ticker-spin 9s linear infinite;
+}
+@keyframes ticker-scroll { to { transform: translateX(-50%); } }
+@keyframes ticker-spin { to { transform: rotate(360deg); } }
+
+/* Reveal per kata ---------------------------------------------------------- */
+[data-split] .sw {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: .14em;
+  margin-bottom: -.14em;
+}
+[data-split] .sw__i {
+  display: inline-block;
+  transform: translateY(112%);
+  opacity: 0;
+  transition: transform .85s cubic-bezier(.22, .61, .36, 1),
+              opacity .65s ease;
+  transition-delay: var(--d, 0ms);
+}
+[data-split].is-split .sw__i { transform: translateY(0); opacity: 1; }
+
+/* Sorotan kartu mengikuti kursor ------------------------------------------- */
+.spotlight { position: relative; }
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(19, 162, 150, .13),
+    transparent 62%
+  );
+  transition: opacity .35s var(--ease);
+}
+.spotlight:hover::before,
+.spotlight:focus-within::before { opacity: 1; }
+.spotlight > * { position: relative; z-index: 1; }
+
+/* Pencarian skema ---------------------------------------------------------- */
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 16px;
+  min-width: 250px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  background: #fff;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.search-field:focus-within {
+  border-color: var(--teal-600);
+  box-shadow: 0 0 0 3px rgba(15, 138, 126, .14);
+}
+.search-field .ico { width: 18px; height: 18px; color: var(--muted); }
+.search-field input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: .86rem;
+  color: var(--ink);
+}
+.search-field input::placeholder { color: var(--muted); }
+
+.empty-state {
+  margin-top: 26px;
+  padding: 34px 24px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-md);
+  text-align: center;
+  font-size: .92rem;
+  color: var(--muted);
+  background: #fff;
+}
+.empty-state strong { display: block; margin-bottom: 4px; color: var(--navy-900); }
+
+/* Gerakan dekoratif -------------------------------------------------------- */
+.badge__dot { animation: dot-pulse 2.6s ease-out infinite; }
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 162, 39, .5); }
+  55% { box-shadow: 0 0 0 7px rgba(201, 162, 39, 0); }
+}
+.hero__seal { animation: seal-float 7.5s ease-in-out infinite; }
+@keyframes seal-float {
+  0%, 100% { transform: rotate(-8deg) translateY(0); }
+  50% { transform: rotate(-5deg) translateY(-9px); }
+}
+
+/* Hormati preferensi pengguna ---------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track,
+  .ticker__star,
+  .rotator__caret,
+  .badge__dot,
+  .hero__seal { animation: none !important; }
+  [data-split] .sw__i { transform: none; opacity: 1; transition: none; }
+  .spotlight::before { display: none; }
+  .scroll-progress i { transition: none; }
+}
+
+@media (max-width: 720px) {
+  .hero__rotator { font-size: .79rem; padding: 7px 13px; }
+  .rotator { min-width: 12ch; }
+  .ticker { padding: 15px 0; }
+  .ticker__item { gap: 18px; padding-right: 18px; }
+  .search-field { width: 100%; min-width: 0; }
+}

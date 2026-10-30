@@ -1,0 +1,111 @@
+<section class="page-hero">
+  <div class="page-hero__bg" aria-hidden="true"></div>
+  <div class="container page-hero__inner">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="{{BASE}}">Beranda</a></li><li><span aria-current="page">Kontak</span></li></ol></nav>
+    <p class="eyebrow eyebrow--light">Hubungi Kami</p>
+    <h1 class="page-hero__title" data-split>Mari mulai percakapan</h1>
+    <p class="page-hero__lead">Tim kami membantu memilih skema, memeriksa kelengkapan dokumen, dan menjadwalkan uji kompetensi. Respons rata-rata kurang dari satu jam pada jam kerja.</p>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <h2 class="sr-only">Informasi kontak</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <span class="contact-card__icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10.5c0 5.4-8 11-8 11s-8-5.6-8-11a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10.5" r="2.8"/></svg></span>
+        <h3>Kantor</h3>
+        <p>{{ADDRESS}}<br>{{CITY}}</p>
+        <small>Kunjungan dengan perjanjian</small>
+      </div>
+      <div class="contact-card">
+        <span class="contact-card__icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.8 3.5H5.4A2.9 2.9 0 0 0 2.5 6.4c0 8.3 6.8 15.1 15.1 15.1a2.9 2.9 0 0 0 2.9-2.9v-1.4l-4.4-1.5-1.5 2a13 13 0 0 1-5.3-5.3l2-1.5z"/></svg></span>
+        <h3>Telepon &amp; WhatsApp</h3>
+        <p><a href="tel:{{PHONE_LINK}}">{{PHONE}}</a></p>
+        <small>Senin–Jumat, 08.00–17.00 WIB</small>
+      </div>
+      <div class="contact-card">
+        <span class="contact-card__icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="3"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></span>
+        <h3>Email</h3>
+        <p><a href="mailto:{{EMAIL}}">{{EMAIL}}</a><br><a href="mailto:{{EMAIL_SERTIFIKASI}}">{{EMAIL_SERTIFIKASI}}</a></p>
+        <small>Untuk pendaftaran &amp; dokumen</small>
+      </div>
+      <div class="contact-card">
+        <span class="contact-card__icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3.2 2"/></svg></span>
+        <h3>Jam Layanan</h3>
+        <p>{{HOURS}}</p>
+        <small>Sabtu 09.00–13.00 WIB</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0" id="daftar">
+  <div class="container contact-layout">
+    <form class="form-card" id="form-pendaftaran" data-wa-form data-wa="{{WA}}" data-phone="{{PHONE}}" data-endpoint="{{FORM_ENDPOINT}}" novalidate>
+      <div class="form-card__head">
+        <p class="eyebrow">Formulir Pendaftaran</p>
+        <h2>Ajukan pendaftaran sertifikasi</h2>
+        <p>Lengkapi data di bawah. Setelah dikirim, Anda akan diarahkan ke WhatsApp admin dengan ringkasan data Anda.</p>
+      </div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="nama">Nama lengkap <span class="req">*</span></label>
+          <input id="nama" name="nama" type="text" autocomplete="name" required placeholder="Nama sesuai KTP">
+        </div>
+        <div class="field">
+          <label for="telepon">Nomor WhatsApp <span class="req">*</span></label>
+          <input id="telepon" name="telepon" type="tel" inputmode="tel" autocomplete="tel" required placeholder="08xxxxxxxxxx">
+        </div>
+        <div class="field field--full">
+          <label for="email">Email <span class="req">*</span></label>
+          <input id="email" name="email" type="email" autocomplete="email" required placeholder="nama@email.com">
+          <span class="field__hint">Gunakan email yang sama dengan akun SIAPkerja.</span>
+        </div>
+        <div class="field field--full">
+          <label for="skema">Skema yang diminati</label>
+          <select id="skema" name="skema">
+            <option value="">Belum menentukan — mohon rekomendasi</option>
+            {{SCHEME_OPTIONS}}
+          </select>
+        </div>
+        <div class="field field--full">
+          <label for="pesan">Pengalaman kerja / catatan</label>
+          <textarea id="pesan" name="pesan" rows="4" placeholder="Contoh: 3 tahun sebagai barista di kafe, ingin sertifikasi Barista."></textarea>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:16px">
+        <label style="display:flex;gap:10px;align-items:flex-start;font-weight:500;font-size:.83rem;color:var(--body)">
+          <input type="checkbox" name="persetujuan" required style="width:18px;height:18px;margin-top:2px;flex:none;accent-color:#0f8a7e">
+          <span>Saya menyetujui data ini digunakan untuk keperluan pendaftaran sertifikasi dan dihubungi oleh tim LSP Patra Indo.</span>
+        </label>
+      </div>
+
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <button class="btn btn--primary btn--lg btn--block mt-3" type="submit">
+        Kirim via WhatsApp
+        <svg class="ico ico--sm" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2.5a9.4 9.4 0 0 0-8.03 14.3L2.5 21.5l4.83-1.48a9.4 9.4 0 1 0 4.71-17.52Zm5.5 13.36c-.23.65-1.35 1.25-1.87 1.3-.5.06-1.1.1-3.1-.7-2.4-1-3.92-3.5-4.04-3.7-.12-.2-.9-1.3-.9-2.4 0-1.1.6-1.64.8-1.86.2-.22.44-.28.6-.28h.42c.14 0 .33-.05.5.4l.7 1.7c.06.14.1.3.02.47l-.3.47c-.1.13-.2.27-.09.47.1.2.5.84 1.06 1.33.72.64 1.32.84 1.51.93.19.1.3.08.41-.04l.55-.65c.13-.16.26-.12.43-.06l1.62.76c.17.08.28.12.32.19.04.07.04.4-.2 1.05Z"/></svg>
+      </button>
+
+      <p class="form-note">Data Anda hanya digunakan untuk proses sertifikasi. Lihat <a href="{{BASE}}persyaratan/">persyaratan</a> sebelum mengirim. Alternatif: email ke <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>.</p>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+
+    <aside class="contact-aside">
+      <div class="map-card">
+        <iframe title="Peta lokasi kantor LSP Patra Indo" src="https://maps.google.com/maps?q={{MAPS}}&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="req-card">
+        <div class="req-card__head"><span class="req-card__num">→</span><h3>Kerja sama korporat</h3></div>
+        <p>Untuk sertifikasi in-house, kemitraan TUK, atau program institusi pendidikan, hubungi tim kemitraan kami.</p>
+        <a class="btn btn--outline btn--block" href="{{WA_LINK_KORPORAT}}" target="_blank" rel="noopener">Diskusi kemitraan</a>
+      </div>
+      <div class="notice notice--teal">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8 20 6v5.7c0 4.6-3.3 8.1-8 9.5-4.7-1.4-8-4.9-8-9.5V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg>
+        <p>LSP Patra Indo tidak pernah meminta pembayaran ke rekening pribadi. Pastikan invoice berasal dari domain <strong>lsppatraindo.id</strong>.</p>
+      </div>
+    </aside>
+  </div>
+</section>
