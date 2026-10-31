@@ -110,28 +110,28 @@
   ],
   "stats": [
     {
-      "value": 23,
+      "value": 10,
       "suffix": "+",
       "label": "Skema Sertifikasi",
       "note": "Terlisensi BNSP"
     },
     {
-      "value": 40,
+      "value": 18,
       "suffix": "+",
       "label": "Asesor Kompetensi",
-      "note": "Tersertifikasi BNSP"
+      "note": "Bersertifikat metodologi"
     },
     {
-      "value": 3500,
+      "value": 199,
       "suffix": "+",
       "label": "Peserta Tersertifikasi",
-      "note": "Sejak 2016"
+      "note": "Sejak 2026"
     },
     {
-      "value": 150,
+      "value": 100,
       "suffix": "+",
-      "label": "Mitra Industri",
-      "note": "Hotel, travel, F&B"
+      "label": "Tempat Uji Kompetensi",
+      "note": "Hotel, travel, Golf Resort "
     }
   ],
   "advantages": [
