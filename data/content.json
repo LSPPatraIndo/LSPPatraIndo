@@ -159,9 +159,9 @@
   "scheme_cats": [
     {
       "id": "hotel",
-      "label": "Perhotelan",
+      "label": "Pariwisata",
       "icon": "bed",
-      "desc": "Housekeeping, front office, dan layanan tamu"
+      "desc": "Tour Guide , Tour Leader, Tour Planner , Destination Manager"
     },
     {
       "id": "fbs",
@@ -170,39 +170,15 @@
       "desc": "Layanan restoran, bar, dan kafe"
     },
     {
-      "id": "kuliner",
-      "label": "Kuliner & Pastry",
-      "icon": "chef",
-      "desc": "Pengolahan makanan dan pastry"
-    },
-    {
-      "id": "spa",
-      "label": "SPA & Wellness",
-      "icon": "spark",
-      "desc": "Terapi dan perawatan tubuh"
-    },
-    {
-      "id": "mice",
-      "label": "MICE & Event",
-      "icon": "calendar",
-      "desc": "Penyelenggaraan acara dan konferensi"
-    },
-    {
-      "id": "travel",
-      "label": "Travel & Tour",
-      "icon": "globe",
-      "desc": "Kepemanduan, ticketing, dan biro perjalanan"
-    },
-    {
-      "id": "kreatif",
-      "label": "Ekonomi Kreatif",
-      "icon": "palette",
-      "desc": "Pemasaran dan pengelolaan destinasi"
+      "id": "",
+      "label": "Pariwisata",
+      "icon": "route",
+      "desc": ""
     }
   ],
   "schemes": [
     {
-      "name": "Resepsionis (Front Office)",
+      "name": "Porter ",
       "cat": "hotel",
       "level": "KKNI II",
       "units": 9,
