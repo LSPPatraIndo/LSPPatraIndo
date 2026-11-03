@@ -526,45 +526,17 @@
   ],
   "tuk": [
     {
-      "name": "TUK Patra Indo Jakarta",
-      "city": "Jakarta Selatan",
-      "type": "TUK Sewaktu",
-      "address": "Gedung Patra Office Tower, Lantai 12, Jl. Gatot Subroto No. 123",
-      "schemes": 12
-    },
-    {
-      "name": "TUK Patra Indo Bandung",
-      "city": "Bandung",
-      "type": "TUK Sewaktu",
-      "address": "Jl. Asia Afrika No. 88, Sumur Bandung",
-      "schemes": 8
-    },
-    {
-      "name": "TUK Patra Indo Yogyakarta",
-      "city": "Yogyakarta",
-      "type": "TUK Sewaktu",
-      "address": "Jl. Malioboro No. 45, Gedongtengen",
-      "schemes": 7
-    },
-    {
-      "name": "TUK Patra Indo Bali",
-      "city": "Denpasar",
-      "type": "TUK Sewaktu",
-      "address": "Jl. Sunset Road No. 21, Kuta",
-      "schemes": 9
-    },
-    {
-      "name": "TUK Patra Indo Surabaya",
-      "city": "Surabaya",
-      "type": "TUK Sewaktu",
-      "address": "Jl. Basuki Rahmat No. 101, Genteng",
-      "schemes": 6
-    },
-    {
-      "name": "TUK Mitra Hotel Nusantara",
-      "city": "Jakarta Pusat",
+      "name": "TUK Batam Hills",
+      "city": "Kota Batam",
       "type": "TUK Tempat Kerja",
-      "address": "Kawasan industri perhotelan, Jl. MH Thamrin",
+      "address": "",
+      "schemes": 5
+    },
+    {
+      "name": "TUK Mecca Travel",
+      "city": "Kota Batam ",
+      "type": "TUK Tempat Kerja",
+      "address": "Hang Lekiu Km 4",
       "schemes": 5
     }
   ],
@@ -755,20 +727,20 @@
   "struktur": [
     {
       "role": "Direktur",
-      "name": "Drs. Bambang Setiawan, M.M.",
-      "initials": "BS",
+      "name": "Enly Yunaeni,S.E.,M.M",
+      "initials": "EY",
       "note": "Penanggung jawab lembaga"
     },
     {
       "role": "Manajer Sertifikasi",
-      "name": "Rina Kartika, S.Par.",
-      "initials": "RK",
+      "name": "Zainal Abidin",
+      "initials": "ZA",
       "note": "Perencanaan & pelaksanaan asesmen"
     },
     {
-      "role": "Manajer Mutu",
-      "name": "Agus Salim, S.T.",
-      "initials": "AS",
+      "role": "Manajer Manajemen Mutu",
+      "name": "Mohammad Riza Radyanto",
+      "initials": "RR",
       "note": "Sistem manajemen mutu & audit internal"
     },
     {
@@ -778,16 +750,10 @@
       "note": "Keuangan & administrasi peserta"
     },
     {
-      "role": "Ketua Komite Imparsialitas",
-      "name": "Prof. Dr. Hendro Wibowo",
-      "initials": "HW",
-      "note": "Pengawasan ketidakberpihakan"
-    },
-    {
-      "role": "Koordinator TUK",
-      "name": "Yoga Pratama, S.Tr.Par.",
-      "initials": "YP",
-      "note": "Kesiapan sarana & fasilitas uji"
+      "role": "Ketua Komite Skema",
+      "name": "Heru Bagiyo Susianto ",
+      "initials": "HBS",
+      "note": "Bertanggung jawab pada pengembangan Skema"
     }
   ]
 }
