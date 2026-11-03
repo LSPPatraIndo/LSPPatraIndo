@@ -180,9 +180,9 @@
       "desc": "Mengelola reservasi, penerimaan tamu, komunikasi telepon, dan administrasi front office."
     },
     {
-      "name": "Room Attendant",
+      "name": "Starter and Marshall",
       "cat": "hotel",
-      "level": "KKNI II",
+      "level": "KKNI III",
       "units": 8,
       "featured": true,
       "desc": "Membersihkan dan menyiapkan kamar tamu sesuai standar kebersihan dan prosedur hotel."
@@ -313,32 +313,11 @@
       "desc": "Menyusun paket perjalanan, menangani reservasi, dan memberikan konsultasi kepada pelanggan."
     },
     {
-      "name": "Ticketing Officer",
-      "cat": "travel",
-      "level": "KKNI II",
-      "units": 7,
-      "desc": "Menerbitkan tiket, menghitung tarif, dan menangani perubahan jadwal penerbangan."
-    },
-    {
       "name": "Tour Leader",
       "cat": "travel",
       "level": "KKNI IV",
       "units": 10,
       "desc": "Memimpin rombongan wisata, mengelola itinerary, dan memastikan kepatuhan prosedur."
-    },
-    {
-      "name": "Konsultan Pemasaran Pariwisata",
-      "cat": "kreatif",
-      "level": "KKNI IV",
-      "units": 9,
-      "desc": "Menyusun strategi pemasaran destinasi dan mengukur efektivitas kampanye wisata."
-    },
-    {
-      "name": "Pengelola Desa Wisata",
-      "cat": "kreatif",
-      "level": "KKNI III",
-      "units": 11,
-      "desc": "Mengelola daya tarik desa wisata, memberdayakan masyarakat, dan menjaga keberlanjutan."
     }
   ],
   "hero_roles": [
