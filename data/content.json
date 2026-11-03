@@ -165,15 +165,9 @@
     },
     {
       "id": "fbs",
-      "label": "Food & Beverage",
-      "icon": "cup",
-      "desc": "Layanan restoran, bar, dan kafe"
-    },
-    {
-      "id": "",
-      "label": "Pariwisata",
-      "icon": "route",
-      "desc": ""
+      "label": "Golf",
+      "icon": "star",
+      "desc": "Porter, Starter dan Marshall, Golf Operation Manager, Golf Professional , Golfing Assistant - Caddy"
     }
   ],
   "schemes": [
