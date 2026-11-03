@@ -27,7 +27,7 @@
     "admin_api": "https://lsp-patra-indo-admin.netlify.app/.netlify/functions",
     "github_repo": "LSPPatraIndo/LSPPatraIndo",
     "github_branch": "main",
-    "founded": 2016
+    "founded": 2026
   },
   "pages": [
     {
@@ -41,14 +41,14 @@
       "file": "tentang-kami",
       "slug": "tentang-kami",
       "title": "Tentang Kami — Profil, Visi & Misi LSP Patra Indo",
-      "description": "Kenali LSP Patra Indo: lembaga sertifikasi profesi independen yang melaksanakan uji kompetensi berdasarkan SKKNI dan skema terlisensi BNSP.",
+      "description": "Kenali LSP Pariwisata Citra Indonesia: lembaga sertifikasi profesi P3 di bidang Wisata dan Golf yang melaksanakan uji kompetensi berdasarkan SKKNI dan skema terlisensi BNSP.",
       "crumb": "Tentang Kami"
     },
     {
       "file": "skema-sertifikasi",
       "slug": "skema-sertifikasi",
       "title": "Skema Sertifikasi — Daftar Skema Kompetensi BNSP",
-      "description": "Daftar skema sertifikasi LSP Patra Indo untuk bidang perhotelan, food & beverage, kuliner, SPA, MICE, travel, dan ekonomi kreatif.",
+      "description": "Daftar skema sertifikasi LSP Patra Indo untuk bidang golf dan pariwisata",
       "crumb": "Skema Sertifikasi"
     },
     {
