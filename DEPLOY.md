@@ -378,4 +378,4 @@ Repo tetap dipakai sebagai sumber data; hanya penerbitannya yang berbeda:
 | Panel admin: “Sesi berakhir” | Token HMAC kedaluwarsa (12 jam) atau `SESSION_SECRET` berubah — masuk ulang. |
 | Panel admin: simpan gagal 422 | Struktur JSON tidak valid (mis. `pages` kosong). Muat ulang lalu ulangi perubahan. |
 | Panel admin: simpan gagal 409 | `data/content.json` berubah di tempat lain; klik **Muat ulang** lalu simpan lagi. |
-| Perubahan tersimpan tapi situs belum berubah | Tunggu ±1 menit; cek tab **Actions** bila build gagal. |
+| Perubahan tersimpan tapi situs belum berubah | Tunggu ±1 menit; cek tab **Actions** bila build gagal. Build kini otomatis memperbaiki skema yang merujuk bidang terhapus, dan halaman memuat ulang saat versi baru tersedia. |

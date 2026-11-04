@@ -1,6 +1,6 @@
-# Website LSP Patra Indo
+# Website LSP Pariwisata Citra Indonesia
 
-Situs statis profesional untuk **Lembaga Sertifikasi Profesi Patra Indo** (`lsppatraindo.id`).
+Situs statis profesional untuk **Lembaga Sertifikasi Profesi Pariwisata Citra Indonesia** (`lsppatraindo.id`).
 Dibangun tanpa framework, tanpa database, dan tanpa proses build berantai — cukup unggah
 folder ini ke hosting apa pun (cPanel, Netlify, Vercel, GitHub Pages).
 
@@ -72,7 +72,8 @@ LSPPATRA/
 (tautan kecil **Login admin** di footer, atau `Ctrl`/`Cmd` + `Shift` + `A`).
 Masuk dengan username `lsppatraindo` dan kata sandi panel yang diberikan pengelola.
 Panel bisa mengubah identitas, kontak, SEO, skema, jadwal, FAQ, berita
-(termasuk **pilih gambar dari perangkat**), teks/HTML halaman, dan data lain.
+(termasuk **pilih gambar dari perangkat**), **navigasi header & footer**
+(termasuk sub-menu dropdown), teks/HTML halaman, dan data lain.
 
 Login memakai backend **Netlify Functions** yang sudah aktif, sehingga
 perubahan langsung diterbitkan ke `data/content.json` dan situs dibangun ulang
@@ -110,8 +111,8 @@ Semua nilai contoh berikut **wajib** disesuaikan dengan data resmi lembaga.
 | Sosial media | `SITE["social"]` | `instagram.com/lsppatraindo` dll. |
 | Jam layanan | `SITE["hours"]`, `hours_sat` | Senin–Jumat 08.00–17.00 |
 | Login SIAPkerja | `SITE["login_url"]` | `https://siapkerja.kemnaker.go.id/` |
-| Statistik | `STATS` | 23 skema, 40+ asesor, 3.500+ peserta, 150+ mitra |
-| Daftar skema | `SCHEMES` | 23 skema contoh — **sesuaikan dengan skema yang benar-benar terlisensi** |
+| Statistik | `STATS` | 10 skema, 18+ asesor, 199+ peserta, 100+ TUK |
+| Daftar skema | `SCHEMES` | 10 skema Golf & Pariwisata — **sesuaikan dengan skema yang benar-benar terlisensi** |
 | Asesor | `ASESOR` | Nama & bidang contoh |
 | Struktur pengurus | `STRUKTUR` | Nama & jabatan contoh |
 | Jadwal | `JADWAL` | Tanggal Nov 2026 – Jan 2027 |
@@ -164,12 +165,14 @@ dan footer.
 
 - **11 halaman** + halaman 404 kustom.
 - **Panel admin** di `/admin/`: login SSO (diverifikasi Worker, bukan di browser),
-  editor seluruh data situs, simpan → commit ke `data/content.json` → build & deploy
-  otomatis. Tautan dibuat samar di footer dan halaman `noindex`.
+  editor seluruh data situs termasuk **nama website, unggah logo, navigasi header/footer,
+  dan sub-menu dropdown**, simpan → commit ke `data/content.json` → build & deploy otomatis.
+  Perubahan langsung terlihat setelah build selesai; halaman juga memuat ulang otomatis
+  saat versi situs berubah. Tautan dibuat samar di footer dan halaman `noindex`.
 - **Desain responsif** (desktop, tablet, mobile) dengan menu drawer.
 - **Animasi teks & interaksi:**
   - *Ticker* teks berjalan (marquee) di beranda, berhenti saat kursor diarahkan.
-  - *Headline berputar* (efek mengetik) untuk 7 bidang sertifikasi di hero.
+  - *Headline berputar* (efek mengetik) untuk bidang Golf dan Pariwisata di hero.
   - *Reveal per kata* pada judul halaman dan judul seksi saat masuk layar.
   - Penghitung angka statistik, sorotan kartu mengikuti kursor, progress bar gulir.
   - Pencarian skema instan + filter bidang + status kosong.
@@ -199,6 +202,8 @@ dan footer.
   perbarui referensinya di `src/pages/` dan `site_data.py`.
 - **Menambah skema**: tambah entri pada `SCHEMES` (dan `SCHEME_CATS` bila bidang baru),
   lalu jalankan `python3 build.py`.
+- **Logo situs** dapat diunggah dari panel admin → bagian **Identitas, Nama & Logo**.
+  Bila kosong, situs memakai lambang bawaan.
 - **Regenerasi aset brand** (bila logo berubah):
 
 ```bash

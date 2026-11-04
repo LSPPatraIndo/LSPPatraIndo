@@ -2,7 +2,7 @@
   <header class="adm__bar">
     <div class="adm__brand">
       <span class="adm__dot" aria-hidden="true"></span>
-      <span>LSP Patra Indo<small>Panel Admin</small></span>
+      <span>{{SITE_NAME}}<small>Panel Admin</small></span>
     </div>
     <span class="adm__bar-spacer"></span>
     <span class="adm__chip" id="conn-chip" hidden>Terhubung</span>
@@ -15,7 +15,7 @@
     <section class="adm-login" id="login-view">
       <div class="adm-login__card">
         <h1>Masuk panel admin</h1>
-        <p class="adm-login__sub">Masuk dengan akun admin LSP Patra Indo. Halaman ini tidak terindeks mesin pencari dan tidak ditautkan dari menu utama.</p>
+        <p class="adm-login__sub">Masuk dengan akun admin {{SITE_NAME}}. Halaman ini tidak terindeks mesin pencari dan tidak ditautkan dari menu utama.</p>
 
         <form id="login-form" autocomplete="off" novalidate>
           <div class="adm-field">
@@ -58,7 +58,7 @@
         <div class="adm-main">
           <div class="adm-note adm-note--local" id="local-notice" hidden>
             <strong>Mode lokal (pratinjau).</strong> Perubahan hanya tersimpan di peramban ini.
-            Untuk menerbitkan ke <code>lsppatraindo.id</code> bagi semua pengunjung,
+            Untuk menerbitkan ke <code>{{DOMAIN}}</code> bagi semua pengunjung,
             hubungkan akun GitHub dengan token <em>Contents: Read and write</em>, atau pasang
             backend Worker. Anda juga dapat mengunduh JSON lalu commit manual.
             <div class="adm-note__actions">
@@ -69,7 +69,7 @@
 
           <div class="adm-card" id="connect-card" hidden>
             <div class="adm-card__head"><h3>Hubungkan GitHub</h3></div>
-            <p class="adm-hint" style="margin-top:0">Token hanya disimpan di tab ini (sessionStorage) dan tidak ditulis ke situs. Gunakan fine-grained token dengan izin <strong>Contents: Read and write</strong> untuk repo <code>LSPPatraIndo/LSPPatraIndo</code>.</p>
+            <p class="adm-hint" style="margin-top:0">Token hanya disimpan di tab ini (sessionStorage) dan tidak ditulis ke situs. Gunakan fine-grained token dengan izin <strong>Contents: Read and write</strong> untuk repo <code>{{GH_REPO}}</code>.</p>
             <form id="connect-form" autocomplete="off">
               <div class="adm-field">
                 <label for="connect-token">Fine-grained token GitHub</label>

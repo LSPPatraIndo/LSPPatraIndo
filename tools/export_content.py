@@ -24,6 +24,9 @@ import site_data as d  # noqa: E402
 OUT = ROOT / "data" / "content.json"
 
 LISTS = {
+    "nav": d.NAV,
+    "footer_nav": d.NAV_FOOTER,
+    "footer_legal": d.NAV_LEGAL,
     "stats": d.STATS,
     "advantages": d.ADVANTAGES,
     "scheme_cats": d.SCHEME_CATS,

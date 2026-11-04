@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LSP PATRA INDO — Design System
+   LSP PARIWISATA CITRA INDONESIA — Design System
    1. Tokens
    2. Reset & base
    3. Typography
@@ -385,6 +385,23 @@ p { text-wrap: pretty; }
   width: 46px;
   height: 50px;
   color: #fff;
+  flex: 0 0 auto;
+}
+.brand__logo-wrap { display: flex; align-items: center; flex: 0 0 auto; }
+.brand__logo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 150px;
+  max-height: 50px;
+  object-fit: contain;
+}
+.brand__logo--light {
+  max-width: 170px;
+  max-height: 54px;
+  padding: 4px 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .96);
 }
 .brand__mark::before {
   content: "";
@@ -407,10 +424,15 @@ p { text-wrap: pretty; }
 
 .brand__text { display: flex; flex-direction: column; line-height: 1.1; }
 .brand__text strong {
-  font-size: 1.02rem;
+  font-size: .92rem;
   font-weight: 800;
-  letter-spacing: .02em;
+  letter-spacing: .01em;
+  line-height: 1.15;
   color: var(--navy-950);
+}
+@media (max-width: 1180px) {
+  .brand__text strong { font-size: .82rem; }
+  .brand__logo { max-width: 118px; }
 }
 .brand__text span {
   margin-top: 3px;

@@ -1,5 +1,5 @@
 /**
- * Cloudflare Worker — backend panel admin LSP Patra Indo.
+ * Cloudflare Worker — backend panel admin LSP Pariwisata Citra Indonesia.
  *
  * Login SSO (username + password) diperiksa DI SINI, bukan di browser, sehingga
  * kata sandi tidak pernah ikut terkirim ke pengunjung. Setelah login, Worker
@@ -28,7 +28,7 @@
 
 const CONTENT_PATH = "data/content.json";
 const LISTS = [
-  "stats", "advantages", "scheme_cats", "schemes", "hero_roles", "ticker_items",
+  "nav", "footer_nav", "footer_legal", "stats", "advantages", "scheme_cats", "schemes", "hero_roles", "ticker_items",
   "steps", "testimonials", "asesor", "tuk", "jadwal", "faq", "posts", "values",
   "struktur",
 ];

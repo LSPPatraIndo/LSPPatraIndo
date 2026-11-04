@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Membuat aset brand LSP Patra Indo: favicon, ikon PWA, dan gambar OG.
+"""Membuat aset brand LSP Pariwisata Citra Indonesia: favicon, ikon PWA, dan gambar OG.
 
 Jalankan sekali:  python3 tools/make_assets.py
 """
@@ -121,7 +121,7 @@ def make_og() -> None:
     mark = make_icon(74)
     canvas.alpha_composite(mark, (72, 54))
     d = ImageDraw.Draw(canvas)
-    d.text((162, 58), "LSP PATRA INDO", font=font(800, 30), fill=WHITE)
+    d.text((162, 58), "LSP PARIWISATA CITRA INDONESIA", font=font(800, 25), fill=WHITE)
     d.text((164, 96), "LEMBAGA SERTIFIKASI PROFESI", font=font(600, 13), fill=GOLD_LIGHT)
 
     # Judul
@@ -129,7 +129,7 @@ def make_og() -> None:
     d.text((72, 264), "yang Diakui BNSP", font=font(800, 56), fill=GOLD_LIGHT)
 
     # Subjudul
-    d.text((74, 352), "Perhotelan · Kuliner · SPA · MICE · Travel · Ekonomi Kreatif",
+    d.text((74, 352), "Golf · Pariwisata · Tour Guide · Manajemen Destinasi",
            font=font(500, 21), fill=(214, 226, 236))
 
     # Chip
@@ -153,7 +153,7 @@ def make_og() -> None:
     print("  ✓ assets/img/og-image.jpg")
 
 
-FAVICON_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="LSP Patra Indo">
+FAVICON_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="LSP Pariwisata Citra Indonesia">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#1a3e60"/>

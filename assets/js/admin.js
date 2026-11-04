@@ -1,4 +1,4 @@
-/* Panel admin LSP Patra Indo — login, editor data situs, unggah gambar, simpan. */
+/* Panel admin LSP Pariwisata Citra Indonesia — login, editor data situs, unggah gambar, simpan. */
 (function () {
   'use strict';
 
@@ -25,6 +25,7 @@
 
   var LABELS = {
     q: 'Pertanyaan', a: 'Jawaban', desc: 'Deskripsi', text: 'Teks', name: 'Nama',
+    href: 'Tautan / URL', children: 'Sub-menu',
     role: 'Jabatan / Peran', quote: 'Kutipan', initials: 'Inisial', tone: 'Warna kartu',
     field: 'Bidang keahlian', city: 'Kota', year: 'Tahun', cat: 'Kategori', level: 'Level KKNI',
     units: 'Jumlah unit', featured: 'Tampil di beranda', no: 'Nomor langkah', duration: 'Durasi',
@@ -40,11 +41,13 @@
     login_url: 'URL login SIAPkerja', founded: 'Tahun berdiri', form_endpoint: 'Endpoint formulir',
     admin_api: 'URL backend admin', github_repo: 'Repo GitHub', github_branch: 'Branch GitHub',
     instagram: 'Instagram', linkedin: 'LinkedIn', youtube: 'YouTube', facebook: 'Facebook',
-    legal: 'Nama legal lengkap',
+    legal: 'Nama legal lengkap', logo: 'Logo situs (gambar)',
+    license: 'Nomor lisensi / MET',
   };
 
   var SITE_HELP = {
-    name: 'Nama pendek, dipakai di logo dan judul.',
+    name: 'Nama pendek yang tampil di header, footer, dan judul halaman.',
+    logo: 'Unggah logo situs (PNG/JPG/WebP/SVG). Bila kosong, situs memakai lambang bawaan.',
     legal: 'Nama lengkap lembaga untuk footer dan data terstruktur.',
     domain: 'Domain tanpa https://',
     url: 'URL penuh dengan https:// (memengaruhi canonical, sitemap, OG).',
@@ -69,18 +72,21 @@
   };
 
   var SECTIONS = [
-    { key: 'site', label: 'Identitas & Kontak', kind: 'object', help: 'Nama lembaga, telepon, WhatsApp, email, alamat, jam layanan, dan sosial media.' },
+    { key: 'site', label: 'Identitas, Nama & Logo', kind: 'object', help: 'Ubah nama website, logo, telepon, WhatsApp, email, alamat, jam layanan, dan sosial media.' },
+    { key: 'nav', label: 'Navigasi Utama', kind: 'nav', help: 'Susun menu header, termasuk sub-menu dropdown. Urutan, label, tautan, dan deskripsi sub-menu bisa diubah.' },
+    { key: 'footer_nav', label: 'Navigasi Footer', kind: 'array', fields: ['label', 'href'], primary: 'label', help: 'Tautan pada kolom “Informasi” di footer.' },
+    { key: 'footer_legal', label: 'Navigasi Bawah Footer', kind: 'array', fields: ['label', 'href'], primary: 'label', help: 'Tautan Bantuan, Kontak, Sitemap di bagian bawah footer. Tautan Login admin tetap dipertahankan.' },
     { key: 'pages', label: 'Judul & SEO', kind: 'array', noAdd: true, fields: ['slug', 'title', 'description', 'crumb'], primary: 'slug', help: 'Judul tab peramban, meta description, dan nama breadcrumb tiap halaman.' },
     { key: 'page_html', label: 'Teks Halaman (HTML)', kind: 'page_html', help: 'Edit isi markup tiap halaman. Kosongkan untuk kembali ke berkas sumber src/pages/.' },
     { key: 'schemes', label: 'Skema Sertifikasi', kind: 'array', fields: ['name', 'cat', 'level', 'units', 'featured', 'desc'], primary: 'name', help: 'Daftar skema yang tampil di beranda dan halaman skema.' },
-    { key: 'scheme_cats', label: 'Bidang Industri', kind: 'array', fields: ['id', 'label', 'icon', 'desc'], primary: 'label', help: 'Kategori/filter skema di halaman skema.' },
+    { key: 'scheme_cats', label: 'Bidang Industri', kind: 'array', fields: ['id', 'label', 'icon', 'desc'], primary: 'label', help: 'Kategori/filter skema di halaman skema. Setiap skema wajib memakai salah satu ID bidang di sini.' },
     { key: 'stats', label: 'Statistik', kind: 'array', fields: ['value', 'suffix', 'label', 'note'], primary: 'label', help: 'Angka penghitung di beranda.' },
     { key: 'advantages', label: 'Keunggulan', kind: 'array', fields: ['icon', 'title', 'text'], primary: 'title', help: 'Kartu keunggulan di beranda.' },
     { key: 'hero_roles', label: 'Teks Berputar', kind: 'lines', help: 'Satu bidang per baris; tampil berganti di hero beranda.' },
     { key: 'ticker_items', label: 'Ticker Berjalan', kind: 'array', fields: ['text', 'outline'], primary: 'text', help: 'Teks marquee di beranda. Centang "garis luar" untuk gaya outline.' },
     { key: 'steps', label: 'Alur Sertifikasi', kind: 'array', fields: ['no', 'title', 'duration', 'text'], primary: 'title', help: 'Lima langkah proses sertifikasi.' },
     { key: 'jadwal', label: 'Jadwal & Biaya', kind: 'array', fields: ['date', 'scheme', 'tuk', 'mode', 'quota', 'status'], primary: 'scheme', help: 'Jadwal uji kompetensi terdekat.' },
-    { key: 'asesor', label: 'Daftar Asesor', kind: 'array', fields: ['name', 'initials', 'field', 'city', 'year'], primary: 'name', help: 'Asesor kompetensi beserta bidang dan kota.' },
+    { key: 'asesor', label: 'Daftar Asesor', kind: 'array', fields: ['name', 'initials', 'field', 'city', 'year', 'license'], primary: 'name', help: 'Asesor kompetensi beserta bidang, kota, dan nomor lisensi/MET.' },
     { key: 'tuk', label: 'Tempat Uji (TUK)', kind: 'array', fields: ['name', 'city', 'type', 'address', 'schemes'], primary: 'name', help: 'Lokasi TUK dan fasilitasnya.' },
     { key: 'faq', label: 'FAQ', kind: 'array', fields: ['q', 'a'], primary: 'q', help: 'Pertanyaan umum; juga dipakai data terstruktur Google.' },
     { key: 'posts', label: 'Berita', kind: 'array', fields: ['title', 'date', 'cat', 'image', 'excerpt'], primary: 'title', help: 'Kartu berita di beranda dan halaman berita. Gambar bisa dipilih langsung dari perangkat.' },
@@ -254,12 +260,33 @@
     return path.split('/').map(encodeURIComponent).join('/');
   }
 
+  async function ensureNavigationData() {
+    if (!state.content || typeof state.content !== 'object') return;
+    if (Array.isArray(state.content.nav) && Array.isArray(state.content.footer_nav) && Array.isArray(state.content.footer_legal)) return;
+    try {
+      var res = await fetch('../data/content.json?t=' + Date.now(), { cache: 'no-store' });
+      if (res.ok) {
+        var defaults = await res.json();
+        if (!Array.isArray(state.content.nav) && Array.isArray(defaults.nav)) state.content.nav = defaults.nav;
+        if (!Array.isArray(state.content.footer_nav) && Array.isArray(defaults.footer_nav)) {
+          state.content.footer_nav = defaults.footer_nav;
+        }
+        if (!Array.isArray(state.content.footer_legal) && Array.isArray(defaults.footer_legal)) {
+          state.content.footer_legal = defaults.footer_legal;
+        }
+      }
+    } catch (err) {
+      /* Data lama tanpa navigasi: biarkan admin menambahkannya secara manual. */
+    }
+  }
+
   async function loadContent() {
     if (state.mode === 'worker') {
       var res = await workerCall('/content');
       state.content = res.content;
       state.sha = res.sha;
       state.fromLocal = false;
+      await ensureNavigationData();
       return;
     }
     if (state.mode === 'token') {
@@ -267,6 +294,7 @@
       state.content = JSON.parse(b64decode(file.content));
       state.sha = file.sha;
       state.fromLocal = false;
+      await ensureNavigationData();
       return;
     }
 
@@ -281,6 +309,7 @@
         state.content = JSON.parse(raw);
         state.sha = null;
         state.fromLocal = true;
+        await ensureNavigationData();
         return;
       } catch (err) {
         localStorage.removeItem(LOCAL_CONTENT_KEY);
@@ -291,6 +320,7 @@
     state.content = await response.json();
     state.sha = null;
     state.fromLocal = false;
+    await ensureNavigationData();
   }
 
   async function refreshSha() {
@@ -298,7 +328,56 @@
     state.sha = file.sha;
   }
 
+  function contentProblems(content) {
+    var problems = [];
+    var cats = Array.isArray(content.scheme_cats) ? content.scheme_cats : [];
+    var ids = [];
+    cats.forEach(function (cat, index) {
+      var id = String((cat && cat.id) || '').trim();
+      if (!id) problems.push('Bidang industri #' + (index + 1) + ' belum memiliki ID.');
+      else if (ids.indexOf(id) !== -1) problems.push('ID bidang "' + id + '" dipakai lebih dari sekali.');
+      else ids.push(id);
+    });
+    if (!ids.length) problems.push('Minimal satu bidang industri harus tersedia.');
+    (content.schemes || []).forEach(function (scheme, index) {
+      var cat = String((scheme && scheme.cat) || '').trim();
+      if (ids.length && ids.indexOf(cat) === -1) {
+        problems.push('Skema "' + ((scheme && scheme.name) || '#' + (index + 1)) + '" memakai bidang "' + cat + '" yang tidak ada.');
+      }
+    });
+    return problems;
+  }
+
+  function assertValidContent(content) {
+    var problems = contentProblems(content);
+    if (problems.length) {
+      throw new Error(problems[0] + (problems.length > 1 ? ' (+' + (problems.length - 1) + ' masalah lain)' : ''));
+    }
+  }
+
+  function schemeCatIds(content) {
+    return (content.scheme_cats || []).map(function (cat) { return String((cat && cat.id) || '').trim(); }).filter(Boolean);
+  }
+
+  function invalidSchemes(content) {
+    var ids = schemeCatIds(content);
+    if (!ids.length) return [];
+    return (content.schemes || []).filter(function (scheme) {
+      return ids.indexOf(String((scheme && scheme.cat) || '').trim()) === -1;
+    });
+  }
+
   async function saveContent() {
+    var invalid = invalidSchemes(state.content);
+    if (invalid.length) {
+      var proceed = window.confirm(invalid.length + ' skema memakai bidang yang sudah dihapus. Skema tersebut akan dipindahkan ke bidang pertama agar situs tetap bisa dibangun. Lanjutkan menyimpan?');
+      if (!proceed) throw new Error('Penyimpanan dibatalkan. Perbaiki bidang pada skema terlebih dahulu.');
+      var firstCat = schemeCatIds(state.content)[0];
+      invalid.forEach(function (scheme) { scheme.cat = firstCat; });
+      markDirty();
+      renderEditor();
+    }
+    assertValidContent(state.content);
     if (state.mode === 'worker') {
       await processImages();
       return workerCall('/content', { method: 'PUT', body: { content: state.content } });
@@ -422,8 +501,14 @@
 
   async function processImages() {
     if (state.mode === 'local') return 0;
-    var posts = state.content.posts || [];
     var uploaded = 0;
+    var logo = state.content.site && String(state.content.site.logo || '');
+    if (logo && /^data:image\//i.test(logo)) {
+      setSaveState('Mengunggah logo situs…');
+      state.content.site.logo = await uploadImage(logo, 'logo-situs');
+      uploaded += 1;
+    }
+    var posts = state.content.posts || [];
     for (var i = 0; i < posts.length; i += 1) {
       var image = String(posts[i].image || '');
       if (!/^data:image\//i.test(image)) continue;
@@ -452,6 +537,16 @@
     }).join('');
   }
 
+  function selectLabel(sectionKey, key, value) {
+    if (sectionKey === 'schemes' && key === 'cat') {
+      var cats = (state.content && state.content.scheme_cats) || [];
+      for (var i = 0; i < cats.length; i += 1) {
+        if (String(cats[i].id) === String(value)) return cats[i].label + ' (' + cats[i].id + ')';
+      }
+    }
+    return value;
+  }
+
   function fieldControl(path, key, value, sectionKey, extraClass) {
     var cls = 'adm-field' + (extraClass ? ' ' + extraClass : '');
     var id = 'f_' + path.replace(/[^\w]/g, '_');
@@ -472,7 +567,7 @@
       return '<div class="' + cls + '">' + label + '<select id="' + id + '" data-path="' + path + '">' +
         options.map(function (option) {
           return '<option value="' + esc(option) + '"' + (option === current ? ' selected' : '') + '>' +
-            esc(option) + '</option>';
+            esc(selectLabel(sectionKey, key, option)) + '</option>';
         }).join('') + '</select>' + hint + '</div>';
     }
 
@@ -494,37 +589,50 @@
       (readonly && key === 'slug' ? '<span class="adm-hint">Slug dipakai sebagai URL halaman — jangan diubah.</span>' : hint) + '</div>';
   }
 
-  function imageControl(path, value) {
+  function imageControl(path, value, options) {
+    options = options || {};
     var image = value == null ? '' : String(value);
     var preview = imageSrc(image);
     var isData = /^data:image\//i.test(image);
+    var label = options.label || 'Gambar berita';
+    var variant = options.variant ? ' adm-image-preview--' + options.variant : '';
+    var hint = options.hint || 'Boleh juga memakai nama gambar bawaan (train, hotel, guide, about, fb, culinary) atau path <code>assets/img/uploads/…</code>.';
+    var placeholder = options.placeholder || 'train atau assets/img/uploads/namafile.jpg';
     var pathField = isData
       ? '<input type="hidden" data-path="' + path + '" value="' + esc(image) + '">' +
         '<input type="text" class="adm-image-path" value="Gambar dipilih dari perangkat" disabled>'
       : '<input type="text" class="adm-image-path" data-path="' + path + '" value="' + esc(image) +
-        '" spellcheck="false" placeholder="train atau assets/img/uploads/namafile.jpg">';
+        '" spellcheck="false" placeholder="' + esc(placeholder) + '">';
 
     return '<div class="adm-field adm-image-field adm-col--full">' +
-      '<label>Gambar berita</label>' +
+      '<label>' + esc(label) + '</label>' +
       '<div class="adm-image-row">' +
-      '<img class="adm-image-preview" data-preview="' + esc(path) + '"' + (preview ? ' src="' + esc(preview) + '"' : '') + ' alt=""' +
+      '<img class="adm-image-preview' + variant + '" data-preview="' + esc(path) + '"' + (preview ? ' src="' + esc(preview) + '"' : '') + ' alt=""' +
       (preview ? '' : ' hidden') + '>' +
       '<div class="adm-image-side">' +
-      '<input class="adm-file" type="file" accept="image/jpeg,image/png,image/webp,image/gif" data-image-input="' + esc(path) + '">' +
+      '<input class="adm-file" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml" data-image-input="' + esc(path) + '">' +
       '<button class="adm-btn adm-btn--danger adm-btn--sm adm-image-clear" type="button" data-image-clear="' + esc(path) + '">Hapus gambar</button>' +
       '<span class="adm-hint">Pilih file dari perangkat. Gambar otomatis diperkecil; saat disimpan, gambar diunggah ke repositori.</span>' +
       '</div></div>' +
       pathField +
-      '<span class="adm-hint">Boleh juga memakai nama gambar bawaan (train, hotel, guide, about, fb, culinary) atau path <code>assets/img/uploads/…</code>.</span>' +
+      '<span class="adm-hint">' + hint + '</span>' +
       '</div>';
   }
 
   function renderObjectSection(section) {
     var data = state.content[section.key] || {};
-    var keys = Object.keys(data).filter(function (k) { return k !== 'social'; });
+    var keys = Object.keys(data).filter(function (k) { return k !== 'social' && k !== 'logo'; });
     var social = data.social && typeof data.social === 'object' ? data.social : null;
 
-    var html = '<div class="adm-card"><div class="adm-card__head"><h3>Data lembaga</h3></div><div class="adm-row adm-row--3">' +
+    var logoField = imageControl(section.key + '.logo', data.logo, {
+      label: 'Logo situs',
+      variant: 'logo',
+      placeholder: 'assets/img/uploads/logo-situs.png',
+      hint: 'Logo ini tampil di header dan footer. Unggah gambar berlatar transparan agar hasilnya rapi, atau masukkan path <code>assets/img/uploads/…</code>.'
+    });
+
+    var html = '<div class="adm-card"><div class="adm-card__head"><h3>Nama & logo situs</h3></div><div class="adm-row adm-row--3">' +
+      logoField +
       keys.map(function (key) {
         var full = ['description', 'address', 'legal'].indexOf(key) !== -1 ? ' adm-col--full' : '';
         return fieldControl(section.key + '.' + key, key, data[key], section.key, full);
@@ -536,6 +644,62 @@
           return fieldControl(section.key + '.social.' + key, key, social[key], section.key);
         }).join('') + '</div></div>';
     }
+    return html;
+  }
+
+  function renderNavigationSection(section) {
+    var list = Array.isArray(state.content[section.key]) ? state.content[section.key] : [];
+    var html = '<div class="adm-help-box"><strong>Navigasi situs.</strong> ' +
+      'Menu di sini tampil di header seluruh halaman. Tambahkan sub-menu untuk membuat dropdown. ' +
+      'Tautan boleh berupa <code>tentang-kami/</code>, <code>/kontak/</code>, atau URL lengkap <code>https://…</code>.</div>';
+
+    if (!list.length) {
+      return html + '<div class="adm-card"><p class="adm-empty">Belum ada menu. Gunakan tombol <strong>Tambah menu</strong>.</p></div>';
+    }
+
+    html += list.map(function (item, index) {
+      item = item && typeof item === 'object' ? item : {};
+      var children = Array.isArray(item.children) ? item.children : [];
+      var title = String(item.label || 'Menu #' + (index + 1));
+      return '<article class="adm-card adm-nav-block" data-nav-parent="' + index + '">' +
+        '<div class="adm-card__head">' +
+        '<span class="adm-badge">#' + (index + 1) + '</span>' +
+        (children.length ? '<span class="adm-badge">Dropdown · ' + children.length + '</span>' : '') +
+        '<h3>' + esc(title.length > 70 ? title.slice(0, 70) + '…' : title) + '</h3>' +
+        '<div class="adm-card__tools">' +
+        '<button type="button" class="adm-btn adm-btn--ghost-dark adm-btn--sm" data-move="up" data-index="' + index + '" title="Naikkan">↑</button>' +
+        '<button type="button" class="adm-btn adm-btn--ghost-dark adm-btn--sm" data-move="down" data-index="' + index + '" title="Turunkan">↓</button>' +
+        '<button type="button" class="adm-btn adm-btn--ghost-dark adm-btn--sm" data-dup="' + index + '">Duplikat</button>' +
+        '<button type="button" class="adm-btn adm-btn--danger adm-btn--sm" data-del="' + index + '">Hapus</button>' +
+        '</div></div>' +
+        '<div class="adm-row">' +
+        fieldControl(section.key + '.' + index + '.label', 'label', item.label, section.key) +
+        fieldControl(section.key + '.' + index + '.href', 'href', item.href, section.key) +
+        '</div>' +
+        '<div class="adm-subnav">' +
+        '<div class="adm-subnav__head"><strong>Sub-menu dropdown</strong>' +
+        '<span class="adm-hint">Kosongkan bila menu ini tidak memiliki dropdown.</span>' +
+        '<button type="button" class="adm-btn adm-btn--ghost-dark adm-btn--sm" data-nav-add-child="' + index + '">Tambah sub-menu</button></div>' +
+        (children.length ? children.map(function (child, childIndex) {
+          child = child && typeof child === 'object' ? child : {};
+          var childTitle = String(child.label || 'Sub-menu #' + (childIndex + 1));
+          return '<div class="adm-subitem" data-nav-child="' + childIndex + '">' +
+            '<div class="adm-card__head">' +
+            '<span class="adm-badge">' + (index + 1) + '.' + (childIndex + 1) + '</span>' +
+            '<h3>' + esc(childTitle.length > 70 ? childTitle.slice(0, 70) + '…' : childTitle) + '</h3>' +
+            '<div class="adm-card__tools">' +
+            '<button type="button" class="adm-btn adm-btn--ghost-dark adm-btn--sm" data-nav-child-move="up" data-nav-parent="' + index + '" data-nav-child="' + childIndex + '" title="Naikkan">↑</button>' +
+            '<button type="button" class="adm-btn adm-btn--ghost-dark adm-btn--sm" data-nav-child-move="down" data-nav-parent="' + index + '" data-nav-child="' + childIndex + '" title="Turunkan">↓</button>' +
+            '<button type="button" class="adm-btn adm-btn--danger adm-btn--sm" data-nav-child-del="' + childIndex + '" data-nav-parent="' + index + '">Hapus</button>' +
+            '</div></div>' +
+            '<div class="adm-row adm-row--3">' +
+            fieldControl(section.key + '.' + index + '.children.' + childIndex + '.label', 'label', child.label, section.key) +
+            fieldControl(section.key + '.' + index + '.children.' + childIndex + '.href', 'href', child.href, section.key) +
+            fieldControl(section.key + '.' + index + '.children.' + childIndex + '.desc', 'desc', child.desc, section.key) +
+            '</div></div>';
+        }).join('') : '<p class="adm-subnav__empty">Belum ada sub-menu. Menu ini tampil sebagai tautan biasa.</p>') +
+        '</div></article>';
+    }).join('');
     return html;
   }
 
@@ -636,14 +800,16 @@
     el('section-help').textContent = section.help || '';
 
     var isPosts = section.key === 'posts';
-    var canAdd = section.kind === 'array' && section.noAdd !== true;
+    var canAdd = (section.kind === 'array' && section.noAdd !== true) || section.kind === 'nav';
     el('add-btn').hidden = !canAdd || isPosts;
+    el('add-btn').textContent = section.kind === 'nav' ? 'Tambah menu' : (section.key === 'footer_nav' || section.key === 'footer_legal') ? 'Tambah tautan' : 'Tambah entri';
     el('add-post-btn').hidden = !isPosts;
 
     var html = '';
     if (section.kind === 'object') html = renderObjectSection(section);
     else if (section.kind === 'lines') html = renderLinesSection(section);
     else if (section.kind === 'page_html') html = renderPageHtmlSection(section);
+    else if (section.kind === 'nav') html = renderNavigationSection(section);
     else html = renderArraySection(section);
 
     el('editor').innerHTML = html;
@@ -687,7 +853,23 @@
 
   function addEntry() {
     var section = currentSection();
-    if (section.kind !== 'array' || section.noAdd) return;
+    if ((section.kind !== 'array' && section.kind !== 'nav') || section.noAdd) return;
+
+    if (section.kind === 'nav') {
+      if (!Array.isArray(state.content[section.key])) state.content[section.key] = [];
+      state.content[section.key].push({ label: 'Menu baru', href: '' });
+      markDirty();
+      renderEditor();
+      var navCards = el('editor').querySelectorAll('.adm-nav-block');
+      var newNav = navCards[navCards.length - 1];
+      if (newNav) {
+        newNav.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        var navField = newNav.querySelector('[data-path$=".label"]');
+        if (navField && navField.focus) navField.focus({ preventScroll: true });
+      }
+      return;
+    }
+
     var list = state.content[section.key] || [];
     var template;
 
@@ -769,7 +951,41 @@
       var section = currentSection();
       var list = state.content[section.key];
 
-      if (button.dataset.imageClear != null) {
+      if (button.dataset.navAddChild != null) {
+        var parentIndex = Number(button.dataset.navAddChild);
+        var parentItem = list[parentIndex];
+        if (!parentItem || typeof parentItem !== 'object') return;
+        if (!Array.isArray(parentItem.children)) parentItem.children = [];
+        parentItem.children.push({ label: 'Sub-menu baru', href: '', desc: '' });
+        var newChildIndex = parentItem.children.length - 1;
+        markDirty();
+        renderEditor();
+        var newChild = el('editor').querySelector('[data-nav-parent="' + parentIndex + '"] [data-nav-child="' + newChildIndex + '"]');
+        if (newChild) {
+          newChild.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          var childField = newChild.querySelector('[data-path$=".label"]');
+          if (childField && childField.focus) childField.focus({ preventScroll: true });
+        }
+      } else if (button.dataset.navChildDel != null) {
+        var childParent = Number(button.dataset.navParent);
+        var childItem = list[childParent];
+        if (!childItem || !Array.isArray(childItem.children)) return;
+        if (!window.confirm('Hapus sub-menu ini?')) return;
+        childItem.children.splice(Number(button.dataset.navChildDel), 1);
+        markDirty();
+        renderEditor();
+      } else if (button.dataset.navChildMove) {
+        var moveParent = Number(button.dataset.navParent);
+        var moveItem = list[moveParent];
+        if (!moveItem || !Array.isArray(moveItem.children)) return;
+        var childFrom = Number(button.dataset.navChild);
+        var childTo = button.dataset.navChildMove === 'up' ? childFrom - 1 : childFrom + 1;
+        if (childTo < 0 || childTo >= moveItem.children.length) return;
+        var childMoved = moveItem.children.splice(childFrom, 1)[0];
+        moveItem.children.splice(childTo, 0, childMoved);
+        markDirty();
+        renderEditor();
+      } else if (button.dataset.imageClear != null) {
         var imagePath = button.getAttribute('data-image-clear');
         setPath(state.content, imagePath, '');
         markDirty();
@@ -777,6 +993,25 @@
         toast('Gambar dihapus. Pilih file baru atau isi nama gambar.');
       } else if (button.dataset.del != null) {
         var index = Number(button.dataset.del);
+        if (section.key === 'scheme_cats') {
+          if (!window.confirm('Hapus bidang industri ini?')) return;
+          var cat = list[index] || {};
+          var catId = String(cat.id || '');
+          var used = (state.content.schemes || []).filter(function (scheme) { return String(scheme.cat || '') === catId; });
+          var remaining = list.filter(function (_, i) { return i !== index; });
+          if (!remaining.length) {
+            toast('Minimal satu bidang industri harus tersedia. Tambahkan bidang lain sebelum menghapus.', true);
+            return;
+          }
+          if (used.length) {
+            used.forEach(function (scheme) { scheme.cat = remaining[0].id; });
+            toast(used.length + ' skema dipindahkan ke bidang "' + (remaining[0].label || remaining[0].id) + '".');
+          }
+          list.splice(index, 1);
+          markDirty();
+          renderEditor();
+          return;
+        }
         if (!window.confirm('Hapus entri ini?')) return;
         list.splice(index, 1);
         markDirty();
@@ -1145,10 +1380,33 @@
     }, 7000);
   }
 
+  function checkAdminVersion() {
+    var versionNode = document.querySelector('meta[name="lsp-version"]');
+    if (!versionNode) return;
+    var current = versionNode.getAttribute('content') || '';
+    var baseNode = document.querySelector('meta[name="lsp-base"]');
+    var base = baseNode ? (baseNode.getAttribute('content') || '') : '../';
+    fetch(base + 'data/version.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (data) {
+        if (!data || !data.version || data.version === current || state.dirty) return;
+        var key = 'lsp_admin_version_reload_' + current;
+        try {
+          if (sessionStorage.getItem(key)) return;
+          sessionStorage.setItem(key, '1');
+        } catch (err) { /* abaikan */ }
+        var url = new URL(window.location.href);
+        url.searchParams.set('v', data.version);
+        window.location.replace(url.toString());
+      })
+      .catch(function () { /* abaikan */ });
+  }
+
   async function boot() {
     initLogin();
     initPanel();
     bindEditorEvents();
+    checkAdminVersion();
 
     var existing = session();
     if (!existing || (existing.mode !== 'local' && !existing.token)) {

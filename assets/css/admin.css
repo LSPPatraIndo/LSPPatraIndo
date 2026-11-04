@@ -1,4 +1,4 @@
-/* Panel admin LSP Patra Indo — terpisah dari CSS situs publik. */
+/* Panel admin LSP Pariwisata Citra Indonesia — terpisah dari CSS situs publik. */
 
 :root {
   --adm-navy: #0a1f35;
@@ -114,6 +114,10 @@ body.adm-body {
   width: 220px; max-width: 100%; aspect-ratio: 16 / 10; object-fit: cover;
   border: 1px solid var(--adm-line); border-radius: 10px; background: #eef2f6;
 }
+.adm-image-preview--logo {
+  width: 260px; aspect-ratio: 3 / 1; object-fit: contain;
+  padding: 8px; background: #fff;
+}
 .adm-image-preview[hidden] { display: none; }
 .adm-image-side { display: flex; flex-direction: column; gap: 8px; min-width: 210px; flex: 1; }
 .adm-file {
@@ -129,6 +133,26 @@ body.adm-body {
 .adm-image-path { font-size: .78rem; }
 .adm-page-body textarea { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .82rem; line-height: 1.55; }
 .adm-help-box { margin: 0 0 14px; padding: 10px 12px; border-radius: 9px; background: #f0f7ff; border: 1px solid #cfe2f7; color: #28527a; font-size: .82rem; }
+
+/* -------------------------------------------------------------- navigasi */
+.adm-nav-block > .adm-card__head { flex-wrap: wrap; }
+.adm-subnav { margin-top: 8px; padding-top: 12px; border-top: 1px dashed var(--adm-line); }
+.adm-subnav__head {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;
+  font-size: .86rem; color: var(--adm-navy);
+}
+.adm-subnav__head .adm-hint { margin: 0; }
+.adm-subnav__head .adm-btn { margin-left: auto; }
+.adm-subnav__empty { margin: 0 0 4px; font-size: .8rem; color: var(--adm-muted); }
+.adm-subitem {
+  padding: 10px 12px; margin-bottom: 10px; border: 1px solid var(--adm-line);
+  border-radius: 10px; background: #fbfcfd;
+}
+.adm-subitem .adm-card__head { margin-bottom: 8px; }
+.adm-subitem .adm-card__head h3 { font-size: .85rem; }
+@media (max-width: 640px) {
+  .adm-subnav__head .adm-btn { margin-left: 0; }
+}
 
 /* ------------------------------------------------------------------- panel */
 

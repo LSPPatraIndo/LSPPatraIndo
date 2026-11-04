@@ -1,8 +1,8 @@
-"""Komponen markup dan ikon untuk situs LSP Patra Indo."""
+"""Komponen markup dan ikon untuk situs LSP Pariwisata Citra Indonesia."""
 
 import html as _html
 from urllib.parse import quote
-from site_data import SITE, NAV, SCHEME_CATS, STATUS_LABEL, JADWAL
+from site_data import SITE, NAV, NAV_FOOTER, NAV_LEGAL, SCHEME_CATS, STATUS_LABEL, JADWAL
 
 # ---------------------------------------------------------------------------
 # Ikon (stroke 24x24)
@@ -69,41 +69,87 @@ def wa_link(message: str) -> str:
     return f"https://wa.me/{SITE['wa']}?text={quote(message)}"
 
 
+def _asset_href(value: str, base: str) -> str:
+    """Lokasi aset yang diunggah panel admin (logo, gambar berita, dll.)."""
+    path = str(value or "").strip()
+    if not path:
+        return ""
+    if path.startswith(("data:", "http://", "https://", "//", "/")):
+        return path
+    if path.startswith("assets/"):
+        return base + path
+    return f"{base}assets/img/{path}"
+
+
+def brand_mark_html(base: str, light: bool = False) -> str:
+    """Tampilkan logo unggahan admin; bila kosong pakai lambang bawaan."""
+    logo = _asset_href(SITE.get("logo", ""), base)
+    if logo:
+        extra = " brand__logo--light" if light else ""
+        return f'<span class="brand__logo-wrap"><img class="brand__logo{extra}" src="{esc(logo)}" alt="" loading="eager" decoding="async"></span>'
+    return (f'<span class="brand__mark">{icon("shield", "brand__shield")}'
+            f'<span class="brand__star">{icon("star", "brand__star-ico")}</span></span>')
+
+
 # ---------------------------------------------------------------------------
 # Header / navigasi
 # ---------------------------------------------------------------------------
-def _nav_item(item: dict, current: str, base: str) -> str:
-    children = item.get("children")
-    active = bool(item.get("href")) and item["href"].rstrip("/") == current.rstrip("/")
+def _nav_href(href: str, base: str) -> str:
+    """Dukung tautan internal (tentang-kami/), absolut (/kontak/), dan eksternal."""
+    value = str(href or "").strip()
+    if not value:
+        return base
+    if value.startswith(("http://", "https://", "mailto:", "tel:", "#", "/")):
+        return value
+    return base + value
+
+
+def _nav_active(href: str, current: str) -> bool:
+    value = str(href or "").strip()
+    if not value or value.startswith(("http://", "https://", "mailto:", "tel:", "#", "/")):
+        return False
+    return value.split("#")[0].rstrip("/") == current.rstrip("/")
+
+
+def _nav_item(item: dict, current: str, base: str, index: int) -> str:
+    label = str(item.get("label") or "").strip()
+    href = str(item.get("href") or "").strip()
+    raw_children = item.get("children") if isinstance(item.get("children"), list) else []
+    children = [c for c in raw_children if isinstance(c, dict) and str(c.get("label") or "").strip()]
+    active = _nav_active(href, current)
     if not children:
         aria = ' aria-current="page"' if active else ""
         return (
             f'<li class="nav__item"><a class="nav__link{" is-active" if active else ""}" '
-            f'href="{base}{item["href"]}"{aria}>{item["label"]}</a></li>'
+            f'href="{esc(_nav_href(href, base))}"{aria}>{esc(label)}</a></li>'
         )
 
-    is_open = any(c["href"].split("#")[0].rstrip("/") == current.rstrip("/") for c in children) and current != ""
-    panel_id = "menu-" + item["label"].lower().replace(" ", "-").replace("&", "dan")
+    is_open = current != "" and any(_nav_active(c.get("href", ""), current) for c in children if isinstance(c, dict))
+    slug = "".join(ch if ch.isalnum() else "-" for ch in label.lower()).strip("-") or "menu"
+    panel_id = f"menu-{index}-{slug}"
     links = "".join(
-        f'<li><a class="mega__link" href="{base}{c["href"]}">'
-        f'<span class="mega__title">{c["label"]}</span>'
-        f'<span class="mega__desc">{c["desc"]}</span>'
+        f'<li><a class="mega__link" href="{esc(_nav_href(c.get("href", ""), base))}">'
+        f'<span class="mega__title">{esc(str(c.get("label") or ""))}</span>'
+        f'<span class="mega__desc">{esc(str(c.get("desc") or ""))}</span>'
         f'<span class="mega__arrow">{icon("arrow", "ico ico--xs")}</span></a></li>'
-        for c in children
+        for c in children if isinstance(c, dict)
     )
     return (
         f'<li class="nav__item has-mega">'
         f'<button class="nav__link nav__toggle{" is-active" if is_open else ""}" type="button" '
-        f'aria-expanded="false" aria-controls="{panel_id}">{item["label"]}'
+        f'aria-expanded="false" aria-controls="{panel_id}">{esc(label)}'
         f'{icon("chevron-down", "ico ico--xs nav__chev")}</button>'
         f'<div class="mega" id="{panel_id}">'
-        f'<div class="mega__panel"><p class="mega__label">{item["label"]}</p>'
+        f'<div class="mega__panel"><p class="mega__label">{esc(label)}</p>'
         f'<ul class="mega__list">{links}</ul></div></div></li>'
     )
 
 
 def nav_html(current: str, base: str) -> str:
-    items = "".join(_nav_item(n, current, base) for n in NAV)
+    items = "".join(
+        _nav_item(n, current, base, i) for i, n in enumerate(NAV)
+        if isinstance(n, dict) and str(n.get("label") or "").strip()
+    )
     return (
         '<div class="nav__mobile-head">'
         '<span class="nav__mobile-title">Menu</span>'
@@ -135,9 +181,9 @@ def header_html(current: str, base: str) -> str:
 <header class="site-header" id="siteHeader">
   <div class="container header__inner">
     <a class="brand" href="{base}" aria-label="{SITE['legal']} — Beranda">
-      <span class="brand__mark">{icon("shield", "brand__shield")}<span class="brand__star">{icon("star", "brand__star-ico")}</span></span>
+      {brand_mark_html(base)}
       <span class="brand__text">
-        <strong>LSP&nbsp;PATRA&nbsp;INDO</strong>
+        <strong>{esc(SITE["name"])}</strong>
         <span>Lembaga Sertifikasi Profesi</span>
       </span>
     </a>
@@ -169,6 +215,10 @@ def header_html(current: str, base: str) -> str:
 # ---------------------------------------------------------------------------
 def footer_html(base: str) -> str:
     year = 2026
+    location = str(SITE.get("address") or "").strip()
+    city = str(SITE.get("city") or "").strip()
+    if city and city.lower() not in location.lower():
+        location = f"{location}, {city}" if location else city
     socials = "".join(
         f'<a class="social" href="{SITE["social"][k]}" target="_blank" rel="noopener" aria-label="{label}">{icon(k)}</a>'
         for k, label in SOCIAL_ICONS
@@ -176,14 +226,22 @@ def footer_html(base: str) -> str:
     skema_links = "".join(
         f'<li><a href="{base}skema-sertifikasi/#{c["id"]}">{c["label"]}</a></li>' for c in SCHEME_CATS
     )
+    footer_links = "".join(
+        f'<li><a href="{esc(_nav_href(n.get("href", ""), base))}">{esc(str(n.get("label") or ""))}</a></li>'
+        for n in NAV_FOOTER if isinstance(n, dict) and str(n.get("label") or "").strip()
+    )
+    legal_links = "".join(
+        f'<li><a href="{esc(_nav_href(n.get("href", ""), base))}">{esc(str(n.get("label") or ""))}</a></li>'
+        for n in NAV_LEGAL if isinstance(n, dict) and str(n.get("label") or "").strip()
+    )
     return f"""
 <footer class="site-footer">
   <div class="container">
     <div class="footer__top">
       <div class="footer__brand">
         <a class="brand brand--light" href="{base}">
-          <span class="brand__mark">{icon("shield", "brand__shield")}<span class="brand__star">{icon("star", "brand__star-ico")}</span></span>
-          <span class="brand__text"><strong>LSP&nbsp;PATRA&nbsp;INDO</strong><span>Lembaga Sertifikasi Profesi</span></span>
+          {brand_mark_html(base, light=True)}
+          <span class="brand__text"><strong>{esc(SITE["name"])}</strong><span>Lembaga Sertifikasi Profesi</span></span>
         </a>
         <p class="footer__desc">{SITE['legal']} melaksanakan sertifikasi kompetensi berdasarkan SKKNI dan skema yang terlisensi BNSP, dengan komitmen penuh pada integritas dan ketidakberpihakan.</p>
         <div class="footer__socials">{socials}</div>
@@ -197,20 +255,14 @@ def footer_html(base: str) -> str:
       <nav class="footer__col" aria-label="Informasi">
         <h2>Informasi</h2>
         <ul>
-          <li><a href="{base}tentang-kami/">Tentang Kami</a></li>
-          <li><a href="{base}alur-sertifikasi/">Alur Sertifikasi</a></li>
-          <li><a href="{base}persyaratan/">Persyaratan</a></li>
-          <li><a href="{base}jadwal/">Jadwal &amp; Biaya</a></li>
-          <li><a href="{base}daftar-asesor/">Daftar Asesor</a></li>
-          <li><a href="{base}tuk/">Tempat Uji Kompetensi</a></li>
-          <li><a href="{base}faq/">FAQ</a></li>
+          {footer_links}
         </ul>
       </nav>
 
       <div class="footer__col footer__contact">
         <h2>Hubungi Kami</h2>
         <ul class="footer__contact-list">
-          <li>{icon("map-pin", "ico ico--xs")}<span>{SITE['address']}, {SITE['city']}</span></li>
+          <li>{icon("map-pin", "ico ico--xs")}<span>{location}</span></li>
           <li>{icon("phone", "ico ico--xs")}<a href="tel:{SITE['phone_link']}">{SITE['phone_display']}</a></li>
           <li>{icon("mail", "ico ico--xs")}<a href="mailto:{SITE['email']}">{SITE['email']}</a></li>
           <li>{icon("clock", "ico ico--xs")}<span>{SITE['hours']}</span></li>
@@ -222,16 +274,14 @@ def footer_html(base: str) -> str:
     <div class="footer__bottom">
       <p>&copy; {year} {SITE['legal']}. Seluruh hak cipta dilindungi.</p>
       <ul class="footer__legal">
-        <li><a href="{base}faq/">Bantuan</a></li>
-        <li><a href="{base}kontak/">Kontak</a></li>
-        <li><a href="{base}sitemap.xml">Sitemap</a></li>
+        {legal_links}
         <li><a class="footer__admin" href="{base}admin/" title="Login admin" aria-label="Login admin">{icon("lock", "ico ico--xs")}<span>Login admin</span></a></li>
       </ul>
       <p class="footer__badge">{icon("shield", "ico ico--xs")} Terlisensi BNSP</p>
     </div>
   </div>
 
-  <a class="fab fab--wa" href="{wa_link('Halo LSP Patra Indo, saya ingin bertanya tentang sertifikasi kompetensi.')}"
+  <a class="fab fab--wa" href="{wa_link(f'Halo {SITE["name"]}, saya ingin bertanya tentang sertifikasi kompetensi.')}"
    target="_blank" rel="noopener" aria-label="Chat WhatsApp">
   {icon("whatsapp", "fab__ico")}
   <span class="fab__label">Tanya Admin</span>
@@ -265,19 +315,26 @@ def page_intro(eyebrow: str, title: str, lead: str, crumb: str, base: str, crumb
 
 
 def scheme_card(s: dict, base: str, i: int = 0) -> str:
-    cat = next(c for c in SCHEME_CATS if c["id"] == s["cat"])
+    # Data dari panel admin bisa saja merujuk bidang yang sudah dihapus.
+    # Jangan sampai build gagal: tampilkan sebagai "Lainnya".
+    cat = next((c for c in SCHEME_CATS if c.get("id") == s.get("cat")), None)
+    if not cat:
+        cat = {"id": "lainnya", "label": "Lainnya", "icon": "award"}
+    cat_id = esc(str(s.get("cat") or cat.get("id") or "lainnya"))
+    level = esc(str(s.get("level") or "—"))
+    units = esc(str(s.get("units") or "—"))
     return f"""
-<article class="scheme-card" data-cat="{s['cat']}">
+<article class="scheme-card" data-cat="{cat_id}">
   <div class="scheme-card__top">
-    <span class="scheme-card__icon">{icon(cat['icon'])}</span>
-    <span class="tag">{s['level']}</span>
+    <span class="scheme-card__icon">{icon(cat.get('icon', 'award'))}</span>
+    <span class="tag">{level}</span>
   </div>
-  <h3 class="scheme-card__title">{s['name']}</h3>
-  <p class="scheme-card__desc">{s['desc']}</p>
+  <h3 class="scheme-card__title">{esc(str(s.get('name') or 'Skema Sertifikasi'))}</h3>
+  <p class="scheme-card__desc">{esc(str(s.get('desc') or ''))}</p>
   <div class="scheme-card__meta">
-    <span>{s['units']} unit kompetensi</span>
+    <span>{units} unit kompetensi</span>
     <span class="dot" aria-hidden="true"></span>
-    <span>{cat['label']}</span>
+    <span>{esc(str(cat.get('label') or 'Lainnya'))}</span>
   </div>
   <a class="scheme-card__cta" href="{base}kontak/#daftar">Tanya skema ini {icon("arrow", "ico ico--xs")}</a>
 </article>
@@ -308,19 +365,24 @@ def post_image_src(p: dict, base: str) -> str:
 
 def post_card(p: dict, base: str) -> str:
     from datetime import date
-    d = date.fromisoformat(p["date"])
+    try:
+        d = date.fromisoformat(str(p.get("date") or "").strip())
+    except (TypeError, ValueError):
+        d = date.today()
     bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
              "Agustus", "September", "Oktober", "November", "Desember"][d.month - 1]
+    title = str(p.get("title") or "Berita")
+    cat = str(p.get("cat") or "Berita")
     return f"""
-<article class="post-card" data-post-cat="{esc(p.get('cat', ''))}">
-  <a class="post-card__media" href="{base}berita/" aria-label="{esc(p['title'])}">
+<article class="post-card" data-post-cat="{esc(cat)}">
+  <a class="post-card__media" href="{base}berita/" aria-label="{esc(title)}">
     <img src="{esc(post_image_src(p, base))}" alt="" loading="lazy" width="720" height="480">
-    <span class="tag tag--dark">{p['cat']}</span>
+    <span class="tag tag--dark">{esc(cat)}</span>
   </a>
   <div class="post-card__body">
-    <p class="post-card__date"><time datetime="{p['date']}">{d.day} {bulan} {d.year}</time></p>
-    <h3 class="post-card__title"><a href="{base}berita/">{p['title']}</a></h3>
-    <p class="post-card__excerpt">{p['excerpt']}</p>
+    <p class="post-card__date"><time datetime="{d.isoformat()}">{d.day} {bulan} {d.year}</time></p>
+    <h3 class="post-card__title"><a href="{base}berita/">{esc(title)}</a></h3>
+    <p class="post-card__excerpt">{esc(str(p.get('excerpt') or ''))}</p>
     <span class="post-card__more">Baca selengkapnya {icon("arrow", "ico ico--xs")}</span>
   </div>
 </article>
@@ -328,14 +390,18 @@ def post_card(p: dict, base: str) -> str:
 
 
 def asesor_card(a: dict) -> str:
+    license_html = ""
+    if str(a.get("license") or "").strip():
+        license_html = f'<li>{icon("file", "ico ico--xs")} {esc(str(a["license"]))}</li>'
     return f"""
 <article class="person-card">
-  <span class="person-card__avatar" aria-hidden="true">{a['initials']}</span>
-  <h3 class="person-card__name">{a['name']}</h3>
-  <p class="person-card__role">{a['field']}</p>
+  <span class="person-card__avatar" aria-hidden="true">{esc(str(a.get('initials') or 'AS'))}</span>
+  <h3 class="person-card__name">{esc(str(a.get('name') or ''))}</h3>
+  <p class="person-card__role">{esc(str(a.get('field') or ''))}</p>
   <ul class="person-card__meta">
-    <li>{icon("map-pin", "ico ico--xs")} {a['city']}</li>
-    <li>{icon("shield", "ico ico--xs")} Asesor sejak {a['year']}</li>
+    <li>{icon("map-pin", "ico ico--xs")} {esc(str(a.get('city') or ''))}</li>
+    <li>{icon("shield", "ico ico--xs")} Asesor sejak {esc(str(a.get('year') or ''))}</li>
+    {license_html}
   </ul>
 </article>
 """
@@ -344,15 +410,16 @@ def asesor_card(a: dict) -> str:
 def jadwal_rows() -> str:
     rows = []
     for j in JADWAL:
-        label, cls = STATUS_LABEL[j["status"]]
+        label, cls = STATUS_LABEL.get(j.get("status"), ("Dibuka", "is-open"))
+        scheme = str(j.get("scheme") or "")
         rows.append(f"""
       <tr>
-        <td data-label="Tanggal"><strong>{j['date']}</strong></td>
-        <td data-label="Skema">{j['scheme']}</td>
-        <td data-label="TUK">{j['tuk']}</td>
-        <td data-label="Metode"><span class="tag tag--soft">{j['mode']}</span></td>
-        <td data-label="Kuota">{j['quota']} peserta</td>
+        <td data-label="Tanggal"><strong>{esc(str(j.get('date') or ''))}</strong></td>
+        <td data-label="Skema">{esc(scheme)}</td>
+        <td data-label="TUK">{esc(str(j.get('tuk') or ''))}</td>
+        <td data-label="Metode"><span class="tag tag--soft">{esc(str(j.get('mode') or ''))}</span></td>
+        <td data-label="Kuota">{esc(str(j.get('quota') or '—'))} peserta</td>
         <td data-label="Status"><span class="status {cls}"><i></i>{label}</span></td>
-        <td data-label="Aksi"><a class="btn btn--outline btn--sm" href="{{{{BASE}}}}kontak/#daftar" data-pick-scheme="{j['scheme']}">Daftar</a></td>
+        <td data-label="Aksi"><a class="btn btn--outline btn--sm" href="{{{{BASE}}}}kontak/#daftar" data-pick-scheme="{esc(scheme)}">Daftar</a></td>
       </tr>""")
     return "".join(rows)

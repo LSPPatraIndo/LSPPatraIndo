@@ -1,21 +1,21 @@
 {
   "site": {
-    "name": "LSP Patra Indo",
-    "legal": "Lembaga Sertifikasi Profesi Patra Indo",
+    "name": "LSP Pariwisata Citra Indonesia",
+    "legal": "Lembaga Sertifikasi Profesi Pariwisata Citra Indonesia",
     "domain": "lsppatraindo.id",
     "url": "https://lsppatraindo.id",
-    "tagline": "Sertifikasi Kompetensi yang Diakui",
-    "description": "Lembaga Sertifikasi Profesi terlisensi BNSP untuk bidang pariwisata, perhotelan, kuliner, SPA, MICE, travel, dan ekonomi kreatif.",
-    "phone_display": "+62 812-3456-7890",
-    "phone_link": "+6281234567890",
-    "wa": "6281234567890",
+    "tagline": "LSP Bidang Wisata Golf Pertama di Indonesia",
+    "description": "Lembaga Sertifikasi Profesi (LSP/P3) terlisensi BNSP untuk bidang Golf dan Pariwisata.",
+    "phone_display": "+62 821 7220 608",
+    "phone_link": "+6282322266585",
+    "wa": "6282322266585",
     "email": "info@lsppatraindo.id",
     "email_sertifikasi": "sertifikasi@lsppatraindo.id",
-    "address": "Gedung Patra Office Tower, Lantai 12, Jl. Gatot Subroto No. 123",
-    "city": "Jakarta Selatan 12930",
-    "hours": "Senin – Jumat, 08.00 – 17.00 WIB",
+    "address": "Jl. Hang Lekiu Km 4, Sambau, Nongsa, Kota Batam, Kepulauan Riau 29465",
+    "city": "Batam",
+    "hours": "Senin – Jumat, 08.00 – 16.00 WIB",
     "hours_sat": "Sabtu, 09.00 – 13.00 WIB",
-    "maps_query": "Patra Office Tower, Jl. Gatot Subroto, Jakarta Selatan",
+    "maps_query": "MECA Travel, Hang Lekiu Km 4, Batam",
     "social": {
       "instagram": "https://instagram.com/lsppatraindo",
       "linkedin": "https://linkedin.com/company/lsppatraindo",
@@ -27,63 +27,64 @@
     "admin_api": "https://lsp-patra-indo-admin.netlify.app/.netlify/functions",
     "github_repo": "LSPPatraIndo/LSPPatraIndo",
     "github_branch": "main",
-    "founded": 2016
+    "founded": 2026,
+    "logo": ""
   },
   "pages": [
     {
       "file": "index",
       "slug": "",
-      "title": "LSP Patra Indo — Lembaga Sertifikasi Profesi Terlisensi BNSP",
-      "description": "Sertifikasi profesi resmi BNSP bidang pariwisata, perhotelan, kuliner, SPA, MICE, dan ekonomi kreatif. Proses terstruktur, asesor berpengalaman, sertifikat diakui nasional.",
+      "title": "LSP Pariwisata Citra Indonesia — Lembaga Sertifikasi Profesi Terlisensi BNSP",
+      "description": "Sertifikasi profesi resmi BNSP bidang Golf dan Pariwisata. Proses terstruktur, asesor berpengalaman, sertifikat diakui nasional.",
       "crumb": "Beranda"
     },
     {
       "file": "tentang-kami",
       "slug": "tentang-kami",
-      "title": "Tentang Kami — Profil, Visi & Misi LSP Patra Indo",
-      "description": "Kenali LSP Patra Indo: lembaga sertifikasi profesi independen yang melaksanakan uji kompetensi berdasarkan SKKNI dan skema terlisensi BNSP.",
+      "title": "Tentang Kami — Profil, Visi & Misi LSP Pariwisata Citra Indonesia",
+      "description": "Kenali LSP Pariwisata Citra Indonesia: lembaga sertifikasi profesi independen di bidang Golf dan Pariwisata yang melaksanakan uji kompetensi berdasarkan SKKNI dan skema terlisensi BNSP.",
       "crumb": "Tentang Kami"
     },
     {
       "file": "skema-sertifikasi",
       "slug": "skema-sertifikasi",
-      "title": "Skema Sertifikasi — Daftar Skema Kompetensi BNSP",
-      "description": "Daftar skema sertifikasi LSP Patra Indo untuk bidang perhotelan, food & beverage, kuliner, SPA, MICE, travel, dan ekonomi kreatif.",
+      "title": "Skema Sertifikasi Golf & Pariwisata — LSP Pariwisata Citra Indonesia",
+      "description": "Daftar skema sertifikasi LSP Pariwisata Citra Indonesia untuk bidang Golf dan Pariwisata, dari caddy, starter & marshall, hingga tour guide dan manajemen destinasi.",
       "crumb": "Skema Sertifikasi"
     },
     {
       "file": "alur-sertifikasi",
       "slug": "alur-sertifikasi",
       "title": "Alur Sertifikasi — Proses Uji Kompetensi 5 Langkah",
-      "description": "Alur pendaftaran dan uji kompetensi di LSP Patra Indo: konsultasi, registrasi, verifikasi, asesmen, hingga sertifikat terbit.",
+      "description": "Alur pendaftaran dan uji kompetensi di LSP Pariwisata Citra Indonesia: konsultasi, registrasi, verifikasi, asesmen, hingga sertifikat terbit.",
       "crumb": "Alur Sertifikasi"
     },
     {
       "file": "persyaratan",
       "slug": "persyaratan",
       "title": "Persyaratan Sertifikasi — Dokumen & Ketentuan Peserta",
-      "description": "Persyaratan umum, administrasi, dan dokumen portofolio yang perlu disiapkan peserta sertifikasi kompetensi LSP Patra Indo.",
+      "description": "Persyaratan umum, administrasi, dan dokumen portofolio yang perlu disiapkan peserta sertifikasi kompetensi LSP Pariwisata Citra Indonesia.",
       "crumb": "Persyaratan"
     },
     {
       "file": "daftar-asesor",
       "slug": "daftar-asesor",
-      "title": "Daftar Asesor Kompetensi — LSP Patra Indo",
-      "description": "Asesor kompetensi tersertifikasi BNSP di LSP Patra Indo beserta bidang keahlian dan wilayah kerja.",
+      "title": "Daftar Asesor Kompetensi — LSP Pariwisata Citra Indonesia",
+      "description": "Asesor kompetensi tersertifikasi BNSP di LSP Pariwisata Citra Indonesia beserta bidang keahlian dan wilayah kerja.",
       "crumb": "Daftar Asesor"
     },
     {
       "file": "tuk",
       "slug": "tuk",
       "title": "Tempat Uji Kompetensi (TUK) — Lokasi & Fasilitas",
-      "description": "Daftar Tempat Uji Kompetensi LSP Patra Indo: TUK sewaktu, TUK tempat kerja, dan TUK mandiri di berbagai kota.",
+      "description": "Daftar Tempat Uji Kompetensi LSP Pariwisata Citra Indonesia: TUK sewaktu, TUK tempat kerja, dan TUK mandiri di berbagai kota.",
       "crumb": "Tempat Uji Kompetensi"
     },
     {
       "file": "jadwal",
       "slug": "jadwal",
-      "title": "Jadwal Sertifikasi & Biaya — LSP Patra Indo",
-      "description": "Jadwal uji kompetensi terdekat, kuota, lokasi TUK, serta informasi biaya sertifikasi LSP Patra Indo.",
+      "title": "Jadwal Sertifikasi & Biaya — LSP Pariwisata Citra Indonesia",
+      "description": "Jadwal uji kompetensi terdekat, kuota, lokasi TUK, serta informasi biaya sertifikasi LSP Pariwisata Citra Indonesia.",
       "crumb": "Jadwal & Biaya"
     },
     {
@@ -96,42 +97,159 @@
     {
       "file": "berita",
       "slug": "berita",
-      "title": "Berita & Artikel — LSP Patra Indo",
-      "description": "Kabar kegiatan uji kompetensi, artikel industri, panduan sertifikasi, dan informasi terbaru dari LSP Patra Indo.",
+      "title": "Berita & Artikel — LSP Pariwisata Citra Indonesia",
+      "description": "Kabar kegiatan uji kompetensi, artikel industri, panduan sertifikasi, dan informasi terbaru dari LSP Pariwisata Citra Indonesia.",
       "crumb": "Berita"
     },
     {
       "file": "kontak",
       "slug": "kontak",
-      "title": "Kontak & Pendaftaran — LSP Patra Indo",
-      "description": "Hubungi LSP Patra Indo untuk konsultasi skema, jadwal uji kompetensi, kerja sama korporat, dan pendaftaran peserta.",
+      "title": "Kontak & Pendaftaran — LSP Pariwisata Citra Indonesia",
+      "description": "Hubungi LSP Pariwisata Citra Indonesia untuk konsultasi skema Golf dan Pariwisata, jadwal uji kompetensi, kerja sama korporat, dan pendaftaran peserta.",
       "crumb": "Kontak"
+    }
+  ],
+  "nav": [
+    {
+      "label": "Beranda",
+      "href": ""
+    },
+    {
+      "label": "Profil",
+      "children": [
+        {
+          "label": "Tentang Kami",
+          "href": "tentang-kami/",
+          "desc": "Sejarah, visi, misi, dan nilai lembaga"
+        },
+        {
+          "label": "Struktur Organisasi",
+          "href": "tentang-kami/#struktur",
+          "desc": "Susunan pengurus dan manajemen"
+        },
+        {
+          "label": "Daftar Asesor",
+          "href": "daftar-asesor/",
+          "desc": "Asesor kompetensi tersertifikasi BNSP"
+        },
+        {
+          "label": "Tempat Uji Kompetensi",
+          "href": "tuk/",
+          "desc": "Lokasi TUK Golf dan Pariwisata"
+        }
+      ]
+    },
+    {
+      "label": "Sertifikasi",
+      "children": [
+        {
+          "label": "Skema Sertifikasi",
+          "href": "skema-sertifikasi/",
+          "desc": "Dua bidang: Golf dan Pariwisata"
+        },
+        {
+          "label": "Alur Sertifikasi",
+          "href": "alur-sertifikasi/",
+          "desc": "Lima langkah dari daftar hingga sertifikat"
+        },
+        {
+          "label": "Persyaratan",
+          "href": "persyaratan/",
+          "desc": "Dokumen dan ketentuan peserta"
+        },
+        {
+          "label": "Jadwal & Biaya",
+          "href": "jadwal/",
+          "desc": "Jadwal uji terdekat dan rincian biaya"
+        },
+        {
+          "label": "FAQ",
+          "href": "faq/",
+          "desc": "Pertanyaan yang sering diajukan"
+        }
+      ]
+    },
+    {
+      "label": "Jadwal & Biaya",
+      "href": "jadwal/"
+    },
+    {
+      "label": "Berita",
+      "href": "berita/"
+    },
+    {
+      "label": "Kontak",
+      "href": "kontak/"
+    }
+  ],
+  "footer_nav": [
+    {
+      "label": "Tentang Kami",
+      "href": "tentang-kami/"
+    },
+    {
+      "label": "Alur Sertifikasi",
+      "href": "alur-sertifikasi/"
+    },
+    {
+      "label": "Persyaratan",
+      "href": "persyaratan/"
+    },
+    {
+      "label": "Jadwal & Biaya",
+      "href": "jadwal/"
+    },
+    {
+      "label": "Daftar Asesor",
+      "href": "daftar-asesor/"
+    },
+    {
+      "label": "Tempat Uji Kompetensi",
+      "href": "tuk/"
+    },
+    {
+      "label": "FAQ",
+      "href": "faq/"
+    }
+  ],
+  "footer_legal": [
+    {
+      "label": "Bantuan",
+      "href": "faq/"
+    },
+    {
+      "label": "Kontak",
+      "href": "kontak/"
+    },
+    {
+      "label": "Sitemap",
+      "href": "sitemap.xml"
     }
   ],
   "stats": [
     {
-      "value": 23,
+      "value": 10,
       "suffix": "+",
       "label": "Skema Sertifikasi",
       "note": "Terlisensi BNSP"
     },
     {
-      "value": 40,
+      "value": 18,
       "suffix": "+",
       "label": "Asesor Kompetensi",
-      "note": "Tersertifikasi BNSP"
+      "note": "Bersertifikat metodologi"
     },
     {
-      "value": 3500,
+      "value": 199,
       "suffix": "+",
       "label": "Peserta Tersertifikasi",
-      "note": "Sejak 2016"
+      "note": "Sejak 2026"
     },
     {
-      "value": 150,
+      "value": 100,
       "suffix": "+",
-      "label": "Mitra Industri",
-      "note": "Hotel, travel, F&B"
+      "label": "Tempat Uji Kompetensi",
+      "note": "Golf resort, travel, dan hotel"
     }
   ],
   "advantages": [
@@ -143,7 +261,7 @@
     {
       "icon": "users",
       "title": "Asesor Berpengalaman",
-      "text": "Asesor kami tersertifikasi BNSP dan aktif di industri, sehingga penilaian relevan dengan praktik kerja nyata."
+      "text": "Asesor kami tersertifikasi BNSP dan aktif di industri Golf dan Pariwisata, sehingga penilaian relevan dengan praktik kerja nyata."
     },
     {
       "icon": "route",
@@ -158,227 +276,99 @@
   ],
   "scheme_cats": [
     {
-      "id": "hotel",
-      "label": "Perhotelan",
-      "icon": "bed",
-      "desc": "Housekeeping, front office, dan layanan tamu"
+      "id": "golf",
+      "label": "Golf",
+      "icon": "star",
+      "desc": "Operasional lapangan, caddy, dan manajemen golf"
     },
     {
-      "id": "fbs",
-      "label": "Food & Beverage",
-      "icon": "cup",
-      "desc": "Layanan restoran, bar, dan kafe"
-    },
-    {
-      "id": "kuliner",
-      "label": "Kuliner & Pastry",
-      "icon": "chef",
-      "desc": "Pengolahan makanan dan pastry"
-    },
-    {
-      "id": "spa",
-      "label": "SPA & Wellness",
-      "icon": "spark",
-      "desc": "Terapi dan perawatan tubuh"
-    },
-    {
-      "id": "mice",
-      "label": "MICE & Event",
-      "icon": "calendar",
-      "desc": "Penyelenggaraan acara dan konferensi"
-    },
-    {
-      "id": "travel",
-      "label": "Travel & Tour",
+      "id": "pariwisata",
+      "label": "Pariwisata",
       "icon": "globe",
-      "desc": "Kepemanduan, ticketing, dan biro perjalanan"
-    },
-    {
-      "id": "kreatif",
-      "label": "Ekonomi Kreatif",
-      "icon": "palette",
-      "desc": "Pemasaran dan pengelolaan destinasi"
+      "desc": "Kepemanduan, perencanaan destinasi, dan humas"
     }
   ],
   "schemes": [
     {
-      "name": "Resepsionis (Front Office)",
-      "cat": "hotel",
-      "level": "KKNI II",
-      "units": 9,
-      "featured": true,
-      "desc": "Mengelola reservasi, penerimaan tamu, komunikasi telepon, dan administrasi front office."
-    },
-    {
-      "name": "Room Attendant",
-      "cat": "hotel",
-      "level": "KKNI II",
-      "units": 8,
-      "featured": true,
-      "desc": "Membersihkan dan menyiapkan kamar tamu sesuai standar kebersihan dan prosedur hotel."
-    },
-    {
-      "name": "Public Area Cleaner",
-      "cat": "hotel",
+      "name": "Porter",
+      "cat": "golf",
       "level": "KKNI II",
       "units": 6,
-      "desc": "Menjaga kebersihan area umum, peralatan, dan bahan pembersih secara aman."
+      "featured": true,
+      "desc": "Menangani penerimaan tamu, tas golf, dan kebutuhan logistik di area klub golf."
     },
     {
-      "name": "Laundry Attendant",
-      "cat": "hotel",
+      "name": "Starter and Marshall",
+      "cat": "golf",
+      "level": "KKNI III",
+      "units": 8,
+      "featured": true,
+      "desc": "Mengatur alur permainan, memastikan kepatuhan aturan, dan menjaga keselamatan di lapangan."
+    },
+    {
+      "name": "Golf Profesional",
+      "cat": "golf",
+      "level": "KKNI IV",
+      "units": 10,
+      "featured": true,
+      "desc": "Memberikan pelajaran golf, menilai kemampuan pemain, dan mengelola program latihan."
+    },
+    {
+      "name": "Golf Operation Manager",
+      "cat": "golf",
+      "level": "KKNI IV",
+      "units": 12,
+      "desc": "Mengelola operasional lapangan, jadwal tee time, dan koordinasi tim layanan golf."
+    },
+    {
+      "name": "Golfing Assistant-caddy",
+      "cat": "golf",
       "level": "KKNI II",
       "units": 7,
-      "desc": "Menangani pencucian, penyetrikaan, dan penyimpanan linen serta pakaian tamu."
+      "desc": "Mendampingi pemain, membawa peralatan, dan memberikan informasi lapangan selama permainan."
     },
     {
-      "name": "Bell Boy",
-      "cat": "hotel",
-      "level": "KKNI II",
-      "units": 6,
-      "desc": "Menangani bagasi tamu, pengantaran, dan layanan pendukung di lobi."
-    },
-    {
-      "name": "Waiter / Waitress",
-      "cat": "fbs",
-      "level": "KKNI II",
-      "units": 8,
-      "featured": true,
-      "desc": "Melayani tamu di restoran, mulai dari penyambutan hingga penanganan pembayaran."
-    },
-    {
-      "name": "Bartender",
-      "cat": "fbs",
-      "level": "KKNI III",
-      "units": 9,
-      "desc": "Menyiapkan minuman beralkohol dan non-alkohol, mengelola bar, serta menjaga standar higienitas."
-    },
-    {
-      "name": "Barista",
-      "cat": "fbs",
-      "level": "KKNI II",
-      "units": 8,
-      "featured": true,
-      "desc": "Mengoperasikan mesin espresso, menyajikan kopi, dan menjaga kualitas produk kafe."
-    },
-    {
-      "name": "Supervisor F&B Service",
-      "cat": "fbs",
-      "level": "KKNI IV",
-      "units": 11,
-      "desc": "Mengawasi operasional layanan, menyusun jadwal, dan memastikan standar pelayanan."
-    },
-    {
-      "name": "Cook (Commis)",
-      "cat": "kuliner",
-      "level": "KKNI II",
-      "units": 9,
-      "featured": true,
-      "desc": "Menyiapkan bahan, mengolah masakan dasar, dan menjaga higiene di area dapur."
-    },
-    {
-      "name": "Demi Chef",
-      "cat": "kuliner",
-      "level": "KKNI III",
-      "units": 10,
-      "desc": "Memimpin satu bagian dapur, mengendalikan porsi, dan mengawasi kualitas hidangan."
-    },
-    {
-      "name": "Chef de Partie",
-      "cat": "kuliner",
-      "level": "KKNI IV",
-      "units": 11,
-      "desc": "Mengelola section dapur, menyusun menu, dan mengendalikan biaya bahan makanan."
-    },
-    {
-      "name": "Commis Pastry",
-      "cat": "kuliner",
-      "level": "KKNI II",
-      "units": 8,
-      "desc": "Membuat roti, kue, dan dessert sesuai resep standar serta prosedur penyimpanan."
-    },
-    {
-      "name": "Spa Therapist",
-      "cat": "spa",
+      "name": "Overland Tour Guide",
+      "cat": "pariwisata",
       "level": "KKNI III",
       "units": 9,
       "featured": true,
-      "desc": "Melakukan terapi pijat, perawatan tubuh, dan wajah sesuai standar keselamatan kerja."
+      "desc": "Memandu perjalanan darat, menyusun narasi, dan mengelola logistik rombongan wisata."
     },
     {
-      "name": "Supervisor SPA",
-      "cat": "spa",
-      "level": "KKNI IV",
-      "units": 10,
-      "desc": "Mengelola operasional spa, mengatur terapis, dan menjaga kepuasan tamu."
-    },
-    {
-      "name": "Event Planner",
-      "cat": "mice",
+      "name": "National Tour Guide",
+      "cat": "pariwisata",
       "level": "KKNI IV",
       "units": 10,
       "featured": true,
-      "desc": "Merancang konsep acara, menyusun anggaran, dan mengoordinasikan pelaksanaan event."
+      "desc": "Memandu wisatawan nusantara dan mancanegara dengan interpretasi destinasi yang profesional."
     },
     {
-      "name": "Conference Liaison Officer",
-      "cat": "mice",
-      "level": "KKNI III",
-      "units": 7,
-      "desc": "Menjadi penghubung peserta konferensi, mengatur registrasi, dan mendampingi narasumber."
-    },
-    {
-      "name": "Pramuwisata (Tour Guide)",
-      "cat": "travel",
-      "level": "KKNI III",
+      "name": "Perencana Kegiatan Wisata Destinasi",
+      "cat": "pariwisata",
+      "level": "KKNI IV",
       "units": 9,
-      "featured": true,
-      "desc": "Memandu wisatawan, menyampaikan interpretasi destinasi, dan menangani situasi darurat."
+      "desc": "Merancang program wisata destinasi, anggaran, dan jadwal kegiatan yang berkelanjutan."
     },
     {
-      "name": "Travel Consultant",
-      "cat": "travel",
-      "level": "KKNI III",
+      "name": "Manajer Humas Destinasi",
+      "cat": "pariwisata",
+      "level": "KKNI IV",
       "units": 8,
-      "desc": "Menyusun paket perjalanan, menangani reservasi, dan memberikan konsultasi kepada pelanggan."
+      "desc": "Mengelola komunikasi publik, kemitraan, dan citra destinasi wisata."
     },
     {
-      "name": "Ticketing Officer",
-      "cat": "travel",
-      "level": "KKNI II",
-      "units": 7,
-      "desc": "Menerbitkan tiket, menghitung tarif, dan menangani perubahan jadwal penerbangan."
-    },
-    {
-      "name": "Tour Leader",
-      "cat": "travel",
+      "name": "Pramuwisata Madya",
+      "cat": "pariwisata",
       "level": "KKNI IV",
       "units": 10,
-      "desc": "Memimpin rombongan wisata, mengelola itinerary, dan memastikan kepatuhan prosedur."
-    },
-    {
-      "name": "Konsultan Pemasaran Pariwisata",
-      "cat": "kreatif",
-      "level": "KKNI IV",
-      "units": 9,
-      "desc": "Menyusun strategi pemasaran destinasi dan mengukur efektivitas kampanye wisata."
-    },
-    {
-      "name": "Pengelola Desa Wisata",
-      "cat": "kreatif",
-      "level": "KKNI III",
-      "units": 11,
-      "desc": "Mengelola daya tarik desa wisata, memberdayakan masyarakat, dan menjaga keberlanjutan."
+      "featured": true,
+      "desc": "Memandu wisata dengan penguasaan interpretasi, etika, dan penanganan situasi darurat."
     }
   ],
   "hero_roles": [
-    "Perhotelan",
-    "Food & Beverage",
-    "Kuliner & Pastry",
-    "SPA & Wellness",
-    "MICE & Event",
-    "Travel & Tour",
-    "Ekonomi Kreatif"
+    "Golf",
+    "Pariwisata"
   ],
   "ticker_items": [
     {
@@ -390,7 +380,7 @@
       "outline": true
     },
     {
-      "text": "23 Skema Sertifikasi",
+      "text": "10 Skema Sertifikasi",
       "outline": false
     },
     {
@@ -441,21 +431,21 @@
   "testimonials": [
     {
       "name": "Dika Nanda P.",
-      "role": "Kepala Koki, SPPG Pandean",
-      "quote": "Prosesnya cepat dan asesornya sangat kompeten. Saya merekomendasikan sertifikasi di LSP Patra Indo untuk rekan-rekan yang ingin mengakui pengalaman kerjanya secara formal.",
+      "role": "Golf Operation Manager",
+      "quote": "Prosesnya cepat dan asesornya sangat kompeten. Saya merekomendasikan sertifikasi di LSP Pariwisata Citra Indonesia untuk rekan-rekan yang ingin mengakui pengalaman kerjanya secara formal.",
       "initials": "DN",
       "tone": "teal"
     },
     {
       "name": "Wahyu Prasetyo",
-      "role": "Koordinator Operasional Desa Wisata",
+      "role": "Overland Tour Guide",
       "quote": "Awalnya ragu bisa menjawab pertanyaan asesor, tetapi pendampingan dilakukan dengan bahasa yang sederhana sehingga mudah dipahami dan saya jadi lebih percaya diri.",
       "initials": "WP",
       "tone": "gold"
     },
     {
       "name": "Yunani Rahmawati",
-      "role": "Spa Therapist, Hotel Bintang Lima",
+      "role": "National Tour Guide",
       "quote": "Setelah mengikuti uji kompetensi, saya lebih yakin dengan standar kerja saya. Ilmu yang didapat langsung terasa manfaatnya di tempat kerja.",
       "initials": "YR",
       "tone": "navy"
@@ -463,167 +453,211 @@
   ],
   "asesor": [
     {
-      "name": "Ahmad Fauzi, S.Par.",
-      "initials": "AF",
-      "field": "Perhotelan & Housekeeping",
-      "city": "Jakarta",
-      "year": 2017
+      "name": "Rina Sartika",
+      "initials": "RS",
+      "field": "Pariwisata",
+      "city": "Batam",
+      "year": 2024,
+      "license": "MET 000.007376.2024"
     },
     {
-      "name": "Siti Rahmawati, M.M.",
-      "initials": "SR",
-      "field": "Food & Beverage Service",
-      "city": "Jakarta",
-      "year": 2018
+      "name": "Juniarti Sarumpaet",
+      "initials": "JS",
+      "field": "Pariwisata",
+      "city": "Batam",
+      "year": 2024,
+      "license": "MET 000.007377.2024"
     },
     {
-      "name": "Bagus Prakoso, S.Tr.Par.",
-      "initials": "BP",
-      "field": "Kuliner & Pastry",
+      "name": "Willy Rachdiyan",
+      "initials": "WR",
+      "field": "Pariwisata",
       "city": "Bandung",
-      "year": 2018
+      "year": 2024,
+      "license": "MET 000.007378.2024"
     },
     {
-      "name": "Dewi Lestari, S.Psi.",
-      "initials": "DL",
-      "field": "SPA & Wellness",
-      "city": "Yogyakarta",
-      "year": 2019
+      "name": "Zitachila Virginia Rahmallah",
+      "initials": "ZV",
+      "field": "Pariwisata",
+      "city": "Batam",
+      "year": 2024,
+      "license": "MET 000.007379.2024"
     },
     {
-      "name": "Rizky Ananda, M.Par.",
-      "initials": "RA",
-      "field": "MICE & Event Management",
-      "city": "Jakarta",
-      "year": 2017
+      "name": "Enly Yunaeni, S.E., M.M.",
+      "initials": "EY",
+      "field": "Golfing dan Wisata",
+      "city": "Batam",
+      "year": 2024,
+      "license": "MET 000.007380.2024"
     },
     {
-      "name": "Putu Arini, S.St.Par.",
-      "initials": "PA",
+      "name": "Adi Nugraha Lumban Tobing",
+      "initials": "AN",
       "field": "Kepemanduan Wisata",
-      "city": "Denpasar",
-      "year": 2019
+      "city": "Batam",
+      "year": 2024,
+      "license": "MET 000.007382.2024"
     },
     {
-      "name": "Hendra Wijaya, M.B.A.",
-      "initials": "HW",
+      "name": "Eny Widyawati",
+      "initials": "EW",
       "field": "Travel & Ticketing",
-      "city": "Surabaya",
-      "year": 2020
+      "city": "Batam",
+      "year": 2024,
+      "license": "MET 000.007383.2024"
     },
     {
-      "name": "Maya Kusuma, S.E.",
-      "initials": "MK",
-      "field": "Ekonomi Kreatif & Pemasaran",
-      "city": "Jakarta",
-      "year": 2020
+      "name": "Cholifah Edelenbos",
+      "initials": "CE",
+      "field": "Wisata",
+      "city": "Batam",
+      "year": 2024,
+      "license": "MET 000.007385.2024"
+    },
+    {
+      "name": "Heru Bagiyo Susianto",
+      "initials": "HB",
+      "field": "Golfing",
+      "city": "Batam",
+      "year": 2024,
+      "license": "MET 000.007386.2024"
+    },
+    {
+      "name": "Soearto Sapan",
+      "initials": "SS",
+      "field": "Golfing",
+      "city": "Batam",
+      "year": 2024,
+      "license": "MET 000.007388.2024"
+    },
+    {
+      "name": "Dr. Suyono, M.M.",
+      "initials": "SU",
+      "field": "Golfing",
+      "city": "Batam",
+      "year": 2024,
+      "license": "MET 000.007389.2024"
+    },
+    {
+      "name": "Zainal Abidin",
+      "initials": "ZA",
+      "field": "Golfing",
+      "city": "Batam",
+      "year": 2024,
+      "license": "MET 000.007390.2024"
+    },
+    {
+      "name": "Nur Aniliza Binti Imran",
+      "initials": "NA",
+      "field": "Golfing Assistant",
+      "city": "Batam",
+      "year": 2024,
+      "license": "MET 000.007391.2024"
+    },
+    {
+      "name": "Nur Krisya Saputri",
+      "initials": "NK",
+      "field": "Golfing Assistant",
+      "city": "Batam",
+      "year": 2024,
+      "license": "MET 000.007392.2024"
+    },
+    {
+      "name": "Liza Rizal",
+      "initials": "LR",
+      "field": "Golfing Assistant",
+      "city": "Batam",
+      "year": 2024,
+      "license": "MET 000.007393.2024"
+    },
+    {
+      "name": "Ade Saptri Lumban Batu",
+      "initials": "AS",
+      "field": "Tourism",
+      "city": "Batam",
+      "year": 2024,
+      "license": "MET 000.007394.2024"
     }
   ],
   "tuk": [
     {
-      "name": "TUK Patra Indo Jakarta",
-      "city": "Jakarta Selatan",
-      "type": "TUK Sewaktu",
-      "address": "Gedung Patra Office Tower, Lantai 12, Jl. Gatot Subroto No. 123",
-      "schemes": 12
-    },
-    {
-      "name": "TUK Patra Indo Bandung",
-      "city": "Bandung",
-      "type": "TUK Sewaktu",
-      "address": "Jl. Asia Afrika No. 88, Sumur Bandung",
-      "schemes": 8
-    },
-    {
-      "name": "TUK Patra Indo Yogyakarta",
-      "city": "Yogyakarta",
-      "type": "TUK Sewaktu",
-      "address": "Jl. Malioboro No. 45, Gedongtengen",
-      "schemes": 7
-    },
-    {
-      "name": "TUK Patra Indo Bali",
-      "city": "Denpasar",
-      "type": "TUK Sewaktu",
-      "address": "Jl. Sunset Road No. 21, Kuta",
-      "schemes": 9
-    },
-    {
-      "name": "TUK Patra Indo Surabaya",
-      "city": "Surabaya",
-      "type": "TUK Sewaktu",
-      "address": "Jl. Basuki Rahmat No. 101, Genteng",
-      "schemes": 6
-    },
-    {
-      "name": "TUK Mitra Hotel Nusantara",
-      "city": "Jakarta Pusat",
+      "name": "TUK Batam Hills",
+      "city": "Kota Batam",
       "type": "TUK Tempat Kerja",
-      "address": "Kawasan industri perhotelan, Jl. MH Thamrin",
+      "address": "Batam Hills Golf Resort, Batam",
+      "schemes": 5
+    },
+    {
+      "name": "TUK Mecca Travel",
+      "city": "Kota Batam",
+      "type": "TUK Tempat Kerja",
+      "address": "Jl. Hang Lekiu Km 4, Batam",
       "schemes": 5
     }
   ],
   "jadwal": [
     {
       "date": "12 Nov 2026",
-      "scheme": "Resepsionis (Front Office)",
-      "tuk": "Jakarta",
-      "mode": "Hybrid",
+      "scheme": "Golfing Assistant-caddy",
+      "tuk": "Batam",
+      "mode": "Offline",
       "quota": 20,
       "status": "open"
     },
     {
       "date": "18 Nov 2026",
-      "scheme": "Barista",
-      "tuk": "Bandung",
+      "scheme": "Starter and Marshall",
+      "tuk": "Batam",
       "mode": "Offline",
       "quota": 16,
       "status": "open"
     },
     {
       "date": "25 Nov 2026",
-      "scheme": "Cook (Commis)",
-      "tuk": "Jakarta",
-      "mode": "Offline",
+      "scheme": "Overland Tour Guide",
+      "tuk": "Batam",
+      "mode": "Hybrid",
       "quota": 12,
       "status": "almost"
     },
     {
       "date": "02 Des 2026",
-      "scheme": "Spa Therapist",
-      "tuk": "Yogyakarta",
+      "scheme": "National Tour Guide",
+      "tuk": "Batam",
       "mode": "Offline",
       "quota": 20,
       "status": "open"
     },
     {
       "date": "09 Des 2026",
-      "scheme": "Pramuwisata (Tour Guide)",
-      "tuk": "Bali",
-      "mode": "Hybrid",
+      "scheme": "Golf Profesional",
+      "tuk": "Batam",
+      "mode": "Offline",
       "quota": 24,
       "status": "open"
     },
     {
       "date": "16 Des 2026",
-      "scheme": "Event Planner",
-      "tuk": "Jakarta",
+      "scheme": "Pramuwisata Madya",
+      "tuk": "Batam",
       "mode": "Online",
       "quota": 18,
       "status": "wait"
     },
     {
       "date": "13 Jan 2027",
-      "scheme": "Room Attendant",
-      "tuk": "Surabaya",
+      "scheme": "Perencana Kegiatan Wisata Destinasi",
+      "tuk": "Batam",
       "mode": "Offline",
       "quota": 20,
       "status": "open"
     },
     {
       "date": "20 Jan 2027",
-      "scheme": "Travel Consultant",
-      "tuk": "Jakarta",
+      "scheme": "Golf Operation Manager",
+      "tuk": "Batam",
       "mode": "Online",
       "quota": 22,
       "status": "open"
@@ -635,7 +669,7 @@
       "a": "Sertifikasi kompetensi adalah proses pengakuan formal atas kemampuan kerja seseorang sesuai Standar Kompetensi Kerja Nasional Indonesia (SKKNI). Sertifikat ini menjadi bukti objektif kompetensi Anda bagi pemberi kerja, klien, dan mitra bisnis."
     },
     {
-      "q": "Siapa yang dapat mengikuti sertifikasi di LSP Patra Indo?",
+      "q": "Siapa yang dapat mengikuti sertifikasi di LSP Pariwisata Citra Indonesia?",
       "a": "Peserta dapat berasal dari tenaga kerja aktif, lulusan pendidikan vokasi, mahasiswa tingkat akhir, pelaku usaha, maupun individu yang ingin mengakui pengalaman kerjanya. Syarat utama adalah memenuhi persyaratan skema yang dipilih."
     },
     {
@@ -667,8 +701,8 @@
       "a": "Masa berlaku sertifikat umumnya 3 tahun. Perpanjangan dapat dilakukan melalui skema sertifikasi ulang (re-sertifikasi) dengan menyerahkan bukti portofolio kegiatan kerja terkini."
     },
     {
-      "q": "Apakah LSP Patra Indo menerima kerja sama korporat?",
-      "a": "Ya. Kami melayani sertifikasi in-house untuk hotel, restoran, travel agency, dan institusi pendidikan dengan jadwal serta skema yang disesuaikan kebutuhan organisasi."
+      "q": "Apakah LSP Pariwisata Citra Indonesia menerima kerja sama korporat?",
+      "a": "Ya. Kami melayani sertifikasi in-house untuk golf club, golf resort, travel agency, pengelola destinasi wisata, dan institusi pendidikan dengan jadwal serta skema yang disesuaikan kebutuhan organisasi."
     }
   ],
   "posts": [
@@ -677,21 +711,21 @@
       "date": "2026-10-20",
       "cat": "Pengumuman",
       "image": "train",
-      "excerpt": "Pendaftaran kelas sertifikasi batch November 2026 resmi dibuka untuk sembilan skema prioritas dengan kuota terbatas."
+      "excerpt": "Pendaftaran kelas sertifikasi batch November 2026 resmi dibuka untuk sepuluh skema Golf dan Pariwisata dengan kuota terbatas."
     },
     {
-      "title": "Mengapa Sertifikat Kompetensi Penting di Industri Perhotelan",
+      "title": "Mengapa Sertifikat Kompetensi Penting di Industri Golf dan Pariwisata",
       "date": "2026-10-12",
       "cat": "Artikel",
-      "image": "hotel",
-      "excerpt": "Industri perhotelan semakin selektif dalam merekrut. Sertifikat kompetensi menjadi pembeda yang objektif di tahap seleksi."
+      "image": "hero",
+      "excerpt": "Industri golf dan pariwisata semakin selektif dalam merekrut. Sertifikat kompetensi menjadi pembeda yang objektif di tahap seleksi."
     },
     {
-      "title": "Uji Kompetensi Kepemanduan Wisata Digelar di TUK Bali",
+      "title": "Uji Kompetensi Kepemanduan Wisata Digelar di TUK Batam",
       "date": "2026-10-05",
       "cat": "Kegiatan",
       "image": "guide",
-      "excerpt": "Sebanyak 24 peserta mengikuti uji kompetensi skema Pramuwisata dengan metode observasi lapangan dan wawancara."
+      "excerpt": "Sebanyak 24 peserta mengikuti uji kompetensi skema National Tour Guide dengan metode observasi lapangan dan wawancara."
     },
     {
       "title": "Panduan Lengkap Membuat Akun SIAPkerja untuk Peserta",
@@ -701,11 +735,11 @@
       "excerpt": "Langkah demi langkah membuat akun SIAPkerja, melengkapi profil, hingga memastikan data siap untuk penerbitan sertifikat."
     },
     {
-      "title": "Standar Kompetensi Barista: Apa yang Diuji?",
+      "title": "Standar Kompetensi Golfing Assistant-caddy: Apa yang Diuji?",
       "date": "2026-09-15",
       "cat": "Artikel",
       "image": "fb",
-      "excerpt": "Dari kalibrasi grinder hingga konsistensi ekstraksi, ini cakupan asesmen yang perlu Anda kuasai."
+      "excerpt": "Dari pemahaman lapangan hingga pelayanan kepada pemain, ini cakupan asesmen yang perlu Anda kuasai."
     },
     {
       "title": "Tips Lulus Uji Kompetensi Melalui Asesmen Mandiri",
@@ -750,20 +784,20 @@
   "struktur": [
     {
       "role": "Direktur",
-      "name": "Drs. Bambang Setiawan, M.M.",
-      "initials": "BS",
+      "name": "Enly Yunaeni, S.E., M.M.",
+      "initials": "EY",
       "note": "Penanggung jawab lembaga"
     },
     {
       "role": "Manajer Sertifikasi",
-      "name": "Rina Kartika, S.Par.",
-      "initials": "RK",
+      "name": "Zainal Abidin",
+      "initials": "ZA",
       "note": "Perencanaan & pelaksanaan asesmen"
     },
     {
-      "role": "Manajer Mutu",
-      "name": "Agus Salim, S.T.",
-      "initials": "AS",
+      "role": "Manajer Manajemen Mutu",
+      "name": "Mohammad Riza Radyanto",
+      "initials": "RR",
       "note": "Sistem manajemen mutu & audit internal"
     },
     {
@@ -773,16 +807,10 @@
       "note": "Keuangan & administrasi peserta"
     },
     {
-      "role": "Ketua Komite Imparsialitas",
-      "name": "Prof. Dr. Hendro Wibowo",
-      "initials": "HW",
-      "note": "Pengawasan ketidakberpihakan"
-    },
-    {
-      "role": "Koordinator TUK",
-      "name": "Yoga Pratama, S.Tr.Par.",
-      "initials": "YP",
-      "note": "Kesiapan sarana & fasilitas uji"
+      "role": "Ketua Komite Skema",
+      "name": "Heru Bagiyo Susianto",
+      "initials": "HB",
+      "note": "Bertanggung jawab pada pengembangan skema"
     }
   ]
 }

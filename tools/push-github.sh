@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Push repo LSP Patra Indo ke GitHub dengan aman.
+# Push repo LSP Pariwisata Citra Indonesia ke GitHub dengan aman.
 #
 #   bash tools/push-github.sh
 #

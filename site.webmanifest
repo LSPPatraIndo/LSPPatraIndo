@@ -1,7 +1,7 @@
 {
-  "name": "Lembaga Sertifikasi Profesi Patra Indo",
-  "short_name": "LSP Patra Indo",
-  "description": "Lembaga Sertifikasi Profesi terlisensi BNSP untuk bidang pariwisata, perhotelan, kuliner, SPA, MICE, travel, dan ekonomi kreatif.",
+  "name": "Lembaga Sertifikasi Profesi Pariwisata Citra Indonesia",
+  "short_name": "LSP Pariwisata Citra Indonesia",
+  "description": "Lembaga Sertifikasi Profesi (LSP/P3) terlisensi BNSP untuk bidang Golf dan Pariwisata.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

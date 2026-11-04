@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generator situs statis LSP Patra Indo.
+"""Generator situs statis LSP Pariwisata Citra Indonesia.
 
 Jalankan:  python3 build.py
 Output  :  index.html, <slug>/index.html, sitemap.xml, robots.txt, .htaccess
@@ -10,7 +10,7 @@ seperti {{SCHEMES_ALL}} atau {{FAQ_ALL}} yang diisi dari site_data.py.
 
 import html
 import json
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 from site_data import (
@@ -33,7 +33,10 @@ PRIORITY = {"": "1.0", "skema-sertifikasi": "0.9", "jadwal": "0.9", "kontak": "0
 
 # Naikkan nilai ini saat admin.css/admin.js berubah agar peramban tidak
 # memakai berkas lama dari cache.
-ADMIN_ASSET_VERSION = "20261030b"
+ADMIN_ASSET_VERSION = "20261104e"
+
+# Versi build dipakai untuk memberitahu peramban bahwa ada konten baru.
+BUILD_VERSION = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
 
 
 # ---------------------------------------------------------------------------
@@ -177,17 +180,18 @@ def jadwal_cards_html() -> str:
     """Tampilan kartu jadwal untuk layar kecil."""
     out = []
     for j in JADWAL:
-        label, cls = STATUS_LABEL_LOCAL[j["status"]]
+        label, cls = STATUS_LABEL_LOCAL.get(j.get("status"), ("Dibuka", "is-open"))
+        scheme = str(j.get("scheme") or "")
         out.append(f"""
       <article class="jcard">
-        <div class="jcard__top"><span class="jcard__date">{j['date']}</span><span class="status {cls}"><i></i>{label}</span></div>
-        <h3>{j['scheme']}</h3>
+        <div class="jcard__top"><span class="jcard__date">{esc(str(j.get('date') or ''))}</span><span class="status {cls}"><i></i>{label}</span></div>
+        <h3>{esc(scheme)}</h3>
         <ul class="jcard__meta">
-          <li>{icon('map-pin', 'ico ico--xs')} TUK {j['tuk']}</li>
-          <li>{icon('users', 'ico ico--xs')} Kuota {j['quota']} peserta</li>
-          <li>{icon('info', 'ico ico--xs')} Metode {j['mode']}</li>
+          <li>{icon('map-pin', 'ico ico--xs')} TUK {esc(str(j.get('tuk') or ''))}</li>
+          <li>{icon('users', 'ico ico--xs')} Kuota {esc(str(j.get('quota') or '—'))} peserta</li>
+          <li>{icon('info', 'ico ico--xs')} Metode {esc(str(j.get('mode') or ''))}</li>
         </ul>
-        <a class="btn btn--outline btn--sm btn--block" href="{{{{BASE}}}}kontak/#daftar" data-pick-scheme="{j['scheme']}">Daftar jadwal ini</a>
+        <a class="btn btn--outline btn--sm btn--block" href="{{{{BASE}}}}kontak/#daftar" data-pick-scheme="{esc(scheme)}">Daftar jadwal ini</a>
       </article>""")
     return "".join(out)
 
@@ -221,7 +225,39 @@ def rotator_json() -> str:
     return html.escape(json.dumps(HERO_ROLES, ensure_ascii=False), quote=True)
 
 
+def normalize_content() -> None:
+    """Cegah build gagal bila data panel admin merujuk bidang yang dihapus."""
+    categories = []
+    seen = set()
+    for cat in SCHEME_CATS:
+        if not isinstance(cat, dict):
+            continue
+        cat_id = str(cat.get("id") or "").strip()
+        if not cat_id or cat_id in seen:
+            continue
+        seen.add(cat_id)
+        cat["id"] = cat_id
+        cat["label"] = str(cat.get("label") or cat_id.title())
+        cat["icon"] = str(cat.get("icon") or "award")
+        cat["desc"] = str(cat.get("desc") or "")
+        categories.append(cat)
+    if not categories:
+        categories = [{"id": "umum", "label": "Umum", "icon": "award", "desc": "Skema sertifikasi"}]
+    SCHEME_CATS[:] = categories
+    valid = [cat["id"] for cat in categories]
+
+    cleaned = []
+    for scheme in SCHEMES:
+        if not isinstance(scheme, dict):
+            continue
+        if str(scheme.get("cat") or "") not in valid:
+            scheme["cat"] = valid[0]
+        cleaned.append(scheme)
+    SCHEMES[:] = cleaned
+
+
 def tokens(base: str) -> dict:
+    normalize_content()
     return {
         "{{BASE}}": base,
         "{{YEAR}}": str(YEAR),
@@ -241,9 +277,9 @@ def tokens(base: str) -> dict:
         "{{ADMIN_API}}": SITE.get("admin_api", ""),
         "{{GH_REPO}}": SITE.get("github_repo", "LSPPatraIndo/LSPPatraIndo"),
         "{{GH_BRANCH}}": SITE.get("github_branch", "main"),
-        "{{WA_LINK}}": wa_link("Halo LSP Patra Indo, saya ingin berkonsultasi mengenai sertifikasi kompetensi."),
-        "{{WA_LINK_SKEMA}}": wa_link("Halo LSP Patra Indo, saya ingin menanyakan ketersediaan skema sertifikasi dan biayanya."),
-        "{{WA_LINK_KORPORAT}}": wa_link("Halo LSP Patra Indo, saya ingin berdiskusi mengenai kerja sama sertifikasi korporat."),
+        "{{WA_LINK}}": wa_link(f"Halo {SITE['name']}, saya ingin berkonsultasi mengenai sertifikasi kompetensi."),
+        "{{WA_LINK_SKEMA}}": wa_link(f"Halo {SITE['name']}, saya ingin menanyakan ketersediaan skema sertifikasi dan biayanya."),
+        "{{WA_LINK_KORPORAT}}": wa_link(f"Halo {SITE['name']}, saya ingin berdiskusi mengenai kerja sama sertifikasi korporat."),
         "{{MAPS}}": SITE["maps_query"],
         "{{STATS}}": stats_html(),
         "{{ADVANTAGES}}": advantages_html(),
@@ -289,9 +325,7 @@ def jsonld(slug: str, title: str, desc: str, canonical: str) -> str:
         "address": {
             "@type": "PostalAddress",
             "streetAddress": SITE["address"],
-            "addressLocality": "Jakarta Selatan",
-            "addressRegion": "DKI Jakarta",
-            "postalCode": "12930",
+            "addressLocality": SITE.get("city", ""),
             "addressCountry": "ID",
         },
         "areaServed": {"@type": "Country", "name": "Indonesia"},
@@ -341,13 +375,13 @@ def jsonld(slug: str, title: str, desc: str, canonical: str) -> str:
     if slug == "skema-sertifikasi":
         graph.append({
             "@type": "ItemList",
-            "name": "Skema Sertifikasi LSP Patra Indo",
+            "name": f"Skema Sertifikasi {SITE['name']}",
             "numberOfItems": len(SCHEMES),
             "itemListElement": [
                 {"@type": "ListItem", "position": i + 1,
-                 "item": {"@type": "Course", "name": s["name"], "description": s["desc"],
+                 "item": {"@type": "Course", "name": str(s.get("name") or ""), "description": str(s.get("desc") or ""),
                           "provider": {"@id": f"{SITE['url']}/#organization"}}}
-                for i, s in enumerate(SCHEMES)
+                for i, s in enumerate(SCHEMES) if isinstance(s, dict)
             ],
         })
 
@@ -372,9 +406,14 @@ def head_html(meta: dict, base: str, canonical: str) -> str:
 <link rel="canonical" href="{canonical}">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#0A1F35">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="lsp-version" content="{BUILD_VERSION}">
+<meta name="lsp-base" content="{base}">
 <meta name="author" content="{SITE['legal']}">
-<meta name="geo.region" content="ID-JK">
-<meta name="geo.placename" content="Jakarta Selatan">
+<meta name="geo.region" content="ID">
+<meta name="geo.placename" content="{SITE['city']}">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{SITE['name']}">
@@ -425,7 +464,7 @@ def render(page: tuple) -> Path:
 {body}
 </main>
 {footer_html(base)}
-<script src="{base}assets/js/main.js" defer></script>
+<script src="{base}assets/js/main.js?v={BUILD_VERSION}" defer></script>
 </body>
 </html>
 """
@@ -472,7 +511,7 @@ def write_sitemap() -> None:
         ],
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    (ROOT / ".htaccess").write_text("""# LSP Patra Indo — konfigurasi Apache
+    (ROOT / ".htaccess").write_text("""# LSP Pariwisata Citra Indonesia — konfigurasi Apache
 Options -Indexes
 DirectoryIndex index.html
 
@@ -521,7 +560,7 @@ def write_404() -> None:
     body = (SRC / "404.html").read_text(encoding="utf-8")
     for key, value in tokens("").items():
         body = body.replace(key, value)
-    meta = {"slug": "404", "title": "Halaman tidak ditemukan — LSP Patra Indo",
+    meta = {"slug": "404", "title": f"Halaman tidak ditemukan — {SITE['name']}",
             "desc": "Halaman yang Anda cari tidak tersedia."}
     html = f"""{head_html(meta, "", SITE['url'] + '/404.html').replace('<meta name="robots" content="index, follow, max-image-preview:large">', '<meta name="robots" content="noindex, follow">')}
 <body class="page-404">
@@ -530,7 +569,7 @@ def write_404() -> None:
 {body}
 </main>
 {footer_html("")}
-<script src="assets/js/main.js" defer></script>
+<script src="assets/js/main.js?v={BUILD_VERSION}" defer></script>
 </body>
 </html>
 """
@@ -551,8 +590,13 @@ def write_admin() -> None:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="referrer" content="same-origin">
-<title>Panel Admin — LSP Patra Indo</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Panel Admin — {esc(SITE['name'])}</title>
 <meta name="theme-color" content="#0a1f35">
+<meta name="lsp-version" content="{BUILD_VERSION}">
+<meta name="lsp-base" content="../">
 <meta name="lsp-admin-api" content="{esc(SITE.get('admin_api', ''))}">
 <meta name="lsp-gh-repo" content="{esc(SITE.get('github_repo', 'LSPPatraIndo/LSPPatraIndo'))}">
 <meta name="lsp-gh-branch" content="{esc(SITE.get('github_branch', 'main'))}">
@@ -570,14 +614,23 @@ def write_admin() -> None:
     out.write_text(html, encoding="utf-8")
 
 
+def write_version() -> None:
+    """Penanda versi untuk memicu muat ulang otomatis di peramban pengunjung."""
+    path = ROOT / "data" / "version.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps({"version": BUILD_VERSION}, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
 def main() -> None:
     built = [render(p) for p in PAGES]
     write_404()
     write_admin()
     write_sitemap()
+    write_version()
     for path in built:
         print("  ✓", path.relative_to(ROOT))
     print("  ✓", (ROOT / "admin" / "index.html").relative_to(ROOT))
+    print("  ✓", (ROOT / "data" / "version.json").relative_to(ROOT))
     print(f"\nSelesai: {len(built)} halaman + 404 + panel admin, sitemap, robots, manifest, htaccess.")
 
 

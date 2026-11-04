@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LSP Patra Indo — main.js
+   LSP Pariwisata Citra Indonesia — main.js
    Navigasi, animasi, filter skema, penghitung statistik, formulir WhatsApp
    ========================================================================== */
 (function () {
@@ -354,8 +354,9 @@
         } catch (err) { /* diabaikan — WhatsApp tetap dibuka */ }
       }
 
+      var siteName = form.getAttribute('data-site') || 'LSP Pariwisata Citra Indonesia';
       var lines = [
-        'Halo LSP Patra Indo, saya ingin mendaftar sertifikasi.',
+        'Halo ' + siteName + ', saya ingin mendaftar sertifikasi.',
         '',
         'Nama: ' + name,
         'No. WhatsApp: ' + phone,
@@ -592,4 +593,33 @@
     e.preventDefault();
     window.location.href = trigger.getAttribute('href');
   });
+
+  /* ---------------------------------------------------------------------
+     14. Muat ulang otomatis saat versi situs berubah
+     GitHub Pages menyimpan HTML sebentar di cache. Pemeriksaan versi ini
+     membuat perubahan dari panel admin langsung terlihat setelah build.
+     --------------------------------------------------------------------- */
+  (function checkVersion() {
+    var versionNode = doc.querySelector('meta[name="lsp-version"]');
+    if (!versionNode) return;
+    var current = versionNode.getAttribute('content') || '';
+    var baseNode = doc.querySelector('meta[name="lsp-base"]');
+    var base = baseNode ? (baseNode.getAttribute('content') || '') : '';
+
+    fetch(base + 'data/version.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (data) {
+        if (!data || !data.version || data.version === current) return;
+        var key = 'lsp_version_reload_' + current;
+        try {
+          if (sessionStorage.getItem(key)) return;
+          sessionStorage.setItem(key, '1');
+        } catch (err) { /* penyimpanan peramban diblokir */ }
+        var url = new URL(window.location.href);
+        url.searchParams.set('lspv', data.version);
+        window.location.replace(url.toString());
+      })
+      .catch(function () { /* offline atau file versi belum tersedia */ });
+  })();
+
 })();

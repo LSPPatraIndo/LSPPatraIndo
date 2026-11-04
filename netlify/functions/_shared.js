@@ -4,7 +4,7 @@ const crypto = require("node:crypto");
 
 const CONTENT_PATH = "data/content.json";
 const LISTS = [
-  "stats", "advantages", "scheme_cats", "schemes", "hero_roles", "ticker_items",
+  "nav", "footer_nav", "footer_legal", "stats", "advantages", "scheme_cats", "schemes", "hero_roles", "ticker_items",
   "steps", "testimonials", "asesor", "tuk", "jadwal", "faq", "posts", "values",
   "struktur",
 ];

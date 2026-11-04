@@ -42,7 +42,7 @@
 
 <section class="section" style="padding-top:0" id="daftar">
   <div class="container contact-layout">
-    <form class="form-card" id="form-pendaftaran" data-wa-form data-wa="{{WA}}" data-phone="{{PHONE}}" data-endpoint="{{FORM_ENDPOINT}}" novalidate>
+    <form class="form-card" id="form-pendaftaran" data-wa-form data-wa="{{WA}}" data-phone="{{PHONE}}" data-endpoint="{{FORM_ENDPOINT}}" data-site="{{SITE_NAME}}" novalidate>
       <div class="form-card__head">
         <p class="eyebrow">Formulir Pendaftaran</p>
         <h2>Ajukan pendaftaran sertifikasi</h2>
@@ -72,14 +72,14 @@
         </div>
         <div class="field field--full">
           <label for="pesan">Pengalaman kerja / catatan</label>
-          <textarea id="pesan" name="pesan" rows="4" placeholder="Contoh: 3 tahun sebagai barista di kafe, ingin sertifikasi Barista."></textarea>
+          <textarea id="pesan" name="pesan" rows="4" placeholder="Contoh: 3 tahun sebagai caddy di golf club, ingin sertifikasi Golfing Assistant-caddy."></textarea>
         </div>
       </div>
 
       <div class="field" style="margin-top:16px">
         <label style="display:flex;gap:10px;align-items:flex-start;font-weight:500;font-size:.83rem;color:var(--body)">
           <input type="checkbox" name="persetujuan" required style="width:18px;height:18px;margin-top:2px;flex:none;accent-color:#0f8a7e">
-          <span>Saya menyetujui data ini digunakan untuk keperluan pendaftaran sertifikasi dan dihubungi oleh tim LSP Patra Indo.</span>
+          <span>Saya menyetujui data ini digunakan untuk keperluan pendaftaran sertifikasi dan dihubungi oleh tim {{SITE_NAME}}.</span>
         </label>
       </div>
 
@@ -95,7 +95,7 @@
 
     <aside class="contact-aside">
       <div class="map-card">
-        <iframe title="Peta lokasi kantor LSP Patra Indo" src="https://maps.google.com/maps?q={{MAPS}}&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe title="Peta lokasi kantor {{SITE_NAME}}" src="https://maps.google.com/maps?q={{MAPS}}&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
       <div class="req-card">
         <div class="req-card__head"><span class="req-card__num">→</span><h3>Kerja sama korporat</h3></div>
@@ -104,7 +104,7 @@
       </div>
       <div class="notice notice--teal">
         <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.8 20 6v5.7c0 4.6-3.3 8.1-8 9.5-4.7-1.4-8-4.9-8-9.5V6z"/><path d="m9 12 2.2 2.2L15.5 10"/></svg>
-        <p>LSP Patra Indo tidak pernah meminta pembayaran ke rekening pribadi. Pastikan invoice berasal dari domain <strong>lsppatraindo.id</strong>.</p>
+        <p>{{SITE_NAME}} tidak pernah meminta pembayaran ke rekening pribadi. Pastikan invoice berasal dari domain <strong>{{DOMAIN}}</strong>.</p>
       </div>
     </aside>
   </div>
